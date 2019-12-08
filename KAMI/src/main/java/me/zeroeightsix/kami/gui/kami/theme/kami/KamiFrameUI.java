@@ -17,6 +17,7 @@ import me.zeroeightsix.kami.gui.rgui.util.Docking;
 import me.zeroeightsix.kami.util.Bind;
 import me.zeroeightsix.kami.util.ColourHolder;
 import me.zeroeightsix.kami.util.Wrapper;
+import net.minecraft.client.renderer.entity.Render;
 import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -37,7 +38,7 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
     boolean centerY = false;
     int xLineOffset = 0;
 
-    private static final RootFontRenderer ff = new RootLargeFontRenderer();
+    private static final RootFontRenderer ff = new RootFontRenderer(0.9f);
 
     @Override
     public void renderComponent(Frame component, FontRenderer fontRenderer) {
@@ -45,14 +46,18 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
             return;
         glDisable(GL_TEXTURE_2D);
 
-        glColor4f(.17f,.17f,.18f,.9f);
-        RenderHelper.drawFilledRectangle(0,0,component.getWidth(),component.getHeight());
-        glColor3f(.59f,.05f,.11f);
+        glColor3f(0.13f,0.13f,0.13f);
         glLineWidth(1.5f);
-        RenderHelper.drawRectangle(0,0,component.getWidth(),component.getHeight());
+        RenderHelper.drawOutlinedRoundedRectangle(2,2,component.getWidth(),component.getHeight(), 10, 0.13f, 0.13f, 0.13f,.9f, 1);
+        glLineWidth(1);
+        glColor4f(.17f,.17f,.18f,.9f);
+        RenderHelper.drawOutlinedRoundedRectangle(0,0,component.getWidth(),component.getHeight(),10, .17f,.17f,.18f,.9f, 1);
+        glColor4f(0.13f,0.13f,0.13f, 1);
+        RenderHelper.drawHalfOutlinedRoundedRectangle(0,0,component.getWidth(),10,10, 0.13f,0.13f,0.13f, 1, 2);
+
 
         GL11.glColor3f(1,1,1);
-        ff.drawString(component.getWidth() / 2 - ff.getStringWidth(component.getTitle()) / 2, 1, component.getTitle());
+        ff.drawString(component.getWidth() / 2 - ff.getStringWidth(component.getTitle()) / 2, 2, component.getTitle());
 
         int top_y = 5;
         int bottom_y = component.getTheme().getFontRenderer().getFontHeight() - 9;

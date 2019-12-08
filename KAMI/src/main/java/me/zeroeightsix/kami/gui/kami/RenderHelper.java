@@ -55,6 +55,12 @@ public class RenderHelper {
         drawRoundedRectangle(x+outlineWidth, y+outlineWidth, width - outlineWidth*2, height - outlineWidth*2, radius);
     }
 
+    public static void drawHalfOutlinedRoundedRectangle(int x, int y, int width, int height, float radius, float dR, float dG, float dB, float dA, float outlineWidth) {
+        drawHalfRoundedRectangle(x, y, width, height, radius);
+        glColor4f(dR, dG, dB, dA);
+        drawHalfRoundedRectangle(x+outlineWidth, y+outlineWidth, width - outlineWidth*2, height - outlineWidth*2, radius);
+    }
+
     public static void drawRectangle(float x, float y, float width, float height) {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -119,6 +125,37 @@ public class RenderHelper {
             glVertex2d(x + width - radius, y+height);
             glVertex2d(x + radius, y+height-radius);
             glVertex2d(x + radius, y+height);
+        }
+        glEnd();
+
+    }
+
+    public static void drawHalfRoundedRectangle(float x, float y, float width, float height, float radius){
+        glEnable(GL_BLEND);
+
+        drawArc(x+radius, y+radius, radius, 180,270,16); // top left
+        drawArc( (x + width - radius),  (y+radius), radius, 270,360,16); // top right
+
+        glBegin(GL_TRIANGLES);
+        {
+            glVertex2d(x + width - radius, y); // top right point
+            glVertex2d(x + radius, y); // top left point
+            glVertex2d(x + width - radius, y+radius); // down right point
+
+            glVertex2d(x + width - radius, y+radius); // down right point
+            glVertex2d(x + radius, y); // top left point
+            glVertex2d(x + radius, y+radius); // down left point
+
+
+            glVertex2d(x+width, y+radius); // bottom right corner point
+            glVertex2d(x, y+radius); // bottom left corner point
+            glVertex2d(x, y+height); // bottom left corner point
+
+            glVertex2d(x+width, y+radius); // bottom right corner point
+            glVertex2d(x, y+height); // bottom left corner point
+            glVertex2d(x+width, y+height); //  bottom right corner point
+
+
         }
         glEnd();
 
