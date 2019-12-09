@@ -84,4 +84,5 @@ public abstract class Setting<T> implements ISettingUnknown, Convertable<T> {
     public String getValueAsString() {
         return this.converter().convert(getValue()).toString();
     }
+
 }

@@ -14,9 +14,13 @@ import me.zeroeightsix.kami.gui.rgui.render.AbstractComponentUI;
 import me.zeroeightsix.kami.gui.rgui.render.font.FontRenderer;
 import me.zeroeightsix.kami.gui.rgui.util.ContainerHelper;
 import me.zeroeightsix.kami.gui.rgui.util.Docking;
+import me.zeroeightsix.kami.module.ModuleManager;
+import me.zeroeightsix.kami.module.modules.gui.Themes;
+import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.util.Bind;
 import me.zeroeightsix.kami.util.ColourHolder;
 import me.zeroeightsix.kami.util.Wrapper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;
 import org.lwjgl.opengl.GL11;
 
@@ -38,6 +42,13 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
     boolean centerY = false;
     int xLineOffset = 0;
 
+
+    public int testColourCounter = 0;
+    public String colourName = "red";
+    public float colourR;
+    public float colourB;
+
+
     private static final RootFontRenderer ff = new RootFontRenderer(0.9f);
 
     @Override
@@ -46,14 +57,40 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
             return;
         glDisable(GL_TEXTURE_2D);
 
-        glColor3f(0.13f,0.13f,0.13f);
-        glLineWidth(1.5f);
-        RenderHelper.drawOutlinedRoundedRectangle(2,2,component.getWidth(),component.getHeight(), 10, 0.13f, 0.13f, 0.13f,.9f, 1);
-        glLineWidth(1);
-        glColor4f(.17f,.17f,.18f,.9f);
-        RenderHelper.drawOutlinedRoundedRectangle(0,0,component.getWidth(),component.getHeight(),10, .17f,.17f,.18f,.9f, 1);
-        glColor4f(0.13f,0.13f,0.13f, 1);
-        RenderHelper.drawHalfOutlinedRoundedRectangle(0,0,component.getWidth(),10,10, 0.13f,0.13f,0.13f, 1, 2);
+        for (Setting setting : ModuleManager.getModuleByName("Themes").settingList) {
+            if (Themes.mode.getValue() == Themes.Theme.MODERN) {
+                if (component.getHeight() != 12) {
+                    glColor3f(0.13f,0.13f,0.13f);
+                    glLineWidth(1.5f);
+                    RenderHelper.drawOutlinedRoundedRectangle(2,2,component.getWidth(),component.getHeight(), 10, 0.13f, 0.13f, 0.13f,.9f, 1);
+                    glLineWidth(1);
+                    glColor4f(.17f,.17f,.18f,.9f);
+                    RenderHelper.drawOutlinedRoundedRectangle(0,0,component.getWidth(),component.getHeight(),10, .17f,.17f,.18f,.9f, 1);
+                }
+                glColor4f(0.13f,0.13f,0.13f, 1);
+                RenderHelper.drawHalfOutlinedRoundedRectangle(0,0,component.getWidth(),10,10, 0.13f,0.13f,0.13f, 1, 2);
+            } else if (Themes.mode.getValue() == Themes.Theme.KAMI) {
+                glColor4f(.17f,.17f,.18f,.9f);
+                RenderHelper.drawFilledRectangle(0,0,component.getWidth(),component.getHeight());
+                glColor3f(.59f,.05f,.11f);
+                glLineWidth(1.5f);
+                RenderHelper.drawRectangle(0,0,component.getWidth(),component.getHeight());
+            } else if (Themes.mode.getValue() == Themes.Theme.KAMIBLUE) {
+                glColor4f(.17f, .17f, .18f, .9f);
+                RenderHelper.drawFilledRectangle(0, 0, component.getWidth(), component.getHeight());
+                glColor3f(.60f, .56f, 1.00f);
+                glLineWidth(1.5f);
+                RenderHelper.drawRectangle(0, 0, component.getWidth(), component.getHeight());
+            } else if (Themes.mode.getValue() == Themes.Theme.MODERN2) {
+                if (component.getHeight() != 12) {
+                    glColor3f(.17f, .17f, .18f);
+                    RenderHelper.drawOutlinedRoundedRectangle(0, 0, component.getWidth(), component.getHeight(), 10, .17f, .17f, .18f, 1f, 0);
+                }
+                glColor3f(0.05f, 0.33f, 0.8f);
+                RenderHelper.drawHalfOutlinedRoundedRectangle(0, 0, component.getWidth(), 11, 10, 0.05f, 0.33f, 0.8f, 1f, 0);
+            }
+        }
+
 
 
         GL11.glColor3f(1,1,1);
