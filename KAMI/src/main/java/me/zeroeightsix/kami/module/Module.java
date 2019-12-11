@@ -34,6 +34,8 @@ public class Module {
     public boolean alwaysListening;
     protected static final Minecraft mc = Minecraft.getMinecraft();
 
+    public boolean showOnArray = getAnnotation().showOnArray();
+
     public List<Setting> settingList = new ArrayList<>();
 
     public Module() {
@@ -104,6 +106,7 @@ public class Module {
         String description() default "Descriptionless";
         Module.Category category();
         boolean alwaysListening() default false;
+        boolean showOnArray() default true;
     }
 
     public String getName() {

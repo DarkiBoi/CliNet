@@ -16,14 +16,14 @@ public class CustomChat extends Module {
 
     private Setting<Boolean> commands = register(Settings.b("Commands", false));
 
-    private final String KAMI_SUFFIX = " \u23D0 \u1D0B\u1D00\u1D0D\u026A";
+    private final String CN_SUFFIX = " | CliNet Beta";
 
     @EventHandler
     public Listener<PacketEvent.Send> listener = new Listener<>(event -> {
         if (event.getPacket() instanceof CPacketChatMessage) {
             String s = ((CPacketChatMessage) event.getPacket()).getMessage();
             if (s.startsWith("/") && !commands.getValue()) return;
-            s += KAMI_SUFFIX;
+            s += CN_SUFFIX;
             if (s.length() >= 256) s = s.substring(0,256);
             ((CPacketChatMessage) event.getPacket()).message = s;
         }

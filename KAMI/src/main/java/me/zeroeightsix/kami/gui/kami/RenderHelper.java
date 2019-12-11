@@ -55,12 +55,6 @@ public class RenderHelper {
         drawRoundedRectangle(x+outlineWidth, y+outlineWidth, width - outlineWidth*2, height - outlineWidth*2, radius);
     }
 
-    public static void drawHalfOutlinedRoundedRectangle(int x, int y, int width, int height, float radius, float dR, float dG, float dB, float dA, float outlineWidth) {
-        drawHalfRoundedRectangle(x, y, width, height, radius);
-        glColor4f(dR, dG, dB, dA);
-        drawHalfRoundedRectangle(x+outlineWidth, y+outlineWidth, width - outlineWidth*2, height - outlineWidth*2, radius);
-    }
-
     public static void drawRectangle(float x, float y, float width, float height) {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

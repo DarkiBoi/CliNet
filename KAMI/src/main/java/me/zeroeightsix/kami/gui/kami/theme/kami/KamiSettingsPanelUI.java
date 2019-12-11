@@ -33,15 +33,15 @@ public class KamiSettingsPanelUI extends AbstractComponentUI<SettingsPanel> {
             if (Themes.mode.getValue() == Themes.Theme.MODERN) {
                 glLineWidth(2f);
                 if (component.getHeight() != 12) {
-                    glColor3f(0.13f, 0.13f, 0.13f);
+                    glColor3f(0.15f, 0.15f, 0.15f);
                     glLineWidth(1.5f);
-                    RenderHelper.drawOutlinedRoundedRectangle(2, 2, component.getWidth(), component.getHeight(), 10, 0.13f, 0.13f, 0.13f, .9f, 1);
+                    RenderHelper.drawRoundedRectangle(2, 2, component.getWidth(), component.getHeight(), 10);
                     glLineWidth(1);
                     glColor4f(.17f, .17f, .18f, .9f);
-                    RenderHelper.drawOutlinedRoundedRectangle(0, 0, component.getWidth(), component.getHeight(), 10, .17f, .17f, .18f, .9f, 1);
+                    RenderHelper.drawRoundedRectangle(0, 0, component.getWidth(), component.getHeight(), 10);
                 }
                 glColor4f(0.13f, 0.13f, 0.13f, 1);
-                RenderHelper.drawHalfOutlinedRoundedRectangle(0, 0, component.getWidth(), 10, 10, 0.13f, 0.13f, 0.13f, 1, 2);
+                RenderHelper.drawHalfRoundedRectangle(0, 0, component.getWidth(), 10, 10);
             } else if (Themes.mode.getValue() == Themes.Theme.KAMI) {
                 glLineWidth(2f);
                 glColor4f(.17f, .17f, .18f, .9f);
@@ -59,11 +59,11 @@ public class KamiSettingsPanelUI extends AbstractComponentUI<SettingsPanel> {
             } else if (Themes.mode.getValue() == Themes.Theme.MODERN2) {
                 if (component.getHeight() != 12) {
                     glColor3f(.17f, .17f, .18f);
-                    RenderHelper.drawOutlinedRoundedRectangle(0, 0, component.getWidth(), component.getHeight(), 10, .17f, .17f, .18f, 1f, 0);
+                    RenderHelper.drawRoundedRectangle(0, 0, component.getWidth(), component.getHeight(), 10);
                 }
 
                 glColor3f(0.05f, 0.33f, 0.8f);
-                RenderHelper.drawHalfOutlinedRoundedRectangle(0, 0, component.getWidth(), 11, 10, 0.05f, 0.33f, 0.8f, 1f, 0);
+                RenderHelper.drawHalfRoundedRectangle(0, 0, component.getWidth(), 11, 10);
             }
         }
     }
