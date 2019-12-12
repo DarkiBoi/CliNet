@@ -13,31 +13,26 @@ import net.minecraft.network.play.client.CPacketChatMessage;
 /**
  * Created by 086 on 8/04/2018.
  */
-@Module.Info(name = "CustomChat", category = Module.Category.MISC, description = "Modifies your chat messages")
-public class CustomChat extends Module {
+@Module.Info(name = "ChatAppend", category = Module.Category.MISC, description = "Modifies your chat messages")
+public class ChatAppend extends Module {
 
     private Setting<Boolean> commands = register(Settings.b("Commands", false));
-    public static Setting<CustomChat.Mode> mode = Settings.e("Mode", Mode.CliNet);
+    public static Setting<ChatAppend.Mode> mode = Settings.e("Mode", Mode.CLINET);
 
     private final String KAMI_SUFFIX = " \u23D0 \u1D0B\u1D00\u1D0D\u026A";
     private final String CN_SUFFIX = " | CliNet Beta";
 
-    private static CustomChat INSTANCE = new CustomChat();
+    private static ChatAppend INSTANCE = new ChatAppend();
 
-    public CustomChat() {
+    public ChatAppend() {
         INSTANCE = this;
         register(mode);
     }
 
     public enum Mode {
-        KAMI, CliNet
+        KAMI, CLINET
     }
 
-    @Override
-    public void onDisable() {
-        Module module = ModuleManager.getModuleByName("CustomChat");
-        module.enable();
-    }
 
     @EventHandler
     public Listener<PacketEvent.Send> listener = new Listener<>(event -> {
@@ -48,7 +43,7 @@ public class CustomChat extends Module {
                 case KAMI:
                     s += KAMI_SUFFIX;
                     break;
-                case CliNet:
+                case CLINET:
                     s += CN_SUFFIX;
                     break;
             }
