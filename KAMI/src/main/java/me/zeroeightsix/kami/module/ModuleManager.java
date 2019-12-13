@@ -11,7 +11,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.opengl.GL11;
 
 import java.lang.reflect.InvocationTargetException;
@@ -45,9 +44,6 @@ public class ModuleManager {
                 Module module = (Module) aClass.getConstructor().newInstance();
                 modules.add(module);
                 // lookup.put(module.getName().toLowerCase(), module);
-                if (module.getCategory() == Module.Category.GUI && module.isDisabled()) {
-                    module.enable();
-                }
             } catch (InvocationTargetException e) {
                 e.getCause().printStackTrace();
                 System.err.println("Couldn't initiate module " + aClass.getSimpleName() + "! Err: " + e.getClass().getSimpleName() + ", message: " + e.getMessage());

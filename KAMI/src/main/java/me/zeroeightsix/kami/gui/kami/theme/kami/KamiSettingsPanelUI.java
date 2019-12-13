@@ -7,7 +7,6 @@ import me.zeroeightsix.kami.gui.rgui.render.font.FontRenderer;
 import me.zeroeightsix.kami.module.ModuleManager;
 import me.zeroeightsix.kami.module.modules.gui.Themes;
 import me.zeroeightsix.kami.setting.Setting;
-import net.minecraft.client.Minecraft;
 
 import static org.lwjgl.opengl.GL11.*;
 

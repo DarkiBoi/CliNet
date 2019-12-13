@@ -1,12 +1,12 @@
 package me.zeroeightsix.kami.module.modules.gui;
 
 import me.zeroeightsix.kami.module.Module;
-import me.zeroeightsix.kami.module.ModuleManager;
-import me.zeroeightsix.kami.module.modules.movement.ElytraFlight;
-import me.zeroeightsix.kami.module.modules.render.AntiFog;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 
+/**
+ * Created by TBM on 13/12/2019.
+ */
 @Module.Info(name = "Themes", category = Module.Category.GUI, description = "Changes the GUI theme", showOnArray = false)
 public class Themes extends Module {
 
@@ -25,8 +25,7 @@ public class Themes extends Module {
 
     @Override
     public void onDisable() {
-        Module module = ModuleManager.getModuleByName("Themes");
-        module.enable();
+        this.enable();
     }
 
 }

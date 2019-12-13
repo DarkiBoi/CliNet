@@ -20,8 +20,6 @@ import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.util.Bind;
 import me.zeroeightsix.kami.util.ColourHolder;
 import me.zeroeightsix.kami.util.Wrapper;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.Render;
 import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;

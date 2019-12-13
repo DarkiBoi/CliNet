@@ -1,6 +1,5 @@
 package me.zeroeightsix.kami.setting;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;

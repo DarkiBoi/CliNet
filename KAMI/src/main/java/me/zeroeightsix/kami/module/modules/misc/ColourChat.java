@@ -8,6 +8,10 @@ import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import net.minecraft.network.play.client.CPacketChatMessage;
 
+/**
+ * Created by TBM on 12/12/19
+ * Updated by Darki on 13/12/19
+ */
 @Module.Info(name = "ColourChat", category = Module.Category.MISC, description = "Modifies your chat messages to add > for green or ` for blue in front")
 public class ColourChat extends Module {
 

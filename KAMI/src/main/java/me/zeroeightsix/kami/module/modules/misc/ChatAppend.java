@@ -4,8 +4,6 @@ import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import me.zeroeightsix.kami.event.events.PacketEvent;
 import me.zeroeightsix.kami.module.Module;
-import me.zeroeightsix.kami.module.ModuleManager;
-import me.zeroeightsix.kami.module.modules.gui.Themes;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import net.minecraft.network.play.client.CPacketChatMessage;
@@ -18,21 +16,21 @@ import net.minecraft.network.play.client.CPacketChatMessage;
 public class ChatAppend extends Module {
 
     private Setting<Boolean> commands = register(Settings.b("Commands", false));
-    public static Setting<ChatAppend.Mode> mode = Settings.e("Mode", Mode.CLINET);
+    //public static Setting<ChatAppend.Mode> mode = Settings.e("Mode", Mode.CLINET);
 
-    private final String KAMI_SUFFIX = " \u23D0 \u1D0B\u1D00\u1D0D\u026A";
+    //private final String KAMI_SUFFIX = " \u23D0 \u1D0B\u1D00\u1D0D\u026A";
     private final String CN_SUFFIX = " | CliNet Beta";
 
     private static ChatAppend INSTANCE = new ChatAppend();
 
     public ChatAppend() {
         INSTANCE = this;
-        register(mode);
+        //register(mode);
     }
 
-    public enum Mode {
-        KAMI, CLINET
-    }
+    //public enum Mode {
+    //    CLINET
+    //}
 
 
     @EventHandler
@@ -40,6 +38,7 @@ public class ChatAppend extends Module {
         if (event.getPacket() instanceof CPacketChatMessage) {
             String s = ((CPacketChatMessage) event.getPacket()).getMessage();
             if (s.startsWith("/") && !commands.getValue()) return;
+            /*
             switch (mode.getValue()) {
                 case KAMI:
                     s += KAMI_SUFFIX;
@@ -48,9 +47,16 @@ public class ChatAppend extends Module {
                     s += CN_SUFFIX;
                     break;
             }
+             */
+            s += CN_SUFFIX;
             if (s.length() >= 256) s = s.substring(0,256);
             ((CPacketChatMessage) event.getPacket()).message = s;
         }
     });
+
+    @Override
+    public void onDisable() {
+        this.enable();
+    }
 
 }

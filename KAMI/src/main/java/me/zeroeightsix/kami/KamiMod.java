@@ -12,7 +12,6 @@ import me.zeroeightsix.kami.event.ForgeEventProcessor;
 import me.zeroeightsix.kami.gui.kami.KamiGUI;
 import me.zeroeightsix.kami.gui.rgui.component.AlignedComponent;
 import me.zeroeightsix.kami.gui.rgui.component.Component;
-import me.zeroeightsix.kami.gui.rgui.component.container.Container;
 import me.zeroeightsix.kami.gui.rgui.component.container.use.Frame;
 import me.zeroeightsix.kami.gui.rgui.util.ContainerHelper;
 import me.zeroeightsix.kami.gui.rgui.util.Docking;
@@ -22,6 +21,7 @@ import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.setting.SettingsRegister;
 import me.zeroeightsix.kami.setting.config.Configuration;
+import me.zeroeightsix.kami.util.Enemies;
 import me.zeroeightsix.kami.util.Friends;
 import me.zeroeightsix.kami.util.LagCompensator;
 import me.zeroeightsix.kami.util.Wrapper;
@@ -58,6 +58,7 @@ public class KamiMod {
     public static final Logger log = LogManager.getLogger("CliNet");
 
     public static final EventBus EVENT_BUS = new EventManager();
+
 
     @Mod.Instance
     private static KamiMod INSTANCE;
@@ -100,6 +101,7 @@ public class KamiMod {
         commandManager = new CommandManager();
 
         Friends.initFriends();
+        Enemies.initEnemy();
         SettingsRegister.register("commandPrefix", Command.commandPrefix);
         loadConfiguration();
         KamiMod.log.info("Settings loaded");
@@ -108,6 +110,15 @@ public class KamiMod {
 
         // After settings loaded, we want to let the enabled modules know they've been enabled (since the setting is done through reflection)
         ModuleManager.getModules().stream().filter(Module::isEnabled).forEach(Module::enable);
+
+
+        try {
+            ModuleManager.getModuleByName("Themes").setEnabled(true);
+            ModuleManager.getModuleByName("ChatAppend").setEnabled(true);
+        }
+        catch (NullPointerException e) {
+            KamiMod.log.info("NullPointerException in loading always enabled modules\n");
+        }
 
         KamiMod.log.info("CliNet Mod initialized!\n");
     }
