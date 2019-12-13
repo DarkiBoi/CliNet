@@ -28,6 +28,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Created by 086 on 26/06/2017.
+ * Updated by TBM on 12/12/19
  */
 public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
 

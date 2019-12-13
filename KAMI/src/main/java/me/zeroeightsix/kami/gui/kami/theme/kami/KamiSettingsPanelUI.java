@@ -13,6 +13,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Created by 086 on 16/12/2017.
+ * Updated by TBM on 13/12/19
  */
 public class KamiSettingsPanelUI extends AbstractComponentUI<SettingsPanel> {
 

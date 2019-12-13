@@ -12,6 +12,7 @@ import net.minecraft.network.play.client.CPacketChatMessage;
 
 /**
  * Created by 086 on 8/04/2018.
+ * Updated by Darki on 12/12/19
  */
 @Module.Info(name = "ChatAppend", category = Module.Category.MISC, description = "Modifies your chat messages")
 public class ChatAppend extends Module {
