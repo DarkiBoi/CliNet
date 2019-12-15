@@ -3,8 +3,6 @@ package me.zeroeightsix.kami.gui.kami.theme.kami;
 import me.zeroeightsix.kami.gui.kami.KamiGUI;
 import me.zeroeightsix.kami.gui.kami.RenderHelper;
 import me.zeroeightsix.kami.gui.kami.component.SettingsPanel;
-import me.zeroeightsix.kami.gui.kami.module.ModuleManager;
-import me.zeroeightsix.kami.gui.kami.module.modules.gui.Themes;
 import me.zeroeightsix.kami.gui.rgui.render.AbstractComponentUI;
 import me.zeroeightsix.kami.gui.rgui.render.font.FontRenderer;
 import me.zeroeightsix.kami.setting.Setting;

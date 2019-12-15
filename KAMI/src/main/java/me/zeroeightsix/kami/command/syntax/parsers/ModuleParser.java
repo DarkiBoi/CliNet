@@ -2,8 +2,8 @@ package me.zeroeightsix.kami.command.syntax.parsers;
 
 
 import me.zeroeightsix.kami.command.syntax.SyntaxChunk;
-import me.zeroeightsix.kami.gui.kami.module.Module;
-import me.zeroeightsix.kami.gui.kami.module.ModuleManager;
+import me.zeroeightsix.kami.module.Module;
+import me.zeroeightsix.kami.module.ModuleManager;
 
 public class ModuleParser extends AbstractParser {
 

@@ -2,7 +2,7 @@ package me.zeroeightsix.kami.gui.kami.component;
 
 import me.zeroeightsix.kami.gui.rgui.component.listen.KeyListener;
 import me.zeroeightsix.kami.gui.rgui.component.listen.MouseListener;
-import me.zeroeightsix.kami.gui.kami.module.Module;
+import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.util.Bind;
 import org.lwjgl.input.Keyboard;
 

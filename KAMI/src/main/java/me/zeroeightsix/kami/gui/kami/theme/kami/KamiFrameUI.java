@@ -5,8 +5,6 @@ import me.zeroeightsix.kami.gui.kami.DisplayGuiScreen;
 import me.zeroeightsix.kami.gui.kami.KamiGUI;
 import me.zeroeightsix.kami.gui.kami.RenderHelper;
 import me.zeroeightsix.kami.gui.kami.RootFontRenderer;
-import me.zeroeightsix.kami.gui.kami.module.ModuleManager;
-import me.zeroeightsix.kami.gui.kami.module.modules.gui.Themes;
 import me.zeroeightsix.kami.gui.rgui.GUI;
 import me.zeroeightsix.kami.gui.rgui.component.AlignedComponent;
 import me.zeroeightsix.kami.gui.rgui.component.Component;
