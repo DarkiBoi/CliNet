@@ -2,6 +2,7 @@ package me.zeroeightsix.kami.module.modules.render;
 
 import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.module.Module;
+import me.zeroeightsix.kami.module.modules.movement.ElytraFlight;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.util.Enemies;
@@ -29,4 +30,7 @@ public class ExtraTab extends Module {
         if (Enemies.isEnemy(dname)) return String.format("%sc%s", Command.SECTIONSIGN(), dname);
         return dname;
     }
+
+
 }
+

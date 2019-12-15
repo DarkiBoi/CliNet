@@ -50,7 +50,7 @@ public class CrystalAura extends Module {
     private Setting<Boolean> animals = register(Settings.b("Animals", false));
     private Setting<Boolean> place = register(Settings.b("Place", false));
     private Setting<Boolean> explode = register(Settings.b("Explode", false));
-    private Setting<Double>  range = register(Settings.d("Range", 4));
+    private Setting<Double> range = register(Settings.d("Range", 4));
     private Setting<Boolean> antiWeakness = register(Settings.b("Anti Weakness", false));
 
     private BlockPos render;

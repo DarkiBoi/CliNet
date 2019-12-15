@@ -1,6 +1,6 @@
 package me.zeroeightsix.kami.mixin.client;
 
-import me.zeroeightsix.kami.module.ModuleManager;
+import me.zeroeightsix.kami.gui.kami.module.ModuleManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
@@ -49,7 +49,7 @@ public class MixinGuiScreen {
 
                     int x1 = x + 12;
                     int y1 = y - 12;
-                    int height = 48+9; //3*16
+                    int height = 48+9;   //3*16
 
                     this.itemRender.zLevel = 300.0F;
                     this.drawGradientRectP(x1 - 3, y1 - 4, x1 + width + 3, y1 - 3, -267386864, -267386864);

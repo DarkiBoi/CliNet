@@ -4,6 +4,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.zeroeightsix.kami.KamiMod;
 import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.gui.kami.component.ActiveModules;
+import me.zeroeightsix.kami.gui.kami.component.EnumButton;
 import me.zeroeightsix.kami.gui.kami.component.Radar;
 import me.zeroeightsix.kami.gui.kami.component.SettingsPanel;
 import me.zeroeightsix.kami.gui.kami.theme.kami.KamiTheme;
@@ -12,13 +13,14 @@ import me.zeroeightsix.kami.gui.rgui.component.container.use.Frame;
 import me.zeroeightsix.kami.gui.rgui.component.container.use.Scrollpane;
 import me.zeroeightsix.kami.gui.rgui.component.listen.MouseListener;
 import me.zeroeightsix.kami.gui.rgui.component.listen.TickListener;
+import me.zeroeightsix.kami.gui.rgui.component.use.Button;
 import me.zeroeightsix.kami.gui.rgui.component.use.CheckButton;
 import me.zeroeightsix.kami.gui.rgui.component.use.Label;
 import me.zeroeightsix.kami.gui.rgui.render.theme.Theme;
 import me.zeroeightsix.kami.gui.rgui.util.ContainerHelper;
 import me.zeroeightsix.kami.gui.rgui.util.Docking;
-import me.zeroeightsix.kami.module.Module;
-import me.zeroeightsix.kami.module.ModuleManager;
+import me.zeroeightsix.kami.gui.kami.module.Module;
+import me.zeroeightsix.kami.gui.kami.module.ModuleManager;
 import me.zeroeightsix.kami.util.ColourHolder;
 import me.zeroeightsix.kami.util.LagCompensator;
 import me.zeroeightsix.kami.util.Pair;
@@ -31,7 +33,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.entity.projectile.EntityWitherSkull;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
+import scala.collection.parallel.ParIterableLike;
 
 import javax.annotation.Nonnull;
 import java.math.RoundingMode;
@@ -46,6 +50,8 @@ public class KamiGUI extends GUI {
 
     public static final RootFontRenderer fontRenderer = new RootFontRenderer(1);
     public Theme theme;
+
+    public static String selectedTheme;
 
     public static ColourHolder primaryColour = new ColourHolder(29, 29, 29);
 
@@ -208,8 +214,36 @@ public class KamiGUI extends GUI {
             information.addLine("\u00A7b" + KamiMod.CLINET_PREFIX + "\u00A73 " + KamiMod.MODVER);
             information.addLine("\u00A7b" + Math.round(LagCompensator.INSTANCE.getTickRate()) + Command.SECTIONSIGN() + "3 tps");
             information.addLine("\u00A7b" + Wrapper.getMinecraft().debugFPS + Command.SECTIONSIGN() + "3 fps");
+
+//            information.addLine("[&3" + Sprint.getSpeed() + "km/h&r]");
+
         });
         frame.addChild(information);
+        information.setFontRenderer(fontRenderer);
+        frames.add(frame);
+
+        frame = new Frame(getTheme(), new Stretcherlayout(1), "Item Durability");
+        frame.setCloseable(false);
+        frame.setPinneable(true);
+        Label durability = new Label("");
+        durability.setShadow(true);
+        durability.addTickListener(() -> {
+            ItemStack heldItem = Wrapper.getMinecraft().player.getHeldItemMainhand();
+            durability.setText("");
+            durability.addLine(String.valueOf(heldItem.getMaxDamage() - heldItem.getItemDamage()));
+        });
+        frame.addChild(durability);
+        durability.setFontRenderer(fontRenderer);
+        frames.add(frame);
+
+        frame = new Frame(getTheme(), new Stretcherlayout(1), "Theme");
+        frame.setCloseable(false);
+        frame.setPinneable(false);
+        EnumButton theme = new EnumButton("", new String[] {"Modern", "Modern2", "Kami", "Kami Blue"});
+        theme.addTickListener(() -> {
+            this.selectedTheme = theme.getIndexMode();
+        });
+        frame.addChild(theme);
         information.setFontRenderer(fontRenderer);
         frames.add(frame);
 

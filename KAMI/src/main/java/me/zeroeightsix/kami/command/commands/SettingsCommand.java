@@ -3,8 +3,8 @@ package me.zeroeightsix.kami.command.commands;
 import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.command.syntax.ChunkBuilder;
 import me.zeroeightsix.kami.command.syntax.parsers.ModuleParser;
-import me.zeroeightsix.kami.module.Module;
-import me.zeroeightsix.kami.module.ModuleManager;
+import me.zeroeightsix.kami.gui.kami.module.Module;
+import me.zeroeightsix.kami.gui.kami.module.ModuleManager;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.impl.EnumSetting;
 

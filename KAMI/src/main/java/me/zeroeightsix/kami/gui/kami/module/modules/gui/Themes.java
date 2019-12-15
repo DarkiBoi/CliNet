@@ -1,6 +1,6 @@
-package me.zeroeightsix.kami.module.modules.gui;
+package me.zeroeightsix.kami.gui.kami.module.modules.gui;
 
-import me.zeroeightsix.kami.module.Module;
+import me.zeroeightsix.kami.gui.kami.module.Module;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 

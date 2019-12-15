@@ -4,6 +4,7 @@ import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import me.zeroeightsix.kami.event.events.PacketEvent;
 import me.zeroeightsix.kami.module.Module;
+import me.zeroeightsix.kami.module.ModuleManager;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import net.minecraft.network.play.client.CPacketChatMessage;
@@ -11,6 +12,7 @@ import net.minecraft.network.play.client.CPacketChatMessage;
 /**
  * Created by 086 on 8/04/2018.
  * Updated by Darki on 12/12/19
+ * Updated by TBM on 15/12/19
  */
 @Module.Info(name = "ChatAppend", category = Module.Category.MISC, description = "Modifies your chat messages")
 public class ChatAppend extends Module {
@@ -53,10 +55,5 @@ public class ChatAppend extends Module {
             ((CPacketChatMessage) event.getPacket()).message = s;
         }
     });
-
-    @Override
-    public void onDisable() {
-        this.enable();
-    }
 
 }

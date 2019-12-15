@@ -78,7 +78,7 @@ public class Module {
         MISC("Misc", false),
         PLAYER("Player", false),
         MOVEMENT("Movement", false),
-        GUI("GUI", false),
+        //GUI("GUI", false),
         HIDDEN("Hidden", true);
 
         boolean hidden;

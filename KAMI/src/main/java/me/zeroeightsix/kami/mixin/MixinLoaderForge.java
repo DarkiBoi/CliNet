@@ -13,7 +13,7 @@ public class MixinLoaderForge implements IFMLLoadingPlugin {
     private static boolean isObfuscatedEnvironment = false;
 
     public MixinLoaderForge() {
-        KamiMod.log.info("CliNet mixins initialized");
+        KamiMod.log.info("KAMI mixins initialized");
         MixinBootstrap.init();
         Mixins.addConfiguration("mixins.kami.json");
         MixinEnvironment.getDefaultEnvironment().setObfuscationContext("searge");

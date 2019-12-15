@@ -1,7 +1,12 @@
 package me.zeroeightsix.kami.gui.kami.theme.kami;
 
 import me.zeroeightsix.kami.KamiMod;
-import me.zeroeightsix.kami.gui.kami.*;
+import me.zeroeightsix.kami.gui.kami.DisplayGuiScreen;
+import me.zeroeightsix.kami.gui.kami.KamiGUI;
+import me.zeroeightsix.kami.gui.kami.RenderHelper;
+import me.zeroeightsix.kami.gui.kami.RootFontRenderer;
+import me.zeroeightsix.kami.gui.kami.module.ModuleManager;
+import me.zeroeightsix.kami.gui.kami.module.modules.gui.Themes;
 import me.zeroeightsix.kami.gui.rgui.GUI;
 import me.zeroeightsix.kami.gui.rgui.component.AlignedComponent;
 import me.zeroeightsix.kami.gui.rgui.component.Component;
@@ -14,8 +19,6 @@ import me.zeroeightsix.kami.gui.rgui.render.AbstractComponentUI;
 import me.zeroeightsix.kami.gui.rgui.render.font.FontRenderer;
 import me.zeroeightsix.kami.gui.rgui.util.ContainerHelper;
 import me.zeroeightsix.kami.gui.rgui.util.Docking;
-import me.zeroeightsix.kami.module.ModuleManager;
-import me.zeroeightsix.kami.module.modules.gui.Themes;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.util.Bind;
 import me.zeroeightsix.kami.util.ColourHolder;
@@ -56,41 +59,37 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
             return;
         glDisable(GL_TEXTURE_2D);
 
-        for (Setting setting : ModuleManager.getModuleByName("Themes").settingList) {
-            if (Themes.mode.getValue() == Themes.Theme.MODERN) {
-                if (component.getHeight() != 12) {
-                    glColor3f(0.13f,0.13f,0.13f);
-                    glLineWidth(1.5f);
-                    RenderHelper.drawRoundedRectangle(2,2,component.getWidth(),component.getHeight(), 10);
-                    glLineWidth(1);
-                    glColor4f(.17f,.17f,.18f,.9f);
-                    RenderHelper.drawRoundedRectangle(0,0,component.getWidth(),component.getHeight(),10);
-                }
-                glColor4f(0.13f,0.13f,0.13f, 1);
-                RenderHelper.drawHalfRoundedRectangle(0, 0, component.getWidth(), 11, 10);
-            } else if (Themes.mode.getValue() == Themes.Theme.KAMI) {
+        if (KamiGUI.selectedTheme == "Modern") {
+            if (component.getHeight() != 12) {
+                glColor3f(0.13f,0.13f,0.13f);
+                glLineWidth(1.5f);
+                RenderHelper.drawRoundedRectangle(2,2,component.getWidth(),component.getHeight(), 10);
+                glLineWidth(1);
                 glColor4f(.17f,.17f,.18f,.9f);
-                RenderHelper.drawFilledRectangle(0,0,component.getWidth(),component.getHeight());
-                glColor3f(.59f,.05f,.11f);
-                glLineWidth(1.5f);
-                RenderHelper.drawRectangle(0,0,component.getWidth(),component.getHeight());
-            } else if (Themes.mode.getValue() == Themes.Theme.KAMIBLUE) {
-                glColor4f(.17f, .17f, .18f, .9f);
-                RenderHelper.drawFilledRectangle(0, 0, component.getWidth(), component.getHeight());
-                glColor3f(.60f, .56f, 1.00f);
-                glLineWidth(1.5f);
-                RenderHelper.drawRectangle(0, 0, component.getWidth(), component.getHeight());
-            } else if (Themes.mode.getValue() == Themes.Theme.MODERN2) {
-                if (component.getHeight() != 12) {
-                    glColor3f(.17f, .17f, .18f);
-                    RenderHelper.drawRoundedRectangle(0,0,component.getWidth(),component.getHeight(),10);
-                }
-                glColor3f(0.05f, 0.33f, 0.8f);
-                RenderHelper.drawHalfRoundedRectangle(0, 0, component.getWidth(), 11, 10);
+                RenderHelper.drawRoundedRectangle(0,0,component.getWidth(),component.getHeight(),10);
             }
+            glColor4f(0.13f,0.13f,0.13f, 1);
+            RenderHelper.drawHalfRoundedRectangle(0, 0, component.getWidth(), 11, 10);
+        } else if (KamiGUI.selectedTheme == "Kami") {
+            glColor4f(.17f,.17f,.18f,.9f);
+            RenderHelper.drawFilledRectangle(0,0,component.getWidth(),component.getHeight());
+            glColor3f(.59f,.05f,.11f);
+            glLineWidth(1.5f);
+            RenderHelper.drawRectangle(0,0,component.getWidth(),component.getHeight());
+        } else if (KamiGUI.selectedTheme == "Kami Blue") {
+            glColor4f(.17f, .17f, .18f, .9f);
+            RenderHelper.drawFilledRectangle(0, 0, component.getWidth(), component.getHeight());
+            glColor3f(.60f, .56f, 1.00f);
+            glLineWidth(1.5f);
+            RenderHelper.drawRectangle(0, 0, component.getWidth(), component.getHeight());
+        } else if (KamiGUI.selectedTheme == "Modern2") {
+            if (component.getHeight() != 12) {
+                glColor3f(.17f, .17f, .18f);
+                RenderHelper.drawRoundedRectangle(0,0,component.getWidth(),component.getHeight(),10);
+            }
+            glColor3f(0.05f, 0.33f, 0.8f);
+            RenderHelper.drawHalfRoundedRectangle(0, 0, component.getWidth(), 11, 10);
         }
-
-
 
         GL11.glColor3f(1,1,1);
         ff.drawString(component.getWidth() / 2 - ff.getStringWidth(component.getTitle()) / 2, 2, component.getTitle());

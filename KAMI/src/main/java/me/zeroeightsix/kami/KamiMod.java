@@ -15,8 +15,8 @@ import me.zeroeightsix.kami.gui.rgui.component.Component;
 import me.zeroeightsix.kami.gui.rgui.component.container.use.Frame;
 import me.zeroeightsix.kami.gui.rgui.util.ContainerHelper;
 import me.zeroeightsix.kami.gui.rgui.util.Docking;
-import me.zeroeightsix.kami.module.Module;
-import me.zeroeightsix.kami.module.ModuleManager;
+import me.zeroeightsix.kami.gui.kami.module.Module;
+import me.zeroeightsix.kami.gui.kami.module.ModuleManager;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.setting.SettingsRegister;
@@ -53,12 +53,11 @@ public class KamiMod {
 
     public static final String CLINET_PREFIX = "CN";
 
-    private static final String CLINET_CONFIG_NAME_DEFAULT = "CliNetConfig.json";
+    private static final String KAMI_CONFIG_NAME_DEFAULT = "CliNetConfig.json";
 
     public static final Logger log = LogManager.getLogger("CliNet");
 
     public static final EventBus EVENT_BUS = new EventManager();
-
 
     @Mod.Instance
     private static KamiMod INSTANCE;
@@ -88,7 +87,6 @@ public class KamiMod {
 
         ModuleManager.initialize();
 
-
         ModuleManager.getModules().stream().filter(module -> module.alwaysListening).forEach(EVENT_BUS::subscribe);
         MinecraftForge.EVENT_BUS.register(new ForgeEventProcessor());
         LagCompensator.INSTANCE = new LagCompensator();
@@ -111,7 +109,6 @@ public class KamiMod {
         // After settings loaded, we want to let the enabled modules know they've been enabled (since the setting is done through reflection)
         ModuleManager.getModules().stream().filter(Module::isEnabled).forEach(Module::enable);
 
-
         try {
             ModuleManager.getModuleByName("Themes").setEnabled(true);
             ModuleManager.getModuleByName("ChatAppend").setEnabled(true);
@@ -125,13 +122,13 @@ public class KamiMod {
 
     public static String getConfigName() {
         Path config = Paths.get("CliNetLastConfig.txt");
-        String kamiConfigName = CLINET_CONFIG_NAME_DEFAULT;
+        String kamiConfigName = KAMI_CONFIG_NAME_DEFAULT;
         try(BufferedReader reader = Files.newBufferedReader(config)) {
             kamiConfigName = reader.readLine();
-            if (!isFilenameValid(kamiConfigName)) kamiConfigName = CLINET_CONFIG_NAME_DEFAULT;
+            if (!isFilenameValid(kamiConfigName)) kamiConfigName = KAMI_CONFIG_NAME_DEFAULT;
         } catch (NoSuchFileException e) {
             try(BufferedWriter writer = Files.newBufferedWriter(config)) {
-                writer.write(CLINET_CONFIG_NAME_DEFAULT);
+                writer.write(KAMI_CONFIG_NAME_DEFAULT);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }

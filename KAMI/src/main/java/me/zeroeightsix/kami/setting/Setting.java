@@ -1,5 +1,6 @@
 package me.zeroeightsix.kami.setting;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
@@ -83,5 +84,4 @@ public abstract class Setting<T> implements ISettingUnknown, Convertable<T> {
     public String getValueAsString() {
         return this.converter().convert(getValue()).toString();
     }
-
 }

@@ -5,6 +5,7 @@ import me.zeroeightsix.kami.event.events.RenderEvent;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
+import me.zeroeightsix.kami.util.Enemies;
 import me.zeroeightsix.kami.util.EntityUtil;
 import me.zeroeightsix.kami.util.Friends;
 import net.minecraft.client.Minecraft;
@@ -112,7 +113,16 @@ public class Nametags extends Module {
         GlStateManager.enableTexture2D();
 
         GlStateManager.glNormal3f(0.0F, 1.0F, 0.0F);
-        fontRendererIn.drawString(str, -i, 10, entityIn instanceof EntityPlayer ? Friends.isFriend(entityIn.getName()) ? 0x11ee11 : 0xffffff : 0xffffff);
+        if (entityIn instanceof EntityPlayer) {
+            if (Friends.isFriend(entityIn.getName())) {
+                fontRendererIn.drawString(str, -i, 10, 0x11ee11);
+            } else if (Enemies.isEnemy(entityIn.getName())) {
+                fontRendererIn.drawString(str, -i, 10, 0xEE1111);
+            } else {
+                fontRendererIn.drawString(str, -i, 10, 0xffffff);
+            }
+        }
+
         GlStateManager.glNormal3f(0.0F, 0.0F, 0.0F);
         glTranslatef(0, 20, 0);
 

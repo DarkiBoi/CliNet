@@ -15,7 +15,7 @@ import net.minecraft.network.play.client.CPacketChatMessage;
 @Module.Info(name = "ColourChat", category = Module.Category.MISC, description = "Modifies your chat messages to add > for green or ` for blue in front")
 public class ColourChat extends Module {
 
-    public static Setting<ColourChat.Colour> colour = Settings.e("Colour", Colour.GREEN);
+    public static Setting<Colour> colour = Settings.e("Colour", Colour.GREEN);
 
     private final String GREEN_PREFIX = ">";
     private final String BLUE_PREFIX = "`";
