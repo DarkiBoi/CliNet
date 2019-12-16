@@ -18,21 +18,24 @@ import net.minecraft.network.play.client.CPacketChatMessage;
 public class ChatAppend extends Module {
 
     private Setting<Boolean> commands = register(Settings.b("Commands", false));
-    //public static Setting<ChatAppend.Mode> mode = Settings.e("Mode", Mode.CLINET);
+    public static Setting<ChatAppend.Mode> mode = Settings.e("Mode", Mode.CLINET);
 
-    //private final String KAMI_SUFFIX = " \u23D0 \u1D0B\u1D00\u1D0D\u026A";
-    private final String CN_SUFFIX = " | CliNet Beta";
+    //private final String KAMI_SUFFIX = " \u23D0 \u1D0B\u1D00\u1D0D\u026A"; //Uncomment this after beta
+    private final String CN_SUFFIX = " \u23D0 CliNet Beta";
+    private final String CN_SUFFIX2 = " \u23D0 \u1455\u3125\ua024\ua2ca\u4e47\u271e";
+    private final String CN_SUFFIX3 = " \u23D0 \ua253\ua492\ua024\ua2ca\u018e\u0287";
+    //private final String PLIVID_SUFFIX = " \u23D0 \uff30\uff4c\uff49\uff56\uff49\uff44\uff0e\uff43\uff43"; //Uncomment this after beta
 
     private static ChatAppend INSTANCE = new ChatAppend();
 
     public ChatAppend() {
         INSTANCE = this;
-        //register(mode);
+        register(mode);
     }
 
-    //public enum Mode {
-    //    CLINET
-    //}
+    public enum Mode {
+        CLINET, CLINET2, CLINET3
+    }
 
 
     @EventHandler
@@ -40,17 +43,24 @@ public class ChatAppend extends Module {
         if (event.getPacket() instanceof CPacketChatMessage) {
             String s = ((CPacketChatMessage) event.getPacket()).getMessage();
             if (s.startsWith("/") && !commands.getValue()) return;
-            /*
             switch (mode.getValue()) {
-                case KAMI:
-                    s += KAMI_SUFFIX;
+                case CLINET2:
+                    s += CN_SUFFIX2;
                     break;
                 case CLINET:
                     s += CN_SUFFIX;
                     break;
+                case CLINET3:
+                    s += CN_SUFFIX3;
+                    break;
+                /*case PLIVIDCC:
+                    s += PLIVID_SUFFIX;
+                    break;
+                case KAMI:
+                    s += KAMI_SUFFIX;
+                    break;*/
             }
-             */
-            s += CN_SUFFIX;
+
             if (s.length() >= 256) s = s.substring(0,256);
             ((CPacketChatMessage) event.getPacket()).message = s;
         }
