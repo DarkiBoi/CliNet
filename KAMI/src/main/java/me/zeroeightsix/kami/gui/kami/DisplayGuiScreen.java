@@ -3,6 +3,7 @@ package me.zeroeightsix.kami.gui.kami;
 import me.zeroeightsix.kami.KamiMod;
 import me.zeroeightsix.kami.gui.rgui.component.Component;
 import me.zeroeightsix.kami.gui.rgui.component.container.use.Frame;
+import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.module.ModuleManager;
 import me.zeroeightsix.kami.module.modules.ClickGUI;
 import me.zeroeightsix.kami.util.Wrapper;
@@ -96,7 +97,7 @@ public class DisplayGuiScreen extends GuiScreen {
 
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
-        if (keyCode == Keyboard.KEY_ESCAPE)
+        if ((keyCode == Keyboard.KEY_ESCAPE) || (keyCode == ModuleManager.getModuleByName("ClickGUI").getBind().getKey()))
             mc.displayGuiScreen(lastScreen);
         else {
             gui.handleKeyDown(keyCode);

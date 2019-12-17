@@ -1,6 +1,7 @@
 package me.zeroeightsix.kami.util;
 
 import net.minecraft.block.BlockLiquid;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,6 +16,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class EntityUtil {
+
+    public Minecraft mc = Minecraft.getMinecraft();
 
     public static boolean isPassive(Entity e){
         if (e instanceof EntityWolf && ((EntityWolf) e).isAngry()) return false;
@@ -169,6 +172,15 @@ public class EntityUtil {
 
     public static double getRelativeZ(float yaw){
         return (double) (MathHelper.cos(yaw * 0.017453292F));
+    }
+
+    public boolean isPlayerMoving() {
+        if (mc.gameSettings.keyBindForward.isPressed() || mc.gameSettings.keyBindBack.isPressed() || mc.gameSettings.keyBindLeft.isPressed() || mc.gameSettings.keyBindRight.isPressed() || mc.gameSettings.keyBindJump.isPressed()) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }

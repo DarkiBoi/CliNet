@@ -4,6 +4,9 @@ import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 
+/**
+ * Created by Darki on 16/12/2019.
+ */
 @Module.Info(name = "Timer", description = "Makes your game faster", category = Module.Category.MISC)
 public class Timer extends Module {
 
@@ -11,7 +14,6 @@ public class Timer extends Module {
 
     @Override
     public void onDisable() {
-        super.onDisable();
         mc.timer.tickLength = 50;
     }
 
