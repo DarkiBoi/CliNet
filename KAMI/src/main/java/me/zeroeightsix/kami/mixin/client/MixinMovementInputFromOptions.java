@@ -3,6 +3,9 @@ package me.zeroeightsix.kami.mixin.client;
 import me.zeroeightsix.kami.module.ModuleManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
+import net.minecraft.client.gui.GuiCommandBlock;
+import net.minecraft.client.gui.inventory.GuiEditCommandBlockMinecart;
+import net.minecraft.client.gui.inventory.GuiEditSign;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.MovementInput;
 import net.minecraft.util.MovementInputFromOptions;
@@ -23,7 +26,7 @@ public class MixinMovementInputFromOptions extends MovementInput {
 
     @Inject(method = "updatePlayerMoveState", at = @At("HEAD"), cancellable = true)
     public void updatePlayerMoveState(CallbackInfo info) {
-        if (ModuleManager.getModuleByName("InventoryMove").isEnabled() && !(mc.currentScreen instanceof GuiChat)) {
+        if (ModuleManager.getModuleByName("InventoryMove").isEnabled() && !(mc.currentScreen instanceof GuiChat) && !(mc.currentScreen instanceof GuiEditSign) && !(mc.currentScreen instanceof GuiCommandBlock) && !(mc.currentScreen instanceof GuiEditCommandBlockMinecart) && !(mc.currentScreen == null)) {
             info.cancel();
 
             moveStrafe = 0.0F;
