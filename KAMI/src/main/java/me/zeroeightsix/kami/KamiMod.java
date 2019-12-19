@@ -81,6 +81,9 @@ public class KamiMod {
 
     }
 
+
+
+
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         KamiMod.log.info("\n\nInitializing CliNet " + MODVER);
