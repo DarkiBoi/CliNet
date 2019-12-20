@@ -24,8 +24,8 @@ public class ChatAppend extends Module {
     private final String CN_SUFFIX = " \u23D0 CliNet Beta";
     private final String CN_SUFFIX2 = " \u23D0 \u1455\u3125\ua024\ua2ca\u4e47\u271e";
     private final String CN_SUFFIX3 = " \u23D0 \ua253\ua492\ua024\ua2ca\u018e\u0287";
+    private final String CN_SUFFIX4 = " \u058E\u13DF\u3058\uAB75\uAB3B\u2130\u2020\u14E4";
     //private final String PLIVID_SUFFIX = " \u23D0 \uff30\uff4c\uff49\uff56\uff49\uff44\uff0e\uff43\uff43"; //Uncomment this after beta
-
     private static ChatAppend INSTANCE = new ChatAppend();
 
     public ChatAppend() {
@@ -34,7 +34,7 @@ public class ChatAppend extends Module {
     }
 
     public enum Mode {
-        CLINET, CLINET2, CLINET3
+        CLINET, CLINET2, CLINET3, CLINET4
     }
 
 
@@ -52,6 +52,9 @@ public class ChatAppend extends Module {
                     break;
                 case CLINET3:
                     s += CN_SUFFIX3;
+                    break;
+                case CLINET4:
+                    s += CN_SUFFIX4;
                     break;
                 /*case PLIVIDCC:
                     s += PLIVID_SUFFIX;

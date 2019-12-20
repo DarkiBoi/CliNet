@@ -20,7 +20,7 @@ public class Timer extends Module {
     @Override
     public void onUpdate() {
         mc.timer.tickLength = 50.0f / speed.getValue();
-        this.setName("Timer §7" + speed.getValue());
+        this.setHudInfo(speed.getValue().toString());
     }
 
 }

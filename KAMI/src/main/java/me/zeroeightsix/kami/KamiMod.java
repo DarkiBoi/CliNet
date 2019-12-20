@@ -110,7 +110,6 @@ public class KamiMod {
         ModuleManager.getModules().stream().filter(Module::isEnabled).forEach(Module::enable);
 
         try {
-            ModuleManager.getModuleByName("Themes").setEnabled(true);
             ModuleManager.getModuleByName("ChatAppend").setEnabled(true);
         }
         catch (NullPointerException e) {
@@ -167,6 +166,13 @@ public class KamiMod {
                 frame.setDocking(docking);
                 frame.setMinimized(object.get("minimized").getAsBoolean());
                 frame.setPinned(object.get("pinned").getAsBoolean());
+            } else if (entry.getKey() == "GUI Settings") {
+                JsonObject object = entry.getValue().getAsJsonObject();
+                KamiGUI.arrayColour = new Double[] {
+                        object.get("redArrayColour").getAsDouble(),
+                        object.get("greenArrayColour").getAsDouble(),
+                        object.get("blueArrayColour").getAsDouble(),
+                };
             } else {
                 System.err.println("Found GUI config entry for " + entry.getKey() + ", but found no frame with that name");
             }
@@ -194,6 +200,13 @@ public class KamiMod {
             object.add(frame.getTitle(), frameObject);
         });
         KamiMod.INSTANCE.guiStateSetting.setValue(object);
+
+        JsonObject guiSettingsObject = new JsonObject();
+        guiSettingsObject.add("redArrayColour", new JsonPrimitive(KamiGUI.arrayColour[0]));
+        guiSettingsObject.add("greenArrayColour", new JsonPrimitive(KamiGUI.arrayColour[1]));
+        guiSettingsObject.add("blueArrayColour", new JsonPrimitive(KamiGUI.arrayColour[2]));
+        object.add("GUI Settings", guiSettingsObject);
+
 
         Path outputFile = Paths.get(getConfigName());
         if (!Files.exists(outputFile))

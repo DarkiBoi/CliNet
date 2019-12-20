@@ -55,7 +55,7 @@ public class Configuration {
         try {
             loadConfiguration(new JsonParser().parse(new InputStreamReader(stream)).getAsJsonObject());
         } catch (IllegalStateException e) { // The JSON file is probably malformed.
-            KamiMod.log.error("KAMI Config malformed: resetting.");
+            KamiMod.log.error("CliNet Config malformed: resetting.");
             loadConfiguration(new JsonObject()); // Just reset it!
         }
     }

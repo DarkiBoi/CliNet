@@ -34,6 +34,7 @@ public class Module {
     protected static final Minecraft mc = Minecraft.getMinecraft();
 
     public boolean showOnArray = getAnnotation().showOnArray();
+    private String hudInfo;
 
     public List<Setting> settingList = new ArrayList<>();
 
@@ -159,7 +160,11 @@ public class Module {
     }
 
     public String getHudInfo() {
-        return null;
+        return hudInfo;
+    }
+
+    public void setHudInfo(String s) {
+        hudInfo = s;
     }
 
     protected final void setAlwaysListening(boolean alwaysListening) {

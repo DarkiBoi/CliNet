@@ -1,12 +1,10 @@
 package me.zeroeightsix.kami.gui.kami;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import javafx.scene.control.ToggleButton;
 import me.zeroeightsix.kami.KamiMod;
 import me.zeroeightsix.kami.command.Command;
-import me.zeroeightsix.kami.gui.kami.component.ActiveModules;
-import me.zeroeightsix.kami.gui.kami.component.EnumButton;
-import me.zeroeightsix.kami.gui.kami.component.Radar;
-import me.zeroeightsix.kami.gui.kami.component.SettingsPanel;
+import me.zeroeightsix.kami.gui.kami.component.*;
 import me.zeroeightsix.kami.gui.kami.theme.kami.KamiTheme;
 import me.zeroeightsix.kami.gui.rgui.GUI;
 import me.zeroeightsix.kami.gui.rgui.component.container.use.Frame;
@@ -16,6 +14,7 @@ import me.zeroeightsix.kami.gui.rgui.component.listen.TickListener;
 import me.zeroeightsix.kami.gui.rgui.component.use.Button;
 import me.zeroeightsix.kami.gui.rgui.component.use.CheckButton;
 import me.zeroeightsix.kami.gui.rgui.component.use.Label;
+import me.zeroeightsix.kami.gui.rgui.component.use.Slider;
 import me.zeroeightsix.kami.gui.rgui.render.theme.Theme;
 import me.zeroeightsix.kami.gui.rgui.util.ContainerHelper;
 import me.zeroeightsix.kami.gui.rgui.util.Docking;
@@ -52,6 +51,10 @@ public class KamiGUI extends GUI {
     public Theme theme;
 
     public static String selectedTheme;
+    public static int selectedThemeIndex = 0;
+    public static String selectedArrayColour;
+
+    public static Double[] arrayColour = new Double[] {255d, 167d, 35d};
 
     public static ColourHolder primaryColour = new ColourHolder(29, 29, 29);
 
@@ -236,14 +239,33 @@ public class KamiGUI extends GUI {
         durability.setFontRenderer(fontRenderer);
         frames.add(frame);
 
-        frame = new Frame(getTheme(), new Stretcherlayout(1), "Theme");
+        frame = new Frame(getTheme(), new Stretcherlayout(1), "GUI");
         frame.setCloseable(false);
         frame.setPinneable(false);
-        EnumButton theme = new EnumButton("", new String[] {"Modern", "Modern2", "Kami", "Kami Blue"});
+        EnumButton theme = new EnumButton("Theme", new String[] {"Modern", "Modern2", "Kami", "Kami Blue"});
+        //ColourPickerButtonRainbow other = new ColourPickerButtonRainbow("ArrayList");
+        Slider rArrayListColour = new Slider(arrayColour[0], 0, 255, 1, "Red ArrayList", true);
+        Slider gArrayListColour = new Slider(arrayColour[1], 0, 255, 1, "Green ArrayList", true);
+        Slider bArrayListColour = new Slider(arrayColour[2], 0, 255, 1, "Blue ArrayList", true);
+        ColorizedCheckButton RB = new ColorizedCheckButton("Rainbow ArrayList");
         theme.addTickListener(() -> {
-            this.selectedTheme = theme.getIndexMode();
+            selectedTheme = theme.getIndexMode();
+            selectedThemeIndex = theme.getIndex();
+
+        });
+        RB.addTickListener(() -> {
+            if (RB.isToggled()) {
+                this.selectedArrayColour = "RB";
+            } else {
+                this.selectedArrayColour = "CUSTOM";
+            }
+            this.arrayColour = new Double[]{rArrayListColour.getValue(), gArrayListColour.getValue(), bArrayListColour.getValue()};
         });
         frame.addChild(theme);
+        frame.addChild(rArrayListColour);
+        frame.addChild(gArrayListColour);
+        frame.addChild(bArrayListColour);
+        frame.addChild(RB);
         information.setFontRenderer(fontRenderer);
         frames.add(frame);
 

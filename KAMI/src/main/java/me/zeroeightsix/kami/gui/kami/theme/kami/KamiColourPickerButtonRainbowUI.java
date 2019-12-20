@@ -1,6 +1,9 @@
 package me.zeroeightsix.kami.gui.kami.theme.kami;
 
+import me.zeroeightsix.kami.gui.kami.RootFontRenderer;
 import me.zeroeightsix.kami.gui.kami.RootSmallFontRenderer;
+import me.zeroeightsix.kami.gui.kami.component.ColourPickerButton;
+import me.zeroeightsix.kami.gui.kami.component.ColourPickerButtonRainbow;
 import me.zeroeightsix.kami.gui.kami.component.EnumButton;
 import me.zeroeightsix.kami.gui.rgui.component.container.Container;
 import me.zeroeightsix.kami.gui.rgui.render.AbstractComponentUI;
@@ -14,9 +17,10 @@ import static org.lwjgl.opengl.GL11.*;
 /**
  * Created by 086 on 8/08/2017.
  */
-public class KamiEnumbuttonUI extends AbstractComponentUI<EnumButton> {
+public class KamiColourPickerButtonRainbowUI extends AbstractComponentUI<ColourPickerButtonRainbow> {
 
     RootSmallFontRenderer smallFontRenderer = new RootSmallFontRenderer();
+    RootFontRenderer normalFontRenderer = new RootFontRenderer(1.0f);
 
     protected Color idleColour = new Color(163, 163, 163);
     protected Color downColour = new Color(255, 255, 255);
@@ -25,7 +29,7 @@ public class KamiEnumbuttonUI extends AbstractComponentUI<EnumButton> {
     long lastMS = System.currentTimeMillis();
 
     @Override
-    public void renderComponent(EnumButton component, FontRenderer aa) {
+    public void renderComponent(ColourPickerButtonRainbow component, FontRenderer fontRenderer) {
         if (System.currentTimeMillis() - lastMS > 3000 && modeComponent != null){
             modeComponent = null;
         }
@@ -45,7 +49,7 @@ public class KamiEnumbuttonUI extends AbstractComponentUI<EnumButton> {
         double endX = step * (component.getIndex()+1);
 
         int height = component.getHeight();
-        float downscale = 1.1f;
+        float downscale = 0.9f;
 
         glDisable(GL_TEXTURE_2D);
         glColor3f(.59f,.05f,.11f);
@@ -57,16 +61,20 @@ public class KamiEnumbuttonUI extends AbstractComponentUI<EnumButton> {
         glEnd();
 
         if (modeComponent == null || !modeComponent.equals(component)){
-            smallFontRenderer.drawString(0,0,c,component.getName());
-            smallFontRenderer.drawString(component.getWidth() - smallFontRenderer.getStringWidth(component.getIndexMode()),0,c, component.getIndexMode());
+            smallFontRenderer.drawString(0,1,c,component.getName());
+            if (component.getIndexMode() == "RB") normalFontRenderer.drawString(component.getWidth() - fontRenderer.getStringWidth(component.getIndexMode()),0,c, component.getIndexMode());
+            else normalFontRenderer.drawString(component.getWidth() - fontRenderer.getStringWidth(component.getIndexMode()),0,c, "\u00A7" + component.getIndexMode() + component.getIndexMode());
         }else {
-            smallFontRenderer.drawString(component.getWidth() / 2 - smallFontRenderer.getStringWidth(component.getIndexMode()) / 2, 0,c, component.getIndexMode());
+            if (component.getIndexMode() == "RB")normalFontRenderer.drawString(component.getWidth() / 2 - fontRenderer.getStringWidth(component.getIndexMode()) / 2, 0,c, component.getIndexMode());
+            else normalFontRenderer.drawString(component.getWidth() / 2 - fontRenderer.getStringWidth(component.getIndexMode()) / 2, 0,c,  "\u00A7" + component.getIndexMode() + component.getIndexMode());
         }
+
+
         GL11.glDisable(GL11.GL_BLEND);
     }
 
     @Override
-    public void handleSizeComponent(EnumButton component) {
+    public void handleSizeComponent(ColourPickerButtonRainbow component) {
         int width = 0;
         for (String s : component.getModes()) {
             width = Math.max(width, smallFontRenderer.getStringWidth(s));
@@ -76,7 +84,7 @@ public class KamiEnumbuttonUI extends AbstractComponentUI<EnumButton> {
     }
 
     @Override
-    public void handleAddComponent(EnumButton component, Container container) {
+    public void handleAddComponent(ColourPickerButtonRainbow component, Container container) {
         component.addPoof(new EnumButton.EnumbuttonIndexPoof<EnumButton, EnumButton.EnumbuttonIndexPoof.EnumbuttonInfo>() {
             @Override
             public void execute(EnumButton component, EnumbuttonInfo info) {
@@ -85,4 +93,6 @@ public class KamiEnumbuttonUI extends AbstractComponentUI<EnumButton> {
             }
         });
     }
+
+
 }
