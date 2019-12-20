@@ -17,6 +17,7 @@ import me.zeroeightsix.kami.gui.rgui.util.ContainerHelper;
 import me.zeroeightsix.kami.gui.rgui.util.Docking;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.module.ModuleManager;
+import me.zeroeightsix.kami.module.modules.misc.DiscordRPCModule;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.setting.SettingsRegister;
@@ -81,6 +82,9 @@ public class KamiMod {
 
     }
 
+
+
+
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         KamiMod.log.info("\n\nInitializing CliNet " + MODVER);
@@ -111,6 +115,9 @@ public class KamiMod {
 
         try {
             ModuleManager.getModuleByName("ChatAppend").setEnabled(true);
+            if (((DiscordRPCModule) ModuleManager.getModuleByName("DiscordRPC")).startupGlobal.getValue()) {
+                ModuleManager.getModuleByName("DiscordRPC").setEnabled(true);
+            }
         }
         catch (NullPointerException e) {
             KamiMod.log.info("NullPointerException in loading always enabled modules\n");
