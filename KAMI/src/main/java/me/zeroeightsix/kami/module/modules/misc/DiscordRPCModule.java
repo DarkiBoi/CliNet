@@ -8,7 +8,7 @@ import me.zeroeightsix.kami.setting.Settings;
 @Module.Info(name = "DiscordRPC", category = Module.Category.MISC, description = "Discord Rich Presence")
 public class DiscordRPCModule extends Module {
 
-    public Setting<Boolean> startupGlobal = register(Settings.b("Enable Automatically", true));
+    public Setting<Boolean> startupGlobal = register(Settings.b("Enable Automatically", false));
     public Setting<Boolean> versionGlobal = register(Settings.b("Version", true));
     public Setting<Boolean> usernameGlobal = register(Settings.b("Username", true));
     public Setting<Boolean> hpGlobal = register(Settings.b("Health", true));
