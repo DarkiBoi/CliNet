@@ -50,7 +50,7 @@ public class KamiMod {
 
     public static final String MODID = "clinet";
     public static final String MODNAME = "CliNet";
-    public static final String MODVER = "b1";
+    public static final String MODVER = "b1.5";
 
     public static final String CLINET_PREFIX = "CN";
 

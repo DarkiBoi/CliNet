@@ -5,6 +5,7 @@ import me.zeroeightsix.kami.module.ModuleManager;
 import me.zeroeightsix.kami.module.modules.misc.AutoTool;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
+import me.zeroeightsix.kami.util.Enemies;
 import me.zeroeightsix.kami.util.EntityUtil;
 import me.zeroeightsix.kami.util.Friends;
 import me.zeroeightsix.kami.util.LagCompensator;
@@ -18,6 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.Vec3d;
+import scala.reflect.internal.tpe.TypeMaps;
 
 import java.util.Iterator;
 
@@ -72,42 +74,69 @@ public class Aura extends Module {
         Iterator<Entity> entityIterator = Minecraft.getMinecraft().world.loadedEntityList.iterator();
         while (entityIterator.hasNext()) {
             Entity target = entityIterator.next();
-            if (!EntityUtil.isLiving(target)) {
-                continue;
-            }
-            if (target == mc.player) {
-                continue;
-            }
-            if (mc.player.getDistance(target) > hitRange.getValue()) {
-                continue;
-            }
-            if (((EntityLivingBase) target).getHealth() <= 0) {
-                continue;
-            }
-            if (waitMode.getValue().equals(WaitMode.DYNAMIC) && ((EntityLivingBase) target).hurtTime != 0) {
-                continue;
-            }
-            if (!ignoreWalls.getValue() && (!mc.player.canEntityBeSeen(target) && !canEntityFeetBeSeen(target))) {
-                continue; // If walls is on & you can't see the feet or head of the target, skip. 2 raytraces needed
-            }
-            if (attackPlayers.getValue() && target instanceof EntityPlayer && !Friends.isFriend(target.getName())) {
-                attack(target);
-                return;
-            } else {
-                if (EntityUtil.isPassive(target) ? attackAnimals.getValue() : (EntityUtil.isMobAggressive(target) && attackMobs.getValue())) {
-                    // We want to skip this if switchTo32k.getValue() is true,
-                    // because it only accounts for tools and weapons.
-                    // Maybe someone could refactor this later? :3
-                    if (!switchTo32k.getValue() && ModuleManager.isModuleEnabled("AutoTool")) {
-                        AutoTool.equipBestWeapon();
+            if (Enemies.isEnemyNearby(hitRange.getValue())) {
+                if (Enemies.isEnemy(target.getName())) {
+                    if (!EntityUtil.isLiving(target)) {
+                        continue;
                     }
+                    if (target == mc.player) {
+                        continue;
+                    }
+                    if (((EntityLivingBase) target).getHealth() <= 0) {
+                        continue;
+                    }
+                    if (waitMode.getValue().equals(WaitMode.DYNAMIC) && ((EntityLivingBase) target).hurtTime != 0) {
+                        continue;
+                    }
+                    if (!ignoreWalls.getValue() && (!mc.player.canEntityBeSeen(target) && !canEntityFeetBeSeen(target))) {
+                        continue; // If walls is on & you can't see the feet or head of the target, skip. 2 raytraces needed
+                    }
+                    if (attackPlayers.getValue() && target instanceof EntityPlayer) {
+                        attack(target);
+                        return;
+                    }
+                } else {
+                    continue;
+                }
+            } else {
+                if (!EntityUtil.isLiving(target)) {
+                    continue;
+                }
+                if (target == mc.player) {
+                    continue;
+                }
+                if (mc.player.getDistance(target) > hitRange.getValue()) {
+                    continue;
+                }
+                if (((EntityLivingBase) target).getHealth() <= 0) {
+                    continue;
+                }
+                if (waitMode.getValue().equals(WaitMode.DYNAMIC) && ((EntityLivingBase) target).hurtTime != 0) {
+                    continue;
+                }
+                if (!ignoreWalls.getValue() && (!mc.player.canEntityBeSeen(target) && !canEntityFeetBeSeen(target))) {
+                    continue; // If walls is on & you can't see the feet or head of the target, skip. 2 raytraces needed
+                }
+                if (attackPlayers.getValue() && target instanceof EntityPlayer && !Friends.isFriend(target.getName())) {
                     attack(target);
                     return;
+                } else {
+                    if (EntityUtil.isPassive(target) ? attackAnimals.getValue() : (EntityUtil.isMobAggressive(target) && attackMobs.getValue())) {
+                        // We want to skip this if switchTo32k.getValue() is true,
+                        // because it only accounts for tools and weapons.
+                        // Maybe someone could refactor this later? :3
+                        if (!switchTo32k.getValue() && ModuleManager.isModuleEnabled("AutoTool")) {
+                            AutoTool.equipBestWeapon();
+                        }
+                        attack(target);
+                        return;
+                    }
                 }
             }
         }
 
     }
+
 
     private boolean checkSharpness(ItemStack stack) {
 
