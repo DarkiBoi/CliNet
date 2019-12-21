@@ -80,6 +80,18 @@ public class KamiTessellator extends Tessellator {
         drawBox(INSTANCE.getBuffer(), blockPos.x, blockPos.y, blockPos.z, 1, 1, 1, r, g, b, a, sides);
     }
 
+    public static void drawHalfBox(BlockPos blockPos, int argb, int sides) {
+        final int a = (argb >>> 24) & 0xFF;
+        final int r = (argb >>> 16) & 0xFF;
+        final int g = (argb >>> 8) & 0xFF;
+        final int b = argb & 0xFF;
+        drawHalfBox(blockPos, r, g, b, a, sides);
+    }
+
+    public static void drawHalfBox(BlockPos blockPos, int r, int g, int b, int a, int sides) {
+        drawBox(INSTANCE.getBuffer(), blockPos.x, blockPos.y, blockPos.z, 1, 0.5f, 1, r, g, b, a, sides);
+    }
+
     public static BufferBuilder getBufferBuilder() {
         return INSTANCE.getBuffer();
     }
@@ -127,6 +139,7 @@ public class KamiTessellator extends Tessellator {
             buffer.pos(x+w, y+h, z+d).color(r, g, b, a).endVertex();
         }
     }
+
 
     public static void drawLines(final BufferBuilder buffer, float x, float y, float z, float w, float h, float d, int r, int g, int b, int a, int sides) {
         if ((sides & GeometryMasks.Line.DOWN_WEST) != 0) {

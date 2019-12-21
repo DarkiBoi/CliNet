@@ -23,6 +23,7 @@
     "MixinRenderLiving",
     "MixinPlayerControllerMP",
     "MixinEntityLlama",
-    "MixinMovementInputFromOptions"
+    "MixinMovementInputFromOptions",
+    "MixinLayerBipedArmor"
   ]
 }
