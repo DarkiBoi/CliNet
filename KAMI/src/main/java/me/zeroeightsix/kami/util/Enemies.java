@@ -6,6 +6,9 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
+import net.minecraft.world.ChunkCache;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -32,6 +35,21 @@ public class Enemies {
 
     public static boolean isEnemy(String name) {
         return enemies.getValue().stream().anyMatch(enemy -> enemy.username.equalsIgnoreCase(name));
+    }
+
+    /*Checks if Enemy is in HitRange (Parameter range)*/
+    public static boolean isEnemyNearby(double range) {
+        for (Entity e : Minecraft.getMinecraft().world.loadedEntityList) {
+            if(EntityUtil.isLiving(e)) {
+                if(Enemies.isEnemy(e.getName())) {
+                    if(Minecraft.getMinecraft().player.getDistance(e) > range) {
+                        return false;
+                    } else if (Minecraft.getMinecraft().player.getDistance(e) <= range) {
+                        return true;
+                    }
+                }
+            }
+        } return false;
     }
 
     public static class Enemy {

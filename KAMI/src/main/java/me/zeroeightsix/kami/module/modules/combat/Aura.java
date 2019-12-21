@@ -74,7 +74,7 @@ public class Aura extends Module {
         Iterator<Entity> entityIterator = Minecraft.getMinecraft().world.loadedEntityList.iterator();
         while (entityIterator.hasNext()) {
             Entity target = entityIterator.next();
-            if (isEnemyNearby()) {
+            if (Enemies.isEnemyNearby(hitRange.getValue())) {
                 if (Enemies.isEnemy(target.getName())) {
                     if (!EntityUtil.isLiving(target)) {
                         continue;
@@ -135,21 +135,6 @@ public class Aura extends Module {
             }
         }
 
-    }
-
-    /*Checks if Enemy is in HitRange*/
-    private boolean isEnemyNearby() {
-        for (Entity e : mc.world.loadedEntityList) {
-            if(EntityUtil.isLiving(e)) {
-                if(Enemies.isEnemy(e.getName())) {
-                    if(mc.player.getDistance(e) > hitRange.getValue()) {
-                        return false;
-                    } else if (mc.player.getDistance(e) <= hitRange.getValue()) {
-                        return true;
-                    }
-                }
-            }
-        } return false;
     }
 
 
