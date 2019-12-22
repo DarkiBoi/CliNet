@@ -54,6 +54,8 @@ public class KamiMod {
 
     public static final String CLINET_PREFIX = "CN";
 
+    public static final String DONATORS_JSON = "https://raw.githubusercontent.com/TheBritishMidget/CliNet/master/KAMI/assets/donators.json?token=AMDMJT42WX7QMXGF6LSANGS575KV4";
+
     private static final String KAMI_CONFIG_NAME_DEFAULT = "CliNetConfig.json";
 
     public static final Logger log = LogManager.getLogger("CliNet");
