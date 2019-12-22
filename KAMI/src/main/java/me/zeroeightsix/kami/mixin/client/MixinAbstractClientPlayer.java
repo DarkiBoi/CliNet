@@ -32,6 +32,8 @@ public abstract class MixinAbstractClientPlayer {
         }
 
         if (uuid != null && CapeManager.hasCape(uuid)) {
+            callbackInfoReturnable.setReturnValue(new ResourceLocation("textures/devCape.png"));
+            /*
             if (CapeManager.isDev(uuid)) {
                 callbackInfoReturnable.setReturnValue(new ResourceLocation("textures/devCape.png"));
             } else if (CapeManager.isUpperDonator(uuid)) {
@@ -39,6 +41,8 @@ public abstract class MixinAbstractClientPlayer {
             } else {
                 callbackInfoReturnable.setReturnValue(new ResourceLocation("textures/donatorCape.png"));
             }
+
+             */
         }
 
     }
