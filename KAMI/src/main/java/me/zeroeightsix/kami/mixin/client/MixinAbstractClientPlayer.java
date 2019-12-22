@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-@Mixin(AbstractClientPlayer.class)
+@Mixin({AbstractClientPlayer.class})
 public abstract class MixinAbstractClientPlayer {
 
     @Shadow
