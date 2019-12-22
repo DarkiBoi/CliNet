@@ -22,10 +22,7 @@ import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.setting.SettingsRegister;
 import me.zeroeightsix.kami.setting.config.Configuration;
-import me.zeroeightsix.kami.util.Enemies;
-import me.zeroeightsix.kami.util.Friends;
-import me.zeroeightsix.kami.util.LagCompensator;
-import me.zeroeightsix.kami.util.Wrapper;
+import me.zeroeightsix.kami.util.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -53,6 +50,8 @@ public class KamiMod {
     public static final String MODVER = "b1.5";
 
     public static final String CLINET_PREFIX = "CN";
+
+    public static final String DONATORS_JSON = "https://raw.githubusercontent.com/TheBritishMidget/CliNet/master/KAMI/assets/donators.json?token=AMDMJT42WX7QMXGF6LSANGS575KV4";
 
     private static final String KAMI_CONFIG_NAME_DEFAULT = "CliNetConfig.json";
 

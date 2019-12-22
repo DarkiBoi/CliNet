@@ -1,6 +1,7 @@
 package me.zeroeightsix.kami.module.modules.render;
 import me.zeroeightsix.kami.event.events.RenderEvent;
 import me.zeroeightsix.kami.module.Module;
+import me.zeroeightsix.kami.module.modules.misc.ChatAppend;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.util.GeometryMasks;
@@ -9,6 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.opengl.GL11;
+import scala.tools.reflect.quasiquotes.Holes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +20,20 @@ public class HoleESP extends Module {
 
     private Setting<Integer> rangeXZ = register(Settings.integerBuilder("Range XZ").withMinimum(1).withMaximum(25).withValue(15).build());
     private Setting<Integer> rangeY = register(Settings.integerBuilder("Range Y").withMinimum(1).withMaximum(25).withValue(15).build());
+    public static Setting<HoleESP.Mode> mode = Settings.e("Mode", Mode.HALFBOX);
 
     private List<BlockPos> holes = new ArrayList<BlockPos>();
+
+    private static HoleESP instance = new HoleESP();
+
+    public HoleESP() {
+        instance = this;
+        register(mode);
+    }
+
+    public enum Mode {
+        BOX, HALFBOX
+    }
 
     @Override
     public void onUpdate() {
@@ -45,7 +59,15 @@ public class HoleESP extends Module {
     @Override
     public void onWorldRender(RenderEvent event) {
         KamiTessellator.prepare(GL11.GL_QUADS);
-        holes.forEach(pos -> KamiTessellator.drawBox(pos, 0x22FFFFFF, GeometryMasks.Quad.ALL));
+        switch (mode.getValue()) {
+            case BOX:
+                holes.forEach(pos -> KamiTessellator.drawBox(pos, 0x22FFFFFF, GeometryMasks.Quad.ALL));
+                break;
+            case HALFBOX:
+                holes.forEach(pos -> KamiTessellator.drawHalfBox(pos, 0x22FFFFFF, GeometryMasks.Quad.ALL));
+                break;
+        }
+
         KamiTessellator.release();
     }
 
