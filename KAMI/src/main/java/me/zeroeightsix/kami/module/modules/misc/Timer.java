@@ -10,7 +10,7 @@ import me.zeroeightsix.kami.setting.Settings;
 @Module.Info(name = "Timer", description = "Makes your game faster", category = Module.Category.MISC)
 public class Timer extends Module {
 
-    private Setting<Float> speed = register(Settings.floatBuilder("Speed").withMinimum(0f).withMaximum(10f).withValue(2f));
+    private Setting<Float> speed = register(Settings.floatBuilder("Speed").withMinimum(0f).withMaximum(10f).withValue(4.2f));
 
     @Override
     public void onDisable() {
