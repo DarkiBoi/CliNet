@@ -33,11 +33,11 @@ public abstract class MixinAbstractClientPlayer {
 
         if (uuid != null && CapeManager.hasCape(uuid)) {
             if (CapeManager.isDev(uuid)) {
-                callbackInfoReturnable.setReturnValue(new ResourceLocation("textures/donatorCape.png"));
+                callbackInfoReturnable.setReturnValue(new ResourceLocation("textures/devcape.png"));
             } else if (CapeManager.isUpperDonator(uuid)) {
-                callbackInfoReturnable.setReturnValue(new ResourceLocation("textures/donatorCape.png"));
+                callbackInfoReturnable.setReturnValue(new ResourceLocation("textures/donatorcape.png"));
             } else {
-                callbackInfoReturnable.setReturnValue(new ResourceLocation("textures/donatorCape.png"));
+                callbackInfoReturnable.setReturnValue(new ResourceLocation("textures/donatorcape.png"));
             }
         }
 

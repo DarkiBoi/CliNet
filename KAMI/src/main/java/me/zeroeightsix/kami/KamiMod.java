@@ -103,6 +103,7 @@ public class KamiMod {
 
         CapeManager capeManager = new CapeManager();
         capeManager.initializeCapes();
+        KamiMod.log.info("Capes loaded");
 
         Friends.initFriends();
         Enemies.initEnemy();
