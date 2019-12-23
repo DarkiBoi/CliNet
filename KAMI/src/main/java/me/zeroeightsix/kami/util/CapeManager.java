@@ -1,5 +1,6 @@
 package me.zeroeightsix.kami.util;
 
+import me.zeroeightsix.kami.KamiMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.util.ResourceLocation;
@@ -21,12 +22,9 @@ public class CapeManager {
     private static final String donateGithub = "https://raw.githubusercontent.com/CliNetMC/capes/master/donators";
     private static final String donateHigherGithub = "https://raw.githubusercontent.com/CliNetMC/capes/master/donatorsHigher";
     private static final String devGithub = "https://raw.githubusercontent.com/CliNetMC/capes/master/devs";
-    private static final String donateHigherGithubCapeName = "https://raw.githubusercontent.com/CliNetMC/capes/master/devs";
 
     private static HashMap<String, capeUserType> capeUsers;
-    private static HashMap<String, String> higherCapeUsers;
-    private static List<String> higherCapeUserArray = new ArrayList<String>();
-    private static List<String> capes = new ArrayList<String>();
+    private static HashMap<String, String> UUIDandCapes = new HashMap<>();
 
     public enum capeUserType {
         DONATOR, UPPERDONATOR, DEV
@@ -61,13 +59,12 @@ public class CapeManager {
 
     public static String getImgName(final UUID uuid) {
         if (hasCape(uuid) && isUpperDonator(uuid)) {
-            return higherCapeUsers.get(sanitizeUuid(uuid));
+            return UUIDandCapes.get(sanitizeUuid(uuid));
         }
         return "donatorcape.png";
     }
 
-
-    private static String sanitizeUuid(UUID uuid) {
+    public static String sanitizeUuid(UUID uuid) {
         return sanitizeUuidString(uuid.toString());
     }
 
@@ -77,18 +74,13 @@ public class CapeManager {
 
     public void initializeCapes() {
 
-        getFromGithub(donateHigherGithub).forEach(uuid -> {
+        getFromGithubCapes(donateHigherGithub).forEach((uuid, cape) -> {
+            UUIDandCapes.put(uuid, cape);
+        });
+
+        getFromGithubWithoutCapes(donateHigherGithub).forEach(uuid -> {
             capeUsers.put(uuid, capeUserType.UPPERDONATOR);
-            higherCapeUserArray.add(uuid);
         });
-
-        getFromGithub(donateHigherGithubCapeName).forEach(cape -> {
-            capes.add(cape);
-        });
-
-        for (Object uuid : higherCapeUserArray) {
-            higherCapeUsers.put(uuid.toString(), capes.get(higherCapeUserArray.indexOf(uuid)));
-        }
 
         getFromGithub(donateGithub).forEach(uuid -> {
             capeUsers.put(uuid, capeUserType.DONATOR);
@@ -147,6 +139,104 @@ public class CapeManager {
         return uuidList;
 
     }
+
+    private HashMap<String, String> getFromGithubCapes(String urlString) {
+
+        URL url;
+
+        try {
+            url = new URL(urlString);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return new HashMap<>();
+        }
+
+        BufferedReader bufferedReader;
+
+        try {
+            bufferedReader = new BufferedReader(new InputStreamReader(url.openStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new HashMap<>();
+        }
+
+        HashMap<String, String> uuidAndCapeList = new HashMap<String, String>();
+        String line;
+        String[] split;
+
+        while (true) {
+            try {
+                if ((line = bufferedReader.readLine()) == null) {
+                    break;
+                }
+                split = line.split(":");
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new HashMap<>();
+            }
+            uuidAndCapeList.put(sanitizeUuidString(split[0]), split[1]);
+        }
+
+        try {
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new HashMap<>();
+        }
+
+        return uuidAndCapeList;
+
+    }
+
+    private List<String> getFromGithubWithoutCapes(String urlString) {
+
+        URL url;
+
+        try {
+            url = new URL(urlString);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+
+        BufferedReader bufferedReader;
+
+        try {
+            bufferedReader = new BufferedReader(new InputStreamReader(url.openStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+
+        List<String> uuidList = new ArrayList<>();
+        String line;
+        String[] split;
+
+        while (true) {
+            try {
+                if ((line = bufferedReader.readLine()) == null) {
+                    break;
+                }
+                split = line.split(":");
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new ArrayList<>();
+            }
+            uuidList.add(sanitizeUuidString(split[0]));
+        }
+
+        try {
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+
+        return uuidList;
+
+    }
+
+
 
 
 }

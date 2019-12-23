@@ -1,5 +1,6 @@
 package me.zeroeightsix.kami.mixin.client;
 
+import me.zeroeightsix.kami.KamiMod;
 import me.zeroeightsix.kami.util.CapeManager;
 import me.zeroeightsix.kami.util.Wrapper;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -38,14 +39,18 @@ public abstract class MixinAbstractClientPlayer {
         }
 
         if (uuid != null && CapeManager.hasCape(uuid)) {
-            if (CapeManager.isDev(uuid)) {
-                callbackInfoReturnable.setReturnValue(new ResourceLocation("textures/devcape.png"));
-            } else if (CapeManager.isUpperDonator(uuid)) { //
+            if (CapeManager.isUpperDonator(uuid)) {
                 DynamicTexture texture = new DynamicTexture(ImageIO.read(new URL("https://raw.githubusercontent.com/CliNetMC/capes/master/" + CapeManager.getImgName(uuid))));
                 ResourceLocation location = Wrapper.getMinecraft().getTextureManager().getDynamicTextureLocation("textures/capes", texture);
                 callbackInfoReturnable.setReturnValue(location);
+            } else if (CapeManager.isDev(uuid)) {
+                DynamicTexture texture = new DynamicTexture(ImageIO.read(new URL("https://raw.githubusercontent.com/CliNetMC/capes/master/devcape.png")));
+                ResourceLocation location = Wrapper.getMinecraft().getTextureManager().getDynamicTextureLocation("textures/capes", texture);
+                callbackInfoReturnable.setReturnValue(location);
             } else {
-                callbackInfoReturnable.setReturnValue(new ResourceLocation("textures/donatorcape.png"));
+                DynamicTexture texture = new DynamicTexture(ImageIO.read(new URL("https://raw.githubusercontent.com/CliNetMC/capes/master/donatorcape.png")));
+                ResourceLocation location = Wrapper.getMinecraft().getTextureManager().getDynamicTextureLocation("textures/capes", texture);
+                callbackInfoReturnable.setReturnValue(location);
             }
         }
 
