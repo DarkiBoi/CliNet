@@ -1,7 +1,10 @@
 package me.zeroeightsix.kami.util;
 
-import com.sun.org.apache.xerces.internal.xs.StringList;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.util.ResourceLocation;
 
+import javax.imageio.ImageIO;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.BiConsumer;
 
 public class CapeManager {
 
@@ -19,6 +23,7 @@ public class CapeManager {
     private static final String devGithub = "https://raw.githubusercontent.com/CliNetMC/capes/master/devs";
 
     private static HashMap<String, capeUserType> capeUsers;
+    private static HashMap<String, String> higherCapeUsers;
 
     public enum capeUserType {
         DONATOR, UPPERDONATOR, DEV
@@ -50,6 +55,13 @@ public class CapeManager {
         return false;
     }
 
+    public static String upperGetLocation(final UUID uuid) {
+        if (hasCape(uuid) && isUpperDonator(uuid)) {
+            return higherCapeUsers.get(sanitizeUuid(uuid));
+        }
+        return "textures/donatorcape.png";
+    }
+
 
     private static String sanitizeUuid(UUID uuid) {
         return sanitizeUuidString(uuid.toString());
@@ -61,20 +73,69 @@ public class CapeManager {
 
     public void initializeCapes() {
 
-        getFromPastebin(donateGithub).forEach(uuid -> {
+        getFromGithub(donateGithub).forEach(uuid -> {
             capeUsers.put(uuid, capeUserType.DONATOR);
         });
 
-        getFromPastebin(donateHigherGithub).forEach(uuid -> {
-            capeUsers.put(uuid, capeUserType.UPPERDONATOR);
-        });
-        getFromPastebin(devGithub).forEach(uuid -> {
+        BiConsumer<String, String> action = new UpperDonatorBiConsumer();
+
+        getFromGithubUpper(donateHigherGithub).forEach(action);
+
+        getFromGithub(devGithub).forEach(uuid -> {
             capeUsers.put(uuid, capeUserType.DEV);
         });
 
     }
 
-    private List<String> getFromPastebin(String urlString) {
+    private HashMap<String, String> getFromGithubUpper(String urlString) {
+
+        URL url;
+
+        try {
+            url = new URL(urlString);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return new HashMap<>();
+        }
+
+        BufferedReader bufferedReader;
+
+        try {
+            bufferedReader = new BufferedReader(new InputStreamReader(url.openStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new HashMap<>();
+        }
+
+        HashMap<String, String> uuidAndImage = new HashMap<String, String>();
+        String line;
+        String[] split;
+
+        while (true) {
+            try {
+                if ((line = bufferedReader.readLine()) == null) {
+                    break;
+                }
+                split = line.split(":");
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new HashMap<>();
+            }
+            uuidAndImage.put(sanitizeUuidString(split[0]), split[1]);
+        }
+
+        try {
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new HashMap<>();
+        }
+
+        return uuidAndImage;
+
+    }
+
+    private List<String> getFromGithub(String urlString) {
 
         URL url;
 
@@ -118,6 +179,21 @@ public class CapeManager {
 
         return uuidList;
 
+    }
+
+    class UpperDonatorBiConsumer implements BiConsumer<String, String> {
+
+        @Override
+        public void accept(String k, String v) {
+            capeUsers.put(k, capeUserType.UPPERDONATOR);
+            try {
+                DynamicTexture texture = new DynamicTexture(ImageIO.read(new URL("https://raw.githubusercontent.com/CliNetMC/capes/master/" + v)));
+                ResourceLocation location = Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation("textures/capes", texture);
+                higherCapeUsers.put(k, location.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

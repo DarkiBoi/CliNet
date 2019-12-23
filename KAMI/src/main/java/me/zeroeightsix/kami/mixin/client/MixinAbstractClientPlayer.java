@@ -35,7 +35,7 @@ public abstract class MixinAbstractClientPlayer {
             if (CapeManager.isDev(uuid)) {
                 callbackInfoReturnable.setReturnValue(new ResourceLocation("textures/devcape.png"));
             } else if (CapeManager.isUpperDonator(uuid)) {
-                callbackInfoReturnable.setReturnValue(new ResourceLocation("textures/donatorcape.png"));
+                callbackInfoReturnable.setReturnValue(new ResourceLocation(CapeManager.upperGetLocation(uuid)));
             } else {
                 callbackInfoReturnable.setReturnValue(new ResourceLocation("textures/donatorcape.png"));
             }
