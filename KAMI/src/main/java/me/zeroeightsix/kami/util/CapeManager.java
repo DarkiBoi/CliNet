@@ -83,9 +83,7 @@ public class CapeManager {
             capeUsers.put(uuid, capeUserType.UPPERDONATOR);
         });
 
-        getFromGithub(donateHigherGithubCapeName).forEach(cape -> {
-            capes.add(cape);
-        });
+        capes.addAll(getFromGithub(donateHigherGithubCapeName));
 
         int posInArray = 0;
 
