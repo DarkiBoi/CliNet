@@ -86,8 +86,8 @@ public class CapeManager {
             capes.add(cape);
         });
 
-        for (String uuid : higherCapeUserArray) {
-            higherCapeUsers.put(uuid, capes.get(higherCapeUserArray.indexOf(uuid)));
+        for (Object uuid : higherCapeUserArray) {
+            higherCapeUsers.put(uuid.toString(), capes.get(higherCapeUserArray.indexOf(uuid)));
         }
 
         getFromGithub(donateGithub).forEach(uuid -> {
