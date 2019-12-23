@@ -25,7 +25,7 @@ public class CapeManager {
 
     private static HashMap<String, capeUserType> capeUsers;
     private static HashMap<String, String> higherCapeUsers;
-    private static List<String> capes;
+    private static List<String> capes = new ArrayList<String>();
 
     public enum capeUserType {
         DONATOR, UPPERDONATOR, DEV
@@ -83,7 +83,9 @@ public class CapeManager {
             capeUsers.put(uuid, capeUserType.UPPERDONATOR);
         });
 
-        capes.addAll(getFromGithub(donateHigherGithubCapeName));
+        getFromGithub(donateHigherGithubCapeName).forEach(cape -> {
+            capes.add(cape);
+        });
 
         int posInArray = 0;
 
