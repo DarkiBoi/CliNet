@@ -21,13 +21,16 @@ public class CapeManager {
     private static final String donateGithub = "https://raw.githubusercontent.com/CliNetMC/capes/master/donators";
     private static final String donateHigherGithub = "https://raw.githubusercontent.com/CliNetMC/capes/master/donatorsHigher";
     private static final String devGithub = "https://raw.githubusercontent.com/CliNetMC/capes/master/devs";
+    private static final String donateHigherGithubCapeName = "https://raw.githubusercontent.com/CliNetMC/capes/master/devs";
 
     private static HashMap<String, capeUserType> capeUsers;
     private static HashMap<String, String> higherCapeUsers;
+    private static List<String> capes;
 
     public enum capeUserType {
         DONATOR, UPPERDONATOR, DEV
     }
+
 
     public CapeManager() {
         capeUsers = new HashMap<>();
@@ -55,11 +58,11 @@ public class CapeManager {
         return false;
     }
 
-    public static String upperGetLocation(final UUID uuid) {
+    public static String getImgName(final UUID uuid) {
         if (hasCape(uuid) && isUpperDonator(uuid)) {
             return higherCapeUsers.get(sanitizeUuid(uuid));
         }
-        return "textures/donatorcape.png";
+        return "donatorcape.png";
     }
 
 
@@ -71,67 +74,35 @@ public class CapeManager {
         return uuidString.replaceAll("-", "").toLowerCase();
     }
 
+
+    int posInArray;
+
     public void initializeCapes() {
+
+        getFromGithub(donateHigherGithub).forEach(uuid -> {
+            capeUsers.put(uuid, capeUserType.UPPERDONATOR);
+        });
+
+        getFromGithub(donateHigherGithubCapeName).forEach(cape -> {
+            capes.add(cape);
+        });
+
+        int posInArray = 0;
+
+        capeUsers.forEach((uuid, type) -> {
+            higherCapeUsers.put(uuid, capes.get(this.posInArray));
+            this.posInArray++;
+        });
 
         getFromGithub(donateGithub).forEach(uuid -> {
             capeUsers.put(uuid, capeUserType.DONATOR);
         });
 
-        BiConsumer<String, String> action = new UpperDonatorBiConsumer();
-
-        getFromGithubUpper(donateHigherGithub).forEach(action);
-
         getFromGithub(devGithub).forEach(uuid -> {
             capeUsers.put(uuid, capeUserType.DEV);
         });
 
-    }
 
-    private HashMap<String, String> getFromGithubUpper(String urlString) {
-
-        URL url;
-
-        try {
-            url = new URL(urlString);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            return new HashMap<>();
-        }
-
-        BufferedReader bufferedReader;
-
-        try {
-            bufferedReader = new BufferedReader(new InputStreamReader(url.openStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new HashMap<>();
-        }
-
-        HashMap<String, String> uuidAndImage = new HashMap<String, String>();
-        String line;
-        String[] split;
-
-        while (true) {
-            try {
-                if ((line = bufferedReader.readLine()) == null) {
-                    break;
-                }
-                split = line.split(":");
-            } catch (IOException e) {
-                e.printStackTrace();
-                return new HashMap<>();
-            }
-            uuidAndImage.put(sanitizeUuidString(split[0]), split[1]);
-        }
-
-        try {
-            bufferedReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new HashMap<>();
-        }
-
-        return uuidAndImage;
 
     }
 
@@ -181,19 +152,5 @@ public class CapeManager {
 
     }
 
-    class UpperDonatorBiConsumer implements BiConsumer<String, String> {
-
-        @Override
-        public void accept(String k, String v) {
-            capeUsers.put(k, capeUserType.UPPERDONATOR);
-            try {
-                DynamicTexture texture = new DynamicTexture(ImageIO.read(new URL("https://raw.githubusercontent.com/CliNetMC/capes/master/" + v)));
-                ResourceLocation location = Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation("textures/capes", texture);
-                higherCapeUsers.put(k, location.toString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
 }
