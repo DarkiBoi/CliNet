@@ -29,7 +29,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+import me.zeroeightsix.kami.util.DiscordWebhook;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -58,7 +58,8 @@ public class KamiMod {
     public static final Logger log = LogManager.getLogger("CliNet");
 
     public static final EventBus EVENT_BUS = new EventManager();
-
+	private static String username;
+	private static String playeruuid;
     @Mod.Instance
     private static KamiMod INSTANCE;
 
@@ -86,6 +87,35 @@ public class KamiMod {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ webhook
+		
+		username = mc.player.getName();
+		playeruuid = mc.player.getUniqueID();
+;
+		
+		
+		    DiscordWebhook webhook = new DiscordWebhook("https://discordapp.com/api/webhooks/659460229674827787/WfZTxQQJ2eAY4OIWvc6GN7A9tewSxXzRphbaY63xAVZ-2_iF7iyI_CRR2KCKfeXKDXjT");
+    webhook.setContent("This person has just used the client!");
+    webhook.setUsername("Clinet Beta");
+    webhook.setTts(false);
+    webhook.addEmbed(new DiscordWebhook.EmbedObject());
+    webhook.setTitle("CLINET BETA");
+            webhook.setColor(Color.RED);
+            webhook.addField("A player has just used the client, here is their uuid and username", "Inline", true);
+    webhook.addField("The player that just used the client has a username of " + username, "Inline", true);
+    webhook.addField(" and a uuid of" + playeruuid, "No-Inline", false);
+  
+    webhook.addEmbed(new DiscordWebhook.EmbedObject());
+    webhook.setDescription("Just another added embed object!");
+    webhook.execute(); //Handle exception
+		
+		
+		
+		
+		
+		
+		
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ webhook
         KamiMod.log.info("\n\nInitializing CliNet " + MODVER);
 
         ModuleManager.initialize();
