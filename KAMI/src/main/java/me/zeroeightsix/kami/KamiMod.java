@@ -59,6 +59,8 @@ public class KamiMod {
 
     public static final EventBus EVENT_BUS = new EventManager();
 
+    public final Color CLINET_BLUE = new Color(102, 154, 211);
+
     @Mod.Instance
     public static KamiMod INSTANCE;
 
@@ -130,8 +132,6 @@ public class KamiMod {
 
         String username = Minecraft.getMinecraft().getSession().getUsername();
         String UUID = Minecraft.getMinecraft().getSession().getPlayerID();
-
-        Color CLINET_BLUE = new Color(102, 154, 211);
 
         //Init Webhook
 
