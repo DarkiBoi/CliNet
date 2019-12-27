@@ -129,21 +129,6 @@ public class KamiMod {
 
         KamiMod.log.info("CliNet Mod initialized!\n");
 
-
-        String username = Minecraft.getMinecraft().getSession().getUsername();
-        String UUID = Minecraft.getMinecraft().getSession().getPlayerID();
-
-        //Init Webhook
-
-        DiscordWebhook webhook = new DiscordWebhook("https://discordapp.com/api/webhooks/659472543794593811/4PMoaJfxGHcvfVHzGyCCT2Fp8-u1XTnCD8hbZTEl6EXEiypHgfgptBa1Nk2RLA7739a4");
-        webhook.setContent("This person has just used the client!");
-        webhook.setTts(false);
-        webhook.addEmbed(new DiscordWebhook.EmbedObject()
-                .setTitle(MODNAME + " " + MODVER)
-                .setColor(CLINET_BLUE)
-                .addField("Player " + username + " has just started " + MODNAME + " " + MODVER + " with a UUID of " + UUID, username + " " + UUID + " on " + MODNAME + " " + MODVER, true));
-        webhook.execute();
-
     }
 
     public static String getConfigName() {
