@@ -23,13 +23,15 @@ import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.setting.SettingsRegister;
 import me.zeroeightsix.kami.setting.config.Configuration;
 import me.zeroeightsix.kami.util.*;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import me.zeroeightsix.kami.util.DiscordWebhook;
+
+import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -47,21 +49,18 @@ public class KamiMod {
 
     public static final String MODID = "clinet";
     public static final String MODNAME = "CliNet";
-    public static final String MODVER = "b1.5";
+    public static final String MODVER = "b2";
 
     public static final String CLINET_PREFIX = "CN";
-
-    public static final String DONATORS_JSON = "https://raw.githubusercontent.com/TheBritishMidget/CliNet/master/KAMI/assets/donators.json?token=AMDMJT42WX7QMXGF6LSANGS575KV4";
 
     private static final String KAMI_CONFIG_NAME_DEFAULT = "CliNetConfig.json";
 
     public static final Logger log = LogManager.getLogger("CliNet");
 
     public static final EventBus EVENT_BUS = new EventManager();
-	private static String username;
-	private static String playeruuid;
+
     @Mod.Instance
-    private static KamiMod INSTANCE;
+    public static KamiMod INSTANCE;
 
     public KamiGUI guiManager;
     public CommandManager commandManager;
@@ -86,38 +85,8 @@ public class KamiMod {
 
 
     @Mod.EventHandler
-    public void init(FMLInitializationEvent event) {
-		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ webhook
-		
-		username = mc.player.getName();
-		playeruuid = mc.player.getUniqueID();
-;
-		
-		
-		    DiscordWebhook webhook = new DiscordWebhook("https://discordapp.com/api/webhooks/659460229674827787/WfZTxQQJ2eAY4OIWvc6GN7A9tewSxXzRphbaY63xAVZ-2_iF7iyI_CRR2KCKfeXKDXjT");
-    webhook.setContent("This person has just used the client!");
-    webhook.setUsername("Clinet Beta");
-    webhook.setTts(false);
-    webhook.addEmbed(new DiscordWebhook.EmbedObject());
-    webhook.setTitle("CLINET BETA");
-            webhook.setColor(Color.RED);
-            webhook.addField("A player has just used the client, here is their uuid and username", "Inline", true);
-    webhook.addField("The player that just used the client has a username of " + username, "Inline", true);
-    webhook.addField(" and a uuid of" + playeruuid, "No-Inline", false);
-  
-    webhook.addEmbed(new DiscordWebhook.EmbedObject());
-    webhook.setDescription("Just another added embed object!");
-    webhook.execute(); //Handle exception
-		
-		
-		
-		
-		
-		
-		
-		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ webhook
+    public void init(FMLInitializationEvent event) throws IOException {
         KamiMod.log.info("\n\nInitializing CliNet " + MODVER);
-
         ModuleManager.initialize();
 
         ModuleManager.getModules().stream().filter(module -> module.alwaysListening).forEach(EVENT_BUS::subscribe);
@@ -157,6 +126,24 @@ public class KamiMod {
         }
 
         KamiMod.log.info("CliNet Mod initialized!\n");
+
+
+        String username = Minecraft.getMinecraft().getSession().getUsername();
+        String UUID = Minecraft.getMinecraft().getSession().getPlayerID();
+
+        Color CLINET_BLUE = new Color(102, 154, 211);
+
+        //Init Webhook
+
+        DiscordWebhook webhook = new DiscordWebhook("https://discordapp.com/api/webhooks/659472543794593811/4PMoaJfxGHcvfVHzGyCCT2Fp8-u1XTnCD8hbZTEl6EXEiypHgfgptBa1Nk2RLA7739a4");
+        webhook.setContent("This person has just used the client!");
+        webhook.setTts(false);
+        webhook.addEmbed(new DiscordWebhook.EmbedObject()
+                .setTitle(MODNAME + " " + MODVER)
+                .setColor(CLINET_BLUE)
+                .addField("Player " + username + " has just started " + MODNAME + " " + MODVER + " with a UUID of " + UUID, username + " " + UUID + " on " + MODNAME + " " + MODVER, true));
+        webhook.execute();
+
     }
 
     public static String getConfigName() {
