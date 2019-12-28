@@ -232,9 +232,9 @@ public class KamiGUI extends GUI {
         friends.setShadow(true);
         friends.addTickListener(() -> {
             friends.setText("");
-            for (Friend friend : Friends.friends) {
+            Friends.friends.getValue().forEach(friend -> {
                 friends.addLine(friend.getUsername());
-            }
+            });
         });
         frame.addChild(friends);
         friends.setFontRenderer(fontRenderer);
