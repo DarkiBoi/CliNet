@@ -237,7 +237,7 @@ public class KamiGUI extends GUI {
             }
         });
         frame.addChild(friends);
-        information.setFontRenderer(fontRenderer);
+        friends.setFontRenderer(fontRenderer);
         frames.add(frame);
 
         frame = new Frame(getTheme(), new Stretcherlayout(1), "Item Durability");
