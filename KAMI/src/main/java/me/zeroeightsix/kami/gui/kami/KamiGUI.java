@@ -235,10 +235,8 @@ public class KamiGUI extends GUI {
             for (Friend friend : Friend.friends) {
                 friends.addLine(friend.getUsername());
             }
-
-
         });
-        frame.addChild(information);
+        frame.addChild(friends);
         information.setFontRenderer(fontRenderer);
         frames.add(frame);
 
