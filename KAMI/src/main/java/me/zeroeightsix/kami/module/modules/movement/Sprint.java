@@ -1,6 +1,9 @@
 package me.zeroeightsix.kami.module.modules.movement;
 
 import me.zeroeightsix.kami.module.Module;
+import me.zeroeightsix.kami.setting.Setting;
+import me.zeroeightsix.kami.setting.Settings;
+import me.zeroeightsix.kami.util.EntityUtil;
 
 /**
  * Created by 086 on 23/08/2017.
@@ -8,14 +11,49 @@ import me.zeroeightsix.kami.module.Module;
 @Module.Info(name = "Sprint", description = "Automatically makes the player sprint", category = Module.Category.MOVEMENT)
 public class Sprint extends Module {
 
+    private static Sprint instance = new Sprint();
+
+    private Setting<Mode> mode = Settings.e("Mode", Mode.NORMAL);
+
+    public Sprint() {
+        instance = this;
+        register(mode);
+    }
+
+    public enum Mode {
+        NORMAL, LEGIT
+    }
+
     @Override
     public void onUpdate() {
-        try {
-            if (!mc.player.collidedHorizontally && mc.player.moveForward > 0)
+        switch (mode.getValue()) {
+            case LEGIT:
+                if (!EntityUtil.isPlayerMovingLegit()) {
+                    mc.player.setSprinting(false);
+                    return;
+                }
+
+                if (mc.player.collidedHorizontally) {
+                    mc.player.setSprinting(false);
+                    return;
+                }
+
                 mc.player.setSprinting(true);
-            else
-                mc.player.setSprinting(false);
-        } catch (Exception ignored) {}
+
+            case NORMAL:
+                if (!EntityUtil.isPlayerMovingKeybind()) {
+                    mc.player.setSprinting(false);
+                    return;
+                }
+
+                if (mc.player.collidedHorizontally) {
+                    mc.player.setSprinting(false);
+                    return;
+                }
+
+                mc.player.setSprinting(true);
+        }
+
     }
 
 }

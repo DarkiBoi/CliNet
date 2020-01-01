@@ -17,7 +17,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class EntityUtil {
 
-    public Minecraft mc = Minecraft.getMinecraft();
+    public static Minecraft mc = Minecraft.getMinecraft();
 
     public static boolean isPassive(Entity e){
         if (e instanceof EntityWolf && ((EntityWolf) e).isAngry()) return false;
@@ -174,13 +174,16 @@ public class EntityUtil {
         return (double) (MathHelper.cos(yaw * 0.017453292F));
     }
 
-    public boolean isPlayerMoving() {
-        if (mc.gameSettings.keyBindForward.isPressed() || mc.gameSettings.keyBindBack.isPressed() || mc.gameSettings.keyBindLeft.isPressed() || mc.gameSettings.keyBindRight.isPressed() || mc.gameSettings.keyBindJump.isPressed()) {
-            return true;
-        }
-        else {
-            return false;
-        }
+    public static boolean isPlayerMovingKeybind() {
+        return mc.gameSettings.keyBindForward.isKeyDown() || mc.gameSettings.keyBindBack.isKeyDown() || mc.gameSettings.keyBindLeft.isKeyDown() || mc.gameSettings.keyBindRight.isKeyDown();
+    }
+
+    public static boolean isPlayerMovingMomentum() {
+        return mc.player.moveForward > 0 || mc.player.moveStrafing > 0 || mc.player.moveForward < 0 || mc.player.moveStrafing < 0;
+    }
+
+    public static boolean isPlayerMovingLegit() {
+        return mc.gameSettings.keyBindForward.isKeyDown();
     }
 
 }

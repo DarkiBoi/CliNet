@@ -1,7 +1,6 @@
 package me.zeroeightsix.kami.gui.kami;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import javafx.scene.control.ToggleButton;
 import me.zeroeightsix.kami.KamiMod;
 import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.gui.kami.component.*;
@@ -11,7 +10,6 @@ import me.zeroeightsix.kami.gui.rgui.component.container.use.Frame;
 import me.zeroeightsix.kami.gui.rgui.component.container.use.Scrollpane;
 import me.zeroeightsix.kami.gui.rgui.component.listen.MouseListener;
 import me.zeroeightsix.kami.gui.rgui.component.listen.TickListener;
-import me.zeroeightsix.kami.gui.rgui.component.use.Button;
 import me.zeroeightsix.kami.gui.rgui.component.use.CheckButton;
 import me.zeroeightsix.kami.gui.rgui.component.use.Label;
 import me.zeroeightsix.kami.gui.rgui.component.use.Slider;
@@ -20,10 +18,7 @@ import me.zeroeightsix.kami.gui.rgui.util.ContainerHelper;
 import me.zeroeightsix.kami.gui.rgui.util.Docking;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.module.ModuleManager;
-import me.zeroeightsix.kami.util.ColourHolder;
-import me.zeroeightsix.kami.util.LagCompensator;
-import me.zeroeightsix.kami.util.Pair;
-import me.zeroeightsix.kami.util.Wrapper;
+import me.zeroeightsix.kami.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -34,7 +29,6 @@ import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
-import scala.collection.parallel.ParIterableLike;
 
 import javax.annotation.Nonnull;
 import java.math.RoundingMode;
