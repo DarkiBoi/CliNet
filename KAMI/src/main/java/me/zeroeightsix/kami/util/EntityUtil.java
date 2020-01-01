@@ -189,7 +189,7 @@ public class EntityUtil {
         return mc.gameSettings.keyBindForward.isKeyDown();
     }
 
-    public static String getPlayerMoveSpeed() {
+    public static String getPlayerSpeed() {
         DecimalFormat df = new DecimalFormat("#.#");
 
         double deltaX = mc.player.posX - mc.player.prevPosX;
