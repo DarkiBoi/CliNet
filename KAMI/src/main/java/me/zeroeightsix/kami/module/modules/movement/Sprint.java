@@ -6,7 +6,7 @@ import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.util.EntityUtil;
 
 /**
- * Created by 086 on 23/08/2017.
+ * Created by Darki on 1/01/2019. (Complete Recode and added mode)
  */
 @Module.Info(name = "Sprint", description = "Automatically makes the player sprint", category = Module.Category.MOVEMENT)
 public class Sprint extends Module {
