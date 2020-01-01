@@ -211,8 +211,9 @@ public class KamiGUI extends GUI {
             information.addLine("\u00A7b" + KamiMod.CLINET_PREFIX + "\u00A73 " + KamiMod.MODVER);
             information.addLine("\u00A7b" + Math.round(LagCompensator.INSTANCE.getTickRate()) + Command.SECTIONSIGN() + "3 tps");
             information.addLine("\u00A7b" + Wrapper.getMinecraft().debugFPS + Command.SECTIONSIGN() + "3 fps");
+            information.addLine("[ " + Command.SECTIONSIGN() +"3" + EntityUtil.getPlayerMoveSpeed() + "m/s " +  Command.SECTIONSIGN() + "r]");
+            information.addLine("\u00A7b" + EntityUtil.getPing() + Command.SECTIONSIGN() + "3 ms");
 
-//            information.addLine("[&3" + Sprint.getSpeed() + "km/h&r]");
 
         });
         frame.addChild(information);

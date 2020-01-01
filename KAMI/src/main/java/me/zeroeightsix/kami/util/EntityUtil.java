@@ -2,6 +2,7 @@ package me.zeroeightsix.kami.util;
 
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,6 +15,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+
+import java.text.DecimalFormat;
 
 public class EntityUtil {
 
@@ -184,6 +187,31 @@ public class EntityUtil {
 
     public static boolean isPlayerMovingLegit() {
         return mc.gameSettings.keyBindForward.isKeyDown();
+    }
+
+    public static String getPlayerMoveSpeed() {
+        DecimalFormat df = new DecimalFormat("#.#");
+
+        double deltaX = mc.player.posX - mc.player.prevPosX;
+        double deltaY = mc.player.posY - mc.player.prevPosY;
+        float tickRate = mc.timer.tickLength / 1000.0F;
+
+        String bps = df.format(MathHelper.sqrt(deltaX * deltaX + deltaY * deltaY) / tickRate);
+
+
+        return bps;
+    }
+
+    public static int getPing() {
+
+        if(mc.world == null || mc.player == null || mc.player.getUniqueID() == null) return 0;
+
+        NetworkPlayerInfo debugInfo = mc.getConnection().getPlayerInfo(mc.player.getUniqueID());
+
+        if (debugInfo == null) return 0;
+
+        return debugInfo.getResponseTime();
+
     }
 
 }
