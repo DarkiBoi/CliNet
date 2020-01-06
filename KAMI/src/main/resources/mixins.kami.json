@@ -23,7 +23,7 @@
     "MixinRenderLiving",
     "MixinPlayerControllerMP",
     "MixinEntityLlama",
-    "MixinLayerBipedArmor",
+    "MixinLayerArmorBase",
     "MixinAbstractClientPlayer"
   ]
 }
