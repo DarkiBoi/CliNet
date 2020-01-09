@@ -33,6 +33,11 @@ public class Sprint extends Module {
                     return;
                 }
 
+                if(mc.player.isSneaking()) {
+                    mc.player.setSprinting(false);
+                    return;
+                }
+
                 if (mc.player.collidedHorizontally) {
                     mc.player.setSprinting(false);
                     return;

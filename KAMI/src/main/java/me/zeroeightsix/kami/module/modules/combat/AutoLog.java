@@ -9,12 +9,14 @@ import me.zeroeightsix.kami.setting.Settings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.network.play.server.SPacketDisconnect;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 
 /**
  * Created by 086 on 9/04/2018.
+ * Updated by hub
  */
 @Module.Info(name = "AutoLog", description = "Automatically log when in danger or on low health", category = Module.Category.COMBAT)
 public class AutoLog extends Module {
@@ -37,9 +39,11 @@ public class AutoLog extends Module {
     private Listener<EntityJoinWorldEvent> entityJoinWorldEventListener = new Listener<>(event -> {
         if (mc.player == null) return;
         if (event.getEntity() instanceof EntityEnderCrystal) {
-            if (mc.player.getHealth() - CrystalAura.calculateDamage((EntityEnderCrystal) event.getEntity(), mc.player) < health.getValue()) {
+            Vec3d crystalPos = event.getEntity().getPositionVector();
+            if (mc.player.getHealth() - CrystalAura.calculateDamage(crystalPos.x, crystalPos.y, crystalPos.z, mc.player) < health.getValue()) {
                 log();
             }
+
         }
     });
 

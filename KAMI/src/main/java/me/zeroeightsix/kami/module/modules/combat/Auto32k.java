@@ -5,6 +5,7 @@ import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.module.ModuleManager;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
+import me.zeroeightsix.kami.util.BlockInteractionHelper;
 import me.zeroeightsix.kami.util.Friends;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
@@ -142,7 +143,7 @@ public class Auto32k extends Module {
         int range = (int) Math.ceil(placeRange.getValue());
 
         CrystalAura crystalAura = (CrystalAura) ModuleManager.getModuleByName("CrystalAura");
-        List<BlockPos> placeTargetList = crystalAura.getSphere(getPlayerPos(), range, range, false, true, 0);
+        List<BlockPos> placeTargetList = BlockInteractionHelper.getSphere(getPlayerPos(), range, range, false, true, 0);
         Map<BlockPos, Double> placeTargetMap = new HashMap<>();
 
         BlockPos placeTarget = null;

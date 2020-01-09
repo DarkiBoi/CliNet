@@ -18,6 +18,7 @@ import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -185,6 +186,11 @@ public class ForgeEventProcessor {
 
     @SubscribeEvent
     public void onRenderBlockOverlay(RenderBlockOverlayEvent event) {
+        KamiMod.EVENT_BUS.post(event);
+    }
+
+    @SubscribeEvent
+    public void onDeath(LivingDeathEvent event){
         KamiMod.EVENT_BUS.post(event);
     }
 

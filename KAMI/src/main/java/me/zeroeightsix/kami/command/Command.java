@@ -34,7 +34,7 @@ public abstract class Command {
 	public static void sendStringChatMessage(String[] messages) {
 		sendChatMessage("");
 		for (String s : messages) sendRawChatMessage(s);
-    }
+	 }
 
 	public static void sendRawChatMessage(String message){
 		Wrapper.getPlayer().sendMessage(new ChatMessage(message));
