@@ -4,21 +4,44 @@ import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.module.ModuleManager;
+import me.zeroeightsix.kami.setting.Setting;
+import me.zeroeightsix.kami.setting.Settings;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.play.client.CPacketChatMessage;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Darki on 08/01/2020
- *
+ * With help of Gods 086 and hub
  */
 
 @Module.Info(name = "AutoGG", description = "Posts a message when you kill a player", category = Module.Category.COMBAT)
 public class AutoGG extends Module {
 
-    private String GG = "Buenos Dios Fuckboy";
+    public static Setting<Mode> mode = Settings.e("Mode", Mode.CLINET);
+
+    private final String CLINET1 = "Good Fight ";
+    private final String CLINET2 = "! CliNet owns me and all!";
+    private final String TOXIC = "EZZZZZZZ ";
+    private final String PLIVID = "Buenos Dios Fuckboy";
+    private final String DUTCHERINO1 = "GG volgende keer beter";
+    private final String DUTCHERINO2 = "GG Goed Gevecht ";
+    private final String DUTCHERINO21 = "! CliNet beheert mij en iedereen!";
+    private final String DUTCHERINO3 = "GG! Goed Gevecht ";
+    private final String DUTCHERINO31 = ", maar niet goed genoeg";
+    private final String DUTCHERINO4 = "GG beetje jammer dat je hebt verloren!";
+
+
+    public enum Mode {
+        CLINET, TOXIC, PLIVID, DUTCHERINO, RANDOM
+    }
+
+    public AutoGG() {
+        register(mode);
+    }
 
 
     private ConcurrentHashMap<String, Integer> announcedEntities = new ConcurrentHashMap<>();
@@ -29,15 +52,15 @@ public class AutoGG extends Module {
 
         String entityUUID = entity.getUniqueID().toString();
 
-        System.out.println(entityUUID);
+        if(event.getSource().damageType.equals("generic")) {
+            return;
+        }
 
         if(announcedEntities == null) {
             announcedEntities = new ConcurrentHashMap<>();
         }
 
         announcedEntities.forEach((uuid, integer) ->  {
-            System.out.println(uuid);
-            System.out.println(integer);
             if(uuid.toString().equals(entityUUID.toString())) {
                 return;
             }
@@ -63,8 +86,6 @@ public class AutoGG extends Module {
             return;
         }
 
-        /*EntityPlayer player = (EntityPlayer) event.getEntity();*/
-
         if(ModuleManager.getModuleByName("CrystalAura").isDisabled() || ModuleManager.getModuleByName("Aura").isDisabled()) {
             return;
         }
@@ -75,7 +96,43 @@ public class AutoGG extends Module {
 
         addAnnouncedEntity(entityUUID);
 
-        mc.player.connection.sendPacket(new CPacketChatMessage(sanitizeString(GG)));
+        //TODO rework this mess
+        switch (mode.getValue()) {
+            case CLINET:
+                postGG(CLINET1 + entity.getName() + CLINET2);
+                break;
+            case TOXIC:
+                postGG(TOXIC + entity.getName());
+                break;
+            case PLIVID:
+                postGG(PLIVID);
+                break;
+            case DUTCHERINO:
+                Random r = new Random();
+                int n = r.nextInt(4);
+                switch (n += 1) {
+                    case 1:
+                        postGG(DUTCHERINO1);
+                        break;
+                    case 2:
+                        postGG(DUTCHERINO2 + entity.getName() + DUTCHERINO21);
+                        break;
+                    case 3:
+                        postGG(DUTCHERINO3 + entity.getName() + DUTCHERINO31);
+                        break;
+                    case 4:
+                        postGG(DUTCHERINO4);
+                }
+                break;
+            case RANDOM:
+                //TODO finish this
+                Random newr = new Random();
+                int newn = newr.nextInt(4);
+                switch(newn += 1) {
+                    case 1:
+
+                }
+        }
 
 
     });
@@ -84,11 +141,8 @@ public class AutoGG extends Module {
     public void onUpdate() {
         announcedEntities.forEach((uuid, integer) -> {
             if(integer <= 0) {
-                System.out.println(uuid + " removed");
-                announcedEntities.remove(uuid);
             } else {
                 announcedEntities.put(uuid, integer - 1);
-                System.out.println(integer);
             }
         });
     }
@@ -121,6 +175,10 @@ public class AutoGG extends Module {
         }
 
         return sanitizedString;
+    }
+
+    public void postGG(String text) {
+        mc.player.connection.sendPacket(new CPacketChatMessage(sanitizeString(text)));
     }
 
 }
