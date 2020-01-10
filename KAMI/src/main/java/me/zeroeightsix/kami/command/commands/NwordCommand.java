@@ -51,8 +51,7 @@ public class NwordCommand extends Command {
         Wrapper.getPlayer().sendChatMessage("/msg " + playername + line5);
 		Wrapper.getPlayer().sendChatMessage("/msg " + playername + " This message was brought to you by CliNet");
 
-	//https://discord.gg/TzjJDT7 is the discord link
-	        
+
 		
     }
 }
