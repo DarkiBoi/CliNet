@@ -6,6 +6,7 @@ import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.module.ModuleManager;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
+import me.zeroeightsix.kami.util.Friends;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.play.client.CPacketChatMessage;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -52,7 +53,17 @@ public class AutoGG extends Module {
 
         String entityUUID = entity.getUniqueID().toString();
 
+        Entity damageSource = event.getSource().getImmediateSource();
+
         if(event.getSource().damageType.equals("generic")) {
+            return;
+        }
+
+        if(Friends.isFriend(event.getEntity().getName())) {
+            return;
+        }
+
+        if(!(damageSource.getName().equals(mc.player.getName()))) {
             return;
         }
 
@@ -86,9 +97,16 @@ public class AutoGG extends Module {
             return;
         }
 
+        /*if(!(event.getSource().getImmediateSource().equals(mc.player))) {
+            mc.player.sendChatMessage("IM NOT THE SOURCE NIGGA");
+            return;
+        }*/
+
         if(ModuleManager.getModuleByName("CrystalAura").isDisabled() || ModuleManager.getModuleByName("Aura").isDisabled()) {
             return;
         }
+
+
 
         if(!(mc.player.getDistance(entity) < (CrystalAura.instace.hitRange.getValue() + 2))) {
             return;
