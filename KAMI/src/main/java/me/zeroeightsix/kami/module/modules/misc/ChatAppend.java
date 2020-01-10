@@ -69,7 +69,9 @@ public class ChatAppend extends Module {
                     s += KAMI_SUFFIX;
                     break;*/
             }
-
+	if (ModuleManager.isModuleEnabled("AutoChatCo")){
+                return;
+            }
             if (s.length() >= 256) s = s.substring(0,256);
             ((CPacketChatMessage) event.getPacket()).message = s;
         }
