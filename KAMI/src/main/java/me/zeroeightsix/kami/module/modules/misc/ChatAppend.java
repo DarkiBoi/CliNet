@@ -21,6 +21,7 @@ public class ChatAppend extends Module {
     public static Setting<ChatAppend.Mode> mode = Settings.e("Mode", Mode.CLINET);
 
     //private final String KAMI_SUFFIX = " \u23D0 \u1D0B\u1D00\u1D0D\u026A"; //Uncomment this after beta
+	private final String CLINET_SUFFIX = " \u23D0\u531a\uff9a\ua024\u20a6\u03b5\u0442 \u10ea\u04bd\u019a\u15e9";
     private final String CN_SUFFIX = " \u23D0 \uff23\uff4c\uff49\uff2e\uff45\uff54 \uff22\uff45\uff54\uff41";
     private final String CN_SUFFIX2 = " \u23D0 \u1455\u3125\ua024\ua2ca\u4e47\u271e";
     private final String CN_SUFFIX3 = " \u23D0 \ua253\ua492\ua024\ua2ca\u018e\u0287";
@@ -34,7 +35,7 @@ public class ChatAppend extends Module {
     }
 
     public enum Mode {
-        CLINET, CLINET2, CLINET3, CLINET4
+        CLINET, CLINET1, CLINET2, CLINET3, CLINET4
     }
 
 
@@ -44,10 +45,14 @@ public class ChatAppend extends Module {
             String s = ((CPacketChatMessage) event.getPacket()).getMessage();
             if (s.startsWith("/") && !commands.getValue()) return;
             switch (mode.getValue()) {
-                case CLINET2:
+                case CLINET:
+				s += CLINET_SUFFIX;
+				break;
+				
+				case CLINET2:
                     s += CN_SUFFIX2;
                     break;
-                case CLINET:
+                case CLINET1:
                     s += CN_SUFFIX;
                     break;
                 case CLINET3:
