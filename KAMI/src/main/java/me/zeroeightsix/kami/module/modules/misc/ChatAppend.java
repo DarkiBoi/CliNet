@@ -9,6 +9,8 @@ import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import net.minecraft.network.play.client.CPacketChatMessage;
 
+import java.util.Random;
+
 /**
  * Created by 086 on 8/04/2018.
  * Updated by Darki on 12/12/19
@@ -37,7 +39,7 @@ public class ChatAppend extends Module {
     }
 
     public enum Mode {
-        CLINET, CLINET1, CLINET2, CLINET3, CLINET4
+        CLINET, CLINET1, CLINET2, CLINET3, CLINET4, RANDOM
     }
 
 
@@ -63,6 +65,13 @@ public class ChatAppend extends Module {
                 case CLINET4:
                     s += CN_SUFFIX4;
                     break;
+                case RANDOM:
+                    String[] stringlist = {CLINET_SUFFIX, CN_SUFFIX , CN_SUFFIX2, CN_SUFFIX3, CN_SUFFIX4};
+                    Random r = new Random();
+                    String randomsuffix = stringlist[r.nextInt(stringlist.length)];
+                    s+= randomsuffix;
+                    break;
+
                 /*case PLIVIDCC:
                     s += PLIVID_SUFFIX;
                     break;
