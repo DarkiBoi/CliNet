@@ -63,6 +63,10 @@ public class AutoGG extends Module {
             return;
         }
 
+        if(damageSource == null) {
+            return;
+        }
+
         if(!(damageSource.getName().equals(mc.player.getName()))) {
             return;
         }
