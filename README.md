@@ -1,4 +1,5 @@
-# CliNet
+# CliNet  
+![alt text](https://media3.giphy.com/media/61VzGiRUQp3pZ8omne/giphy.gif?cid=790b7611aed545dcc05d5ce7ac8d3d28d7d10d34ce7fc9a8&rid=giphy.gif)
 
 CliNet is a Minecraft Utility Mod based on KAMI that is specifically designed for the anarchy server 9b9t.
 
