@@ -70,7 +70,7 @@ public class ChatAppend extends Module {
                     s += KAMI_SUFFIX;
                     break;*/
             }
-	if (ModuleManager.isModuleEnabled("AutoChatCo")){
+            if (ModuleManager.isModuleEnabled("ColourChat")){
                 return;
             }
             if (s.length() >= 256) s = s.substring(0,256);
