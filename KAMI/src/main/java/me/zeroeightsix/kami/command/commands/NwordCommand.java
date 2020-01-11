@@ -3,34 +3,22 @@ package me.zeroeightsix.kami.command.commands;
 import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.command.syntax.ChunkBuilder;
 import me.zeroeightsix.kami.command.syntax.parsers.ModuleParser;
-import me.zeroeightsix.kami.module.Module;
-import me.zeroeightsix.kami.module.ModuleManager;
-import me.zero.alpine.listener.EventHandler;
-import me.zero.alpine.listener.Listener;
-import me.zeroeightsix.kami.event.events.PacketEvent;
-import me.zeroeightsix.kami.module.Module;
-import me.zeroeightsix.kami.setting.Setting;
-import me.zeroeightsix.kami.setting.Settings;
-import net.minecraft.network.play.client.CPacketChatMessage;
- import me.zeroeightsix.kami.event.events.RenderEvent;
- import me.zeroeightsix.kami.module.Module;
- import me.zeroeightsix.kami.module.Module.Info;
- import me.zeroeightsix.kami.util.EntityUtil;
- import me.zeroeightsix.kami.util.Wrapper;
- import net.minecraft.client.Minecraft;
- import net.minecraft.entity.Entity;
+import net.minecraft.client.Minecraft;
+
 /**
  * Created by Asikesa on 1/10/2020.
  */
 
 public class NwordCommand extends Command {
- private final String line1= " \u2588\u2588\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2588\u2588";
-  private final String line2 = " \u2588\u2592\u2588\u2592\u2592\u2588\u2592\u2592\u2588\u2592\u2592\u2592\u2588\u2592\u2592\u2592\u2588\u2592\u2592\u2592\u2588\u2592\u2588";
-   private final String line3 = " \u2588\u2592\u2588\u2592\u2592\u2588\u2592\u2592\u2588\u2592\u2588\u2592\u2588\u2592\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2588\u2592";
+    private final String blank = " \u2592\u2592\u2592\u2592\u2592\u2592\u2592\u2592\u2592\u2592\u2592\u2592\u2592\u2592\u2592\u2592\u2592\u2592\u2592\u2592\u2592\u2592\u2592";
+    private final String line1 = " \u2588\u2588\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2588\u2588";
+    private final String line2 = " \u2588\u2592\u2588\u2592\u2592\u2588\u2592\u2592\u2588\u2592\u2592\u2592\u2588\u2592\u2592\u2592\u2588\u2592\u2592\u2592\u2588\u2592\u2588";
+    private final String line3 = " \u2588\u2592\u2588\u2592\u2592\u2588\u2592\u2592\u2588\u2592\u2588\u2592\u2588\u2592\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2588\u2592";
     private final String line4 = " \u2588\u2592\u2588\u2592\u2592\u2588\u2592\u2592\u2588\u2592\u2588\u2592\u2588\u2592\u2588\u2592\u2588\u2592\u2592\u2592\u2588\u2592\u2588";
-	 private final String line5 = " \u2588\u2592\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2592\u2588";
+    private final String line5 = " \u2588\u2592\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2588\u2588\u2592\u2588\u2592\u2588";
+    private final String sender = " \uff34\uff48\uff49\uff53\u3000\uff4d\uff45\uff53\uff53\uff41\uff47\uff45\u3000\uff57\uff41\uff53\u3000\uff42\uff52\uff4f\uff55\uff47\uff48\uff54\u3000\uff54\uff4f\u3000\uff59\uff4f\uff55\u3000\uff42\uff59\u3000\uff23\uff4c\uff49\uff2e\uff45\uff54";
     public NwordCommand() {
-        super("Nword", new ChunkBuilder()
+        super("nword", new ChunkBuilder()
                 .append("Player", true, new ModuleParser())
                 .build());
     }
@@ -42,16 +30,36 @@ public class NwordCommand extends Command {
             return;
         }
 
-		String playername = (args[0]);
+        String playername = (args[0]);
 
-        Wrapper.getPlayer().sendChatMessage("/msg " + playername + line1);
-        Wrapper.getPlayer().sendChatMessage("/msg " + playername + line2);
-        Wrapper.getPlayer().sendChatMessage("/msg " + playername + line3);
-        Wrapper.getPlayer().sendChatMessage("/msg " + playername + line4);
-        Wrapper.getPlayer().sendChatMessage("/msg " + playername + line5);
-		Wrapper.getPlayer().sendChatMessage("/msg " + playername + " This message was brought to you by CliNet");
+        if (Minecraft.getMinecraft().world.playerEntities.toString() == null) {
+            Command.sendChatMessage("No players!");
+            return;
+        }
 
+        String playerList = Minecraft.getMinecraft().world.playerEntities.toString();
 
-		
+        if (playerList.contains(playername)) {
+            sendNigger(playername);
+        } else if (playername.equals(Minecraft.getMinecraft().player.getName())) {
+            Command.sendChatMessage("You cant send this to yourself retard");
+        } else {
+            Command.sendChatMessage("This player does not exist!");
+            return;
+        }
+
     }
+
+    public void sendNigger(String playername) {
+        /*Minecraft.getMinecraft().player.sendChatMessage("/msg " + playername + line1);
+        Minecraft.getMinecraft().player.sendChatMessage("/msg " + playername + line2);
+        Minecraft.getMinecraft().player.sendChatMessage("/msg " + playername + line3);
+        Minecraft.getMinecraft().player.sendChatMessage("/msg " + playername + line4);
+        Minecraft.getMinecraft().player.sendChatMessage("/msg " + playername + line5);
+        Minecraft.getMinecraft().player.sendChatMessage("/msg " + playername + " This message was brought to you by CliNet");*/
+
+        Minecraft.getMinecraft().player.sendChatMessage("/msg " + playername  + " " + blank + "\n" + line1 + "\n" + line2 + "\n" + line3 + "\n" + line4 + "\n" + line5 + "\n" + blank);
+        Minecraft.getMinecraft().player.sendChatMessage("/msg " + playername + " " + sender);
+    }
+
 }
