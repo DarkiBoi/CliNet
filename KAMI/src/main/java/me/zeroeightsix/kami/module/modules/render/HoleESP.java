@@ -1,7 +1,6 @@
 package me.zeroeightsix.kami.module.modules.render;
 import me.zeroeightsix.kami.event.events.RenderEvent;
 import me.zeroeightsix.kami.module.Module;
-import me.zeroeightsix.kami.module.modules.misc.ChatAppend;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.util.GeometryMasks;
@@ -10,7 +9,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.opengl.GL11;
-import scala.tools.reflect.quasiquotes.Holes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +30,7 @@ public class HoleESP extends Module {
     }
 
     public enum Mode {
-        BOX, HALFBOX
+        BOX, HALFBOX, PLANE
     }
 
     @Override
@@ -66,6 +64,8 @@ public class HoleESP extends Module {
             case HALFBOX:
                 holes.forEach(pos -> KamiTessellator.drawHalfBox(pos, 0x22FFFFFF, GeometryMasks.Quad.ALL));
                 break;
+            case PLANE:
+                holes.forEach(pos -> KamiTessellator.drawPlane(pos, 0x22FFFFFF, GeometryMasks.Quad.ALL));
         }
 
         KamiTessellator.release();

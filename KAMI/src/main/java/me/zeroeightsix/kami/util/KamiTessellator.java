@@ -92,6 +92,18 @@ public class KamiTessellator extends Tessellator {
         drawBox(INSTANCE.getBuffer(), blockPos.x, blockPos.y, blockPos.z, 1, 0.5f, 1, r, g, b, a, sides);
     }
 
+    public static void drawPlane(BlockPos blockPos, int argb, int sides) {
+        final int a = (argb >>> 24) & 0xFF;
+        final int r = (argb >>> 16) & 0xFF;
+        final int g = (argb >>> 8) & 0xFF;
+        final int b = argb & 0xFF;
+        drawPlane(blockPos, r, g, b, a, sides);
+    }
+
+    public static void drawPlane(BlockPos blockPos, int r, int g, int b, int a, int sides) {
+        drawBox(INSTANCE.getBuffer(), blockPos.x, blockPos.y, blockPos.z, 1, 0f, 1, r, g, b, a, sides);
+    }
+
     public static BufferBuilder getBufferBuilder() {
         return INSTANCE.getBuffer();
     }
