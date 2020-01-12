@@ -147,13 +147,14 @@ public class AutoGG extends Module {
                 }
                 break;
             case RANDOM:
-                //TODO finish this
-                Random newr = new Random();
-                int newn = newr.nextInt(4);
-                switch(newn += 1) {
-                    case 1:
+                String[] gglist = {CLINET1, DUTCHERINO1 , TOXIC, DUTCHERINO2, DUTCHERINO3, DUTCHERINO4};
+                Random random = new Random();
+                String randomgg = gglist[random.nextInt(gglist.length)];
+               if(randomgg == DUTCHERINO2){randomgg = DUTCHERINO2 + entity.getName() + DUTCHERINO21;}
+               if(randomgg == DUTCHERINO3){randomgg = DUTCHERINO3 + entity.getName() + DUTCHERINO31;}
+               postGG(randomgg);
 
-                }
+
         }
 
 

@@ -69,7 +69,7 @@ public class ChatAppend extends Module {
                     String[] stringlist = {CLINET_SUFFIX, CN_SUFFIX , CN_SUFFIX2, CN_SUFFIX3, CN_SUFFIX4};
                     Random r = new Random();
                     String randomsuffix = stringlist[r.nextInt(stringlist.length)];
-                    s+= randomsuffix;
+                    s += randomsuffix;
                     break;
 
                 /*case PLIVIDCC:
