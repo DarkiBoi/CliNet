@@ -17,6 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by Darki on 08/01/2020
  * With help of Gods 086 and hub
+ * Updated by Hamburger on 12/01/2020 - Random mode
  */
 
 @Module.Info(name = "AutoGG", description = "Posts a message when you kill a player", category = Module.Category.COMBAT)
@@ -153,6 +154,7 @@ public class AutoGG extends Module {
                if(randomgg == DUTCHERINO2){randomgg = DUTCHERINO2 + entity.getName() + DUTCHERINO21;}
                if(randomgg == DUTCHERINO3){randomgg = DUTCHERINO3 + entity.getName() + DUTCHERINO31;}
                postGG(randomgg);
+               break;
 
 
         }
