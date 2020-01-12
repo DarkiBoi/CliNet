@@ -148,7 +148,7 @@ public class AutoGG extends Module {
                 }
                 break;
             case RANDOM:
-                String[] gglist = {CLINET1, DUTCHERINO1 , TOXIC, DUTCHERINO2, DUTCHERINO3, DUTCHERINO4};
+                String[] gglist = {CLINET1, DUTCHERINO1 , TOXIC, DUTCHERINO2, DUTCHERINO3, DUTCHERINO4, PLIVID};
                 Random random = new Random();
                 String randomgg = gglist[random.nextInt(gglist.length)];
                if(randomgg == DUTCHERINO2){randomgg = DUTCHERINO2 + entity.getName() + DUTCHERINO21;}
