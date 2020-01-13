@@ -2,26 +2,37 @@ package me.zeroeightsix.kami.module.modules.combat;
 
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
+import me.zeroeightsix.kami.command.Command;
+import me.zeroeightsix.kami.event.events.PacketEvent;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.module.ModuleManager;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
+import me.zeroeightsix.kami.util.EntityUtil;
 import me.zeroeightsix.kami.util.Friends;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.client.CPacketChatMessage;
+import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Created by Darki on 08/01/2020
- * With help of Gods 086 and hub
+ * Created 15 November 2019 by hub
+ * Updated 24 November 2019 by hub
  * Updated by Hamburger on 12/01/2020 - Random mode
+ * Updated by Darki on 13/01/2020
  */
+
 
 @Module.Info(name = "AutoGG", description = "Posts a message when you kill a player", category = Module.Category.COMBAT)
 public class AutoGG extends Module {
+
+    private ConcurrentHashMap<String, Integer> targetedPlayers = null;
 
     public static Setting<Mode> mode = Settings.e("Mode", Mode.CLINET);
 
@@ -44,88 +55,143 @@ public class AutoGG extends Module {
     public AutoGG() {
         register(mode);
     }
+    private Setting<Integer> timeoutTicks = register(Settings.i("TimeoutTicks", 20));
 
+    @Override
+    public void onEnable() {
+        targetedPlayers = new ConcurrentHashMap<>();
+    }
 
-    private ConcurrentHashMap<String, Integer> announcedEntities = new ConcurrentHashMap<>();
+    @Override
+    public void onDisable() {
+        targetedPlayers = null;
+    }
 
-    @EventHandler
-    private Listener<LivingDeathEvent> listener = new Listener<>(event -> {
-        Entity entity = event.getEntity();
+    @Override
+    public void onUpdate() {
 
-        String entityUUID = entity.getUniqueID().toString();
-
-        Entity damageSource = event.getSource().getImmediateSource();
-
-        if(event.getSource().damageType.equals("generic")) {
+        if (isDisabled() || mc.player == null) {
             return;
         }
 
-        if(Friends.isFriend(event.getEntity().getName())) {
-            return;
+        if (targetedPlayers == null) {
+            targetedPlayers = new ConcurrentHashMap<>();
         }
 
-        if(damageSource == null) {
-            return;
+        for (Entity entity : mc.world.getLoadedEntityList()) {
+
+            // skip non player entities
+            if (!EntityUtil.isPlayer(entity)) {
+                continue;
+            }
+            EntityPlayer player = (EntityPlayer) entity;
+
+            // skip if player is alive
+            if (player.getHealth() > 0) {
+                continue;
+            }
+
+            String name = player.getName();
+            if (shouldAnnounce(name)) {
+                doAnnounce(name);
+                break;
+            }
+
         }
 
-        if(!(damageSource.getName().equals(mc.player.getName()))) {
-            return;
-        }
-
-        if(announcedEntities == null) {
-            announcedEntities = new ConcurrentHashMap<>();
-        }
-
-        announcedEntities.forEach((uuid, integer) ->  {
-            if(uuid.toString().equals(entityUUID.toString())) {
-                return;
+        targetedPlayers.forEach((name, timeout) -> {
+            if (timeout <= 0) {
+                targetedPlayers.remove(name);
+            } else {
+                targetedPlayers.put(name, timeout - 1);
             }
         });
 
-        if(mc.player == null) {
+    }
+
+    @EventHandler
+    public Listener<PacketEvent.Send> sendListener = new Listener<>(event -> {
+
+        if (mc.player == null) {
             return;
         }
 
-        if(entity == null) {
+        if (targetedPlayers == null) {
+            targetedPlayers = new ConcurrentHashMap<>();
+        }
+
+        // return if packet is not of type CPacketUseEntity
+        if (!(event.getPacket() instanceof CPacketUseEntity)) {
+            return;
+        }
+        CPacketUseEntity cPacketUseEntity = ((CPacketUseEntity) event.getPacket());
+
+        // return if action is not of type CPacketUseEntity.Action.ATTACK
+        if (!(cPacketUseEntity.getAction().equals(CPacketUseEntity.Action.ATTACK))) {
             return;
         }
 
-        /*if(entity == null) {
-            return;
-        }*/
-
-        /*if(!(EntityUtil.isPlayer(event.getEntity()))) {
-            return;
-        }*/
-
-        if(entity == mc.player) {
+        // return if targeted Entity is not a player
+        Entity targetEntity = cPacketUseEntity.getEntityFromWorld(mc.world);
+        if (!EntityUtil.isPlayer(targetEntity)) {
             return;
         }
 
-        /*if(!(event.getSource().getImmediateSource().equals(mc.player))) {
-            mc.player.sendChatMessage("IM NOT THE SOURCE NIGGA");
-            return;
-        }*/
+        addTargetedPlayer(targetEntity.getName());
 
-        if(ModuleManager.getModuleByName("CrystalAura").isDisabled() || ModuleManager.getModuleByName("Aura").isDisabled()) {
-            return;
-        }
+    });
 
+    @EventHandler
+    public Listener<LivingDeathEvent> livingDeathEventListener = new Listener<>(event -> {
 
-
-        if(!(mc.player.getDistance(entity) < (CrystalAura.instace.hitRange.getValue() + 2))) {
+        if (mc.player == null) {
             return;
         }
 
-        addAnnouncedEntity(entityUUID);
+        if (targetedPlayers == null) {
+            targetedPlayers = new ConcurrentHashMap<>();
+        }
+
+        EntityLivingBase entity = event.getEntityLiving();
+
+        if (entity == null) {
+            return;
+        }
+
+        // skip non player entities
+        if (!EntityUtil.isPlayer(entity)) {
+            return;
+        }
+
+        EntityPlayer player = (EntityPlayer) entity;
+
+        // skip if player is alive
+        if (player.getHealth() > 0) {
+            return;
+        }
+
+        String name = player.getName();
+        if (shouldAnnounce(name)) {
+            doAnnounce(name);
+        }
+
+    });
+
+    private boolean shouldAnnounce(String name) {
+        return targetedPlayers.containsKey(name);
+    }
+
+    private void doAnnounce(String name) {
+
+        targetedPlayers.remove(name);
 
         //TODO rework this mess
         switch (mode.getValue()) {
             case CLINET:
-                postGG(CLINET1 + entity.getName() + CLINET2);
+                postGG(CLINET1 + name + CLINET2);
                 break;
             case TOXIC:
-                postGG(TOXIC + entity.getName());
+                postGG(TOXIC + name);
                 break;
             case PLIVID:
                 postGG(PLIVID);
@@ -138,72 +204,48 @@ public class AutoGG extends Module {
                         postGG(DUTCHERINO1);
                         break;
                     case 2:
-                        postGG(DUTCHERINO2 + entity.getName() + DUTCHERINO21);
+                        postGG(DUTCHERINO2 + name + DUTCHERINO21);
                         break;
                     case 3:
-                        postGG(DUTCHERINO3 + entity.getName() + DUTCHERINO31);
+                        postGG(DUTCHERINO3 + name + DUTCHERINO31);
                         break;
                     case 4:
                         postGG(DUTCHERINO4);
                 }
                 break;
             case RANDOM:
-                String[] gglist = {CLINET1, DUTCHERINO1 , TOXIC, DUTCHERINO2, DUTCHERINO3, DUTCHERINO4, PLIVID};
+                String[] gglist = {CLINET1, DUTCHERINO1, TOXIC, DUTCHERINO2, DUTCHERINO3, DUTCHERINO4, PLIVID};
                 Random random = new Random();
                 String randomgg = gglist[random.nextInt(gglist.length)];
-               if(randomgg == DUTCHERINO2){randomgg = DUTCHERINO2 + entity.getName() + DUTCHERINO21;}
-               if(randomgg == DUTCHERINO3){randomgg = DUTCHERINO3 + entity.getName() + DUTCHERINO31;}
-               postGG(randomgg);
-               break;
-
+                if (randomgg == DUTCHERINO2) {
+                    randomgg = DUTCHERINO2 + name + DUTCHERINO21;
+                }
+                if (randomgg == DUTCHERINO3) {
+                    randomgg = DUTCHERINO3 + name + DUTCHERINO31;
+                }
+                postGG(randomgg);
+                break;
 
         }
-
-
-    });
-
-    @Override
-    public void onUpdate() {
-        announcedEntities.forEach((uuid, integer) -> {
-            if(integer <= 0) {
-            } else {
-                announcedEntities.put(uuid, integer - 1);
-            }
-        });
-    }
-
-    private void addAnnouncedEntity(String inputUuid) {
-
-        if(announcedEntities == null) {
-            announcedEntities = new ConcurrentHashMap<>();
-        }
-
-        announcedEntities.put(inputUuid, 20);
-
-    }
-
-    @Override
-    public void onEnable() {
-        announcedEntities = new ConcurrentHashMap<>();
-    }
-
-    @Override
-    public void onDisable() {
-        announcedEntities = null;
-    }
-
-    private String sanitizeString(String string) {
-        String sanitizedString = string.replaceAll("\u00A7", "");
-
-        if (sanitizedString.length() > 255) {
-            sanitizedString = sanitizedString.substring(0, 255);
-        }
-
-        return sanitizedString;
     }
 
     public void postGG(String text) {
-        mc.player.connection.sendPacket(new CPacketChatMessage(sanitizeString(text)));
+        mc.player.connection.sendPacket(new CPacketChatMessage(text));
+    }
+
+    public void addTargetedPlayer(String name) {
+
+        // skip if self is the target
+        if (Objects.equals(name, mc.player.getName())) {
+            return;
+        }
+
+        if (targetedPlayers == null) {
+            targetedPlayers = new ConcurrentHashMap<>();
+        }
+
+        targetedPlayers.put(name, timeoutTicks.getValue());
+
     }
 
 }

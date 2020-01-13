@@ -5,6 +5,7 @@ import me.zero.alpine.listener.Listener;
 import me.zeroeightsix.kami.event.events.PacketEvent;
 import me.zeroeightsix.kami.event.events.RenderEvent;
 import me.zeroeightsix.kami.module.Module;
+import me.zeroeightsix.kami.module.ModuleManager;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.util.BlockInteractionHelper;
@@ -351,10 +352,10 @@ public class CrystalAura extends Module {
 
         renderBlock = targetBlock;
 
-        /*if (ModuleManager.getModuleByName("AutoGG").isEnabled()) {
+        if (ModuleManager.getModuleByName("AutoGG").isEnabled()) {
             AutoGG autoGG = (AutoGG) ModuleManager.getModuleByName("AutoGG");
             autoGG.addTargetedPlayer(target.getName());
-        }*/
+        }
 
         if (place.getValue()) {
 
