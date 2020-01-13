@@ -35,8 +35,11 @@ public class KamiActiveModulesUI extends AbstractComponentUI<ActiveModules> {
         FontRenderer renderer = Wrapper.getFontRenderer();
         List<Module> mods = ModuleManager.getModules().stream()
                 .filter(Module::isEnabled)
+                .filter(Module::isShowOnArray)
                 .sorted(Comparator.comparing(module -> renderer.getStringWidth(module.getName()+(module.getHudInfo()==null?"":module.getHudInfo()+" "))*(component.sort_up?-1:1)))
                 .collect(Collectors.toList());
+
+
 
         final int[] y = {2};
 

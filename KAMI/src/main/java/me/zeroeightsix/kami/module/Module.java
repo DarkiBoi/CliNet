@@ -173,6 +173,14 @@ public class Module {
         if (!alwaysListening && isDisabled()) KamiMod.EVENT_BUS.unsubscribe(this);
     }
 
+    public boolean isShowOnArray() {
+        return showOnArray;
+    }
+
+    public void setShowOnArray(boolean showOnArray) {
+        this.showOnArray = showOnArray;
+    }
+
     /**
      * Cleanup method in case this module wants to do something when the client closes down
      */
