@@ -4,6 +4,7 @@ package me.zeroeightsix.kami.module.modules.combat;
 import me.zeroeightsix.kami.event.events.RenderEvent;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.util.BlockInteractionHelper;
+import me.zeroeightsix.kami.util.EntityUtil;
 import me.zeroeightsix.kami.util.GeometryMasks;
 import me.zeroeightsix.kami.util.KamiTessellator;
 import net.minecraft.block.Block;
@@ -13,6 +14,7 @@ import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.network.play.client.CPacketUseEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -29,6 +31,7 @@ public class Surround extends Module {
 
     @Override
     public void onUpdate() {
+        /*
         blockPos.clear();
         Iterable<BlockPos> blocks = BlockPos.getAllInBox(1, -1, -1, -1, 0, 1);
         blocks.forEach(pos -> {
@@ -44,6 +47,25 @@ public class Surround extends Module {
             }
         });
 
+         */
+
+    }
+
+    @Override
+    public void onEnable() {
+        double[] lookAt = EntityUtil.calculateLookAt(mc.player.posX + 1, mc.player.posY, mc.player.posZ, mc.player);
+        mc.player.rotationYaw = (float) lookAt[0];
+        mc.player.rotationPitch = (float) lookAt[1];
+        mc.player.connection.sendPacket(
+                new CPacketPlayerTryUseItemOnBlock(
+                        new BlockPos(mc.player.posX + 1, mc.player.posY, mc.player.posZ),
+                        EnumFacing.UP,
+                        EnumHand.MAIN_HAND,
+                        0,
+                        0,
+                        0
+                )
+        );
     }
 
 
