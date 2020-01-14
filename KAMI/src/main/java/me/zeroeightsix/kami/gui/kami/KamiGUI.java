@@ -38,6 +38,7 @@ import java.util.stream.Collectors;
 
 /**
  * Created by 086 on 25/06/2017.
+ * Welcomer update by Hamburger on 14/01/2020
  */
 public class KamiGUI extends GUI {
 
@@ -248,6 +249,19 @@ public class KamiGUI extends GUI {
         frame.addChild(durability);
         durability.setFontRenderer(fontRenderer);
         frames.add(frame);
+
+        frame = new Frame(getTheme(), new Stretcherlayout(1), "Welcomer");
+        frame.setCloseable(false);
+        frame.setPinneable(true);
+        Label nameinfo = new Label("");
+        information.setShadow(true);
+        information.addTickListener(() -> {
+                    nameinfo.setText("");
+                    nameinfo.addLine("Welcome, " + Minecraft.getMinecraft().getSession().getUsername() + " :)");
+                });
+        frame.addChild(nameinfo);
+        frames.add(frame);
+
 
         frame = new Frame(getTheme(), new Stretcherlayout(1), "GUI");
         frame.setCloseable(false);
