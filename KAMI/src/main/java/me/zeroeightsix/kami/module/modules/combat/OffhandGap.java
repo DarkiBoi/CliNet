@@ -9,13 +9,10 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.ItemStack;
 
-/**
- * Created by 086 on 22/01/2018.
- */
-@Module.Info(name = "AutoTotem", category = Module.Category.COMBAT)
-public class AutoTotem extends Module {
+@Module.Info(name = "OffhandGap", description = "Puts a gap in your offhand", category = Module.Category.COMBAT)
+public class OffhandGap extends Module {
 
-    int totems;
+    int gaps;
     boolean moving = false;
     boolean returnI = false;
     private Setting<Boolean> hard = register(Settings.b("Hard"));
@@ -34,8 +31,8 @@ public class AutoTotem extends Module {
             mc.playerController.windowClick(0, t < 9 ? t + 36 : t, 0, ClickType.PICKUP, mc.player);
             returnI = false;
         }
-        totems = mc.player.inventory.mainInventory.stream().filter(itemStack -> itemStack.getItem() == Items.TOTEM_OF_UNDYING).mapToInt(ItemStack::getCount).sum();
-        if (mc.player.getHeldItemOffhand().getItem() == Items.TOTEM_OF_UNDYING) totems++;
+        gaps = mc.player.inventory.mainInventory.stream().filter(itemStack -> itemStack.getItem() == Items.GOLDEN_APPLE).mapToInt(ItemStack::getCount).sum();
+        if (mc.player.getHeldItemOffhand().getItem() == Items.GOLDEN_APPLE) gaps++;
         else {
             if (!hard.getValue() && !mc.player.getHeldItemOffhand().isEmpty) return;
             if (moving) {
@@ -45,10 +42,10 @@ public class AutoTotem extends Module {
                 return;
             }
             if (mc.player.inventory.itemStack.isEmpty()) {
-                if (totems == 0) return;
+                if (gaps == 0) return;
                 int t = -1;
                 for (int i = 0; i < 45; i++)
-                    if (mc.player.inventory.getStackInSlot(i).getItem() == Items.TOTEM_OF_UNDYING) {
+                    if (mc.player.inventory.getStackInSlot(i).getItem() == Items.GOLDEN_APPLE) {
                         t = i;
                         break;
                     }
@@ -70,6 +67,7 @@ public class AutoTotem extends Module {
 
     @Override
     public String getHudInfo() {
-        return String.valueOf(totems);
+        return String.valueOf(gaps);
     }
 }
+

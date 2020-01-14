@@ -22,10 +22,12 @@ import java.util.Random;
 public class ChatAppend extends Module {
 
     private Setting<Boolean> commands = register(Settings.b("Commands", false));
+    private Setting<Boolean> blue = register(Settings.b("Blue", false));
     public static Setting<ChatAppend.Mode> mode = Settings.e("Mode", Mode.CLINET);
 
+
     //private final String KAMI_SUFFIX = " \u23D0 \u1D0B\u1D00\u1D0D\u026A"; //Uncomment this after beta
-	private final String CLINET_SUFFIX = " \u23D0\u531a\uff9a\ua024\u20a6\u03b5\u0442 \u10ea\u04bd\u019a\u15e9";
+	private final String CLINET_SUFFIX = " \u23D0 \u531a\uff9a\ua024\u20a6\u03b5\u0442 \u10ea\u04bd\u019a\u15e9";
     private final String CN_SUFFIX = " \u23D0 \uff23\uff4c\uff49\uff2e\uff45\uff54 \uff22\uff45\uff54\uff41";
     private final String CN_SUFFIX2 = " \u23D0 \u1455\u3125\ua024\ua2ca\u4e47\u271e";
     private final String CN_SUFFIX3 = " \u23D0 \ua253\ua492\ua024\ua2ca\u018e\u0287";
@@ -49,27 +51,26 @@ public class ChatAppend extends Module {
             String s = ((CPacketChatMessage) event.getPacket()).getMessage();
             if (s.startsWith("/") && !commands.getValue()) return;
             switch (mode.getValue()) {
-                case CLINET:
-				s += CLINET_SUFFIX;
-				break;
-				
-				case CLINET2:
-                    s += CN_SUFFIX2;
-                    break;
                 case CLINET1:
-                    s += CN_SUFFIX;
+				s += doChatAppend(CLINET_SUFFIX);
+				break;
+                case CLINET:
+                    s += doChatAppend(CN_SUFFIX);
+                    break;
+				case CLINET2:
+                    s += doChatAppend(CN_SUFFIX2);
                     break;
                 case CLINET3:
-                    s += CN_SUFFIX3;
+                    s += doChatAppend(CN_SUFFIX3);
                     break;
                 case CLINET4:
-                    s += CN_SUFFIX4;
+                    s += doChatAppend(CN_SUFFIX4);
                     break;
                 case RANDOM:
                     String[] stringlist = {CLINET_SUFFIX, CN_SUFFIX , CN_SUFFIX2, CN_SUFFIX3, CN_SUFFIX4};
                     Random r = new Random();
                     String randomsuffix = stringlist[r.nextInt(stringlist.length)];
-                    s += randomsuffix;
+                    s += doChatAppend(randomsuffix);
                     break;
 
                 /*case PLIVIDCC:
@@ -86,5 +87,13 @@ public class ChatAppend extends Module {
             ((CPacketChatMessage) event.getPacket()).message = s;
         }
     });
+
+    public String doChatAppend(String chatAppend) {
+        if(blue.getValue() == true) {
+            return "`" + chatAppend;
+        } else {
+            return chatAppend;
+        }
+    }
 
 }

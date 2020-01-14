@@ -9,10 +9,7 @@ import me.zeroeightsix.kami.util.KamiTessellator;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.network.play.client.CPacketEntityAction;
-import net.minecraft.network.play.client.CPacketPlayer;
-import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
-import net.minecraft.network.play.client.CPacketUseEntity;
+import net.minecraft.network.play.client.*;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -31,21 +28,18 @@ public class Surround extends Module {
     public void onUpdate() {
         blockPos.clear();
         Iterable<BlockPos> blocks = BlockPos.getAllInBox(1, -1, -1, -1, 0, 1);
-        blocks.forEach(pos -> {
-            for(Vec3d vector : VECTORS) {
-                try {
-                    BlockInteractionHelper.faceVectorPacketInstant(vector);
-                    mc.playerController.clickBlock(pos, BlockInteractionHelper.getPlaceableSide(pos));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
+        for (Vec3d vector : VECTORS) {
+            try {
+                BlockInteractionHelper.faceVectorPacketInstant(vector);
+                mc.player.connection.sendPacket(new CPacketPlayerTryUseItem(EnumHand.MAIN_HAND));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        });
+
+
+        }
 
     }
-
 
 
     private static final Vec3d[] VECTORS = {
