@@ -254,12 +254,22 @@ public class KamiGUI extends GUI {
         frame.setCloseable(false);
         frame.setPinneable(true);
         Label nameinfo = new Label("");
-        information.setShadow(true);
-        information.addTickListener(() -> {
+        nameinfo.setShadow(true);
+        nameinfo.addTickListener(() -> {
                     nameinfo.setText("");
                     nameinfo.addLine("Welcome, " + Minecraft.getMinecraft().getSession().getUsername() + " :)");
                 });
         frame.addChild(nameinfo);
+        frames.add(frame);
+
+        frame = new Frame(getTheme(), new Stretcherlayout(1), "Watermark");
+        frame.setCloseable(false);
+        frame.setPinneable(true);
+        frame.setMinimumWidth(75);
+        Label watermark = new Label("CliNet");
+        watermark.setX((frame.getWidth() / 2));
+        watermark.setShadow(true);
+        frame.addChild(watermark);
         frames.add(frame);
 
 
