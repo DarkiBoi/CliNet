@@ -1,7 +1,9 @@
 package me.zeroeightsix.kami.module.modules.combat;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
+import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.event.events.PacketEvent;
 import me.zeroeightsix.kami.event.events.RenderEvent;
 import me.zeroeightsix.kami.module.Module;
@@ -438,9 +440,9 @@ public class CrystalAura extends Module {
 
     @Override
     public void onEnable() {
-        /*if (announceUsage.getValue()) {
+        if (announceUsage.getValue()) {
             Command.sendChatMessage("[CrystalAura] " + ChatFormatting.GREEN.toString() + "Enabled!");
-        }*/
+        }
         hitDelayCounter = 0;
     }
 
@@ -449,9 +451,9 @@ public class CrystalAura extends Module {
         renderBlock = null;
         target = null;
         resetRotation();
-        /*if (announceUsage.getValue()) {
+        if (announceUsage.getValue()) {
             Command.sendChatMessage("[CrystalAura] " + ChatFormatting.RED.toString() + "Disabled!");
-        }*/
+        }
     }
 
     @Override
