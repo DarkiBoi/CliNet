@@ -23,14 +23,14 @@ public class VoidESP extends Module {
     private Setting<Integer> rangeXZ = register(Settings.integerBuilder("Range XZ").withMinimum(1).withMaximum(25).withValue(15).build());
     private Setting<Integer> rangeY = register(Settings.integerBuilder("Range Y").withMinimum(1).withMaximum(25).withValue(15).build());
 
-    public static Setting<HoleESP.RenderMode> renderMode = Settings.e("Render Mode", HoleESP.RenderMode.BOTH);
+    public static Setting<RenderMode> renderMode = Settings.e("Render Mode", RenderMode.BOTH);
 
     private Setting<Integer> rVoidColour = register(Settings.integerBuilder("Red").withMinimum(0).withMaximum(255).withValue(voidColour[0]).build());
     private Setting<Integer> gVoidColour = register(Settings.integerBuilder("Green").withMinimum(0).withMaximum(255).withValue(voidColour[1]).build());
     private Setting<Integer> bVoidColour = register(Settings.integerBuilder("Blue").withMinimum(0).withMaximum(255).withValue(voidColour[2]).build());
     private Setting<Integer> aVoidColour = register(Settings.integerBuilder("Alpha").withMinimum(0).withMaximum(255).withValue(voidColour[3]).build());
 
-    public static Setting<HoleESP.Mode> mode = Settings.e("Mode", HoleESP.Mode.HALFBOX);
+    public static Setting<Mode> mode = Settings.e("Mode", Mode.HALFBOX);
 
     private List<BlockPos> voidHoles = new ArrayList<BlockPos>();
 
