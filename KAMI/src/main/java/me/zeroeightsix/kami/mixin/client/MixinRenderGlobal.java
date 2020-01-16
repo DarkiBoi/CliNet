@@ -1,5 +1,6 @@
 package me.zeroeightsix.kami.mixin.client;
 
+import me.zeroeightsix.kami.module.modules.render.ESP;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ChunkRenderContainer;
 import net.minecraft.client.renderer.RenderGlobal;
