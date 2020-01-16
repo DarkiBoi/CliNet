@@ -1,6 +1,7 @@
 package me.zeroeightsix.kami.module.modules.misc;
 
 import akka.routing.Listen;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import me.zeroeightsix.kami.event.events.PacketEvent;
@@ -15,6 +16,7 @@ import java.util.List;
 public class AntiSpam extends Module {
 
     private Setting<Boolean> discordLinks = register(Settings.b("Discord Invites", true));
+    private Setting<Boolean> announcer = register(Settings.b("Announcer", true));
 
 
 
@@ -45,6 +47,14 @@ public class AntiSpam extends Module {
             }
         }
 
+        if(announcer.getValue()) {
+            for (String announcerSpam : announcerStringArray) {
+                if(message.contains(announcerSpam)) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 
@@ -53,6 +63,17 @@ public class AntiSpam extends Module {
     private static String[] discordStringArray =
             {
                     "discord.gg",
+            };
+
+    private static String[] announcerStringArray =
+            {
+                    "Looking for new anarchy servers?",
+                    "I just walked",
+                    "I just flew",
+                    "I just placed",
+                    "I just ate",
+                    "I just healed",
+                    "I just took"
             };
 
 }
