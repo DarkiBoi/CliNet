@@ -441,7 +441,7 @@ public class CrystalAura extends Module {
     @Override
     public void onEnable() {
         if (announceUsage.getValue()) {
-            Command.sendChatMessage("[CrystalAura] " + ChatFormatting.GREEN.toString() + "Enabled!");
+            Command.sendChatMessage("CrystalAura " + ChatFormatting.GREEN.toString() + "Enabled!");
         }
         hitDelayCounter = 0;
     }
@@ -452,7 +452,7 @@ public class CrystalAura extends Module {
         target = null;
         resetRotation();
         if (announceUsage.getValue()) {
-            Command.sendChatMessage("[CrystalAura] " + ChatFormatting.RED.toString() + "Disabled!");
+            Command.sendChatMessage("CrystalAura " + ChatFormatting.RED.toString() + "Disabled!");
         }
     }
 

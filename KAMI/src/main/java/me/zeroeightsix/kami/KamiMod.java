@@ -51,7 +51,7 @@ public class KamiMod {
     public static final String MODNAME = "CliNet";
     public static final String MODVER = "b2";
 
-    public static final String CLINET_PREFIX = "CN";
+    public static final String CLINET_PREFIX = "CliNet";
 
     private static final String KAMI_CONFIG_NAME_DEFAULT = "CliNetConfig.json";
 

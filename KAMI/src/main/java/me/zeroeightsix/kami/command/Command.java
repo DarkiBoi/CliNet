@@ -28,7 +28,7 @@ public abstract class Command {
 	}
 
 	public static void sendChatMessage(String message){
-		sendRawChatMessage("&7[&c" + KamiMod.CLINET_PREFIX + "&7] &r" + message);
+		sendRawChatMessage("&7[&9" + KamiMod.CLINET_PREFIX + "&7] &r" + message);
 	}
 
 	public static void sendStringChatMessage(String[] messages) {

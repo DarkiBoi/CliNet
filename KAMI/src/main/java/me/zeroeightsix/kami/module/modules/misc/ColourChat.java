@@ -64,7 +64,7 @@ public class ColourChat extends Module {
             String r = ((SPacketChat) event.getPacket()).getChatComponent().getUnformattedText();
             if (autoshowspoiler.getValue()) {
                 if (r == "SPOILER") {
-                    mc.player.sendChatMessage("show spoiler");
+                    mc.player.sendChatMessage("/show spoiler");
                 }
             }
         }

@@ -20,10 +20,16 @@ import static org.lwjgl.opengl.GL11.*;
 @Module.Info(name = "ESP", category = Module.Category.RENDER)
 public class ESP extends Module {
 
-    private Setting<ESPMode> mode = register(Settings.e("Mode", ESPMode.RECTANGLE));
+    public Setting<ESPMode> mode = register(Settings.e("Mode", ESPMode.RECTANGLE));
     private Setting<Boolean> players = register(Settings.b("Players", true));
     private Setting<Boolean> animals = register(Settings.b("Animals", false));
     private Setting<Boolean> mobs = register(Settings.b("Mobs", false));
+
+    public static ESP instance = new ESP();
+
+    public ESP() {
+        register(mode);
+    }
 
     public enum ESPMode {
         RECTANGLE
