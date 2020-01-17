@@ -17,11 +17,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-/**
- * Created by Darki 15/01/2020
- * Updated and improved by hub 17/01/2020
- */
-
 @Module.Info(name = "Surround", description = "Places blocks around you", category = Module.Category.COMBAT)
 public class Surround extends Module {
 
@@ -38,7 +33,6 @@ public class Surround extends Module {
     };
 
     private Setting<Boolean> disableSetting = register(Settings.b("Disable", false));
-    private Setting<Boolean> debugSetting = register(Settings.b("Debug", false));
     private Setting<Integer> delaySetting = register(Settings.integerBuilder().withName("Delay").withMinimum(0).withMaximum(5).withValue(1).build());
 
     private int delayTicksCurrent = 0;
@@ -81,10 +75,8 @@ public class Surround extends Module {
                         )
                 );
 
-                if(debugSetting.getValue()) {
-                    Command.sendChatMessage("Placing: " + vec.x + " " + vec.y + " " + " " + vec.z + " at: " + placeTarget.x + " " + placeTarget.y + " " + placeTarget.z);
-                }
-                
+                Command.sendChatMessage("Placing: " + vec.x + " " + vec.y + " " + " " + vec.z + " at: " + placeTarget.x + " " + placeTarget.y + " " + placeTarget.z);
+
                 if (delaySetting.getValue() > 0) {
                     break;
                 }
