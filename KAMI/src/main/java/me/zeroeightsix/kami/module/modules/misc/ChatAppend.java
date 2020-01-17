@@ -27,11 +27,9 @@ public class ChatAppend extends Module {
 
 
     //private final String KAMI_SUFFIX = " \u23D0 \u1D0B\u1D00\u1D0D\u026A"; //Uncomment this after beta
-	private final String CLINET_SUFFIX = " \u23D0 \u531a\uff9a\ua024\u20a6\u03b5\u0442 \u10ea\u04bd\u019a\u15e9";
-    private final String CN_SUFFIX = " \u23D0 \uff23\uff4c\uff49\uff2e\uff45\uff54 \uff22\uff45\uff54\uff41";
-    private final String CN_SUFFIX2 = " \u23D0 \u1455\u3125\ua024\ua2ca\u4e47\u271e";
-    private final String CN_SUFFIX3 = " \u23D0 \ua253\ua492\ua024\ua2ca\u018e\u0287";
-    private final String CN_SUFFIX4 = " \u23D0 \u058E\u13DF\u3058\uAB75\uAB3B\u2130\u2020\u14E4";
+	private final String CN_SUFFIX = " \u23D0 \uff23\uff4c\uff49\uff2e\uff45\uff54 \uff22\uff45\uff54\uff41";
+    private final String CN_SUFFIX2 = " \u23D0 \u1d04\u029f\u026a\u0274\u1d07\u1d1b \u0299\u1d07\u1d1b\u1d00";
+    private final String CN_SUFFIX3 = " | CliNet Beta";
     //private final String PLIVID_SUFFIX = " \u23D0 \uff30\uff4c\uff49\uff56\uff49\uff44\uff0e\uff43\uff43"; //Uncomment this after beta
     private static ChatAppend INSTANCE = new ChatAppend();
 
@@ -41,7 +39,7 @@ public class ChatAppend extends Module {
     }
 
     public enum Mode {
-        CLINET, CLINET1, CLINET2, CLINET3, CLINET4, RANDOM
+        CLINET, CLINET2, PLAINTEXT, RANDOM
     }
 
 
@@ -51,23 +49,17 @@ public class ChatAppend extends Module {
             String s = ((CPacketChatMessage) event.getPacket()).getMessage();
             if (s.startsWith("/") && !commands.getValue()) return;
             switch (mode.getValue()) {
-                case CLINET1:
-				s += doChatAppend(CLINET_SUFFIX);
-				break;
                 case CLINET:
-                    s += doChatAppend(CN_SUFFIX);
+                    s+=CN_SUFFIX;
                     break;
-				case CLINET2:
-                    s += doChatAppend(CN_SUFFIX2);
+                case CLINET2:
+                    s+= CN_SUFFIX2;
                     break;
-                case CLINET3:
-                    s += doChatAppend(CN_SUFFIX3);
-                    break;
-                case CLINET4:
-                    s += doChatAppend(CN_SUFFIX4);
+                case PLAINTEXT:
+                    s+= CN_SUFFIX3;
                     break;
                 case RANDOM:
-                    String[] stringlist = {CLINET_SUFFIX, CN_SUFFIX , CN_SUFFIX2, CN_SUFFIX3, CN_SUFFIX4};
+                    String[] stringlist = {CN_SUFFIX, CN_SUFFIX2, CN_SUFFIX3};
                     Random r = new Random();
                     String randomsuffix = stringlist[r.nextInt(stringlist.length)];
                     s += doChatAppend(randomsuffix);
