@@ -24,7 +24,6 @@
     "MixinPlayerControllerMP",
     "MixinEntityLlama",
     "MixinLayerArmorBase",
-    "MixinAbstractClientPlayer",
-    "MixinGuiIngame"
+    "MixinAbstractClientPlayer"
   ]
 }
