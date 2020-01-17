@@ -7,9 +7,16 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemExpBottle;
+import net.minecraft.network.play.client.CPacketPlayerDigging;
+import net.minecraft.network.play.client.CPacketPlayerTryUseItem;
+import net.minecraft.util.math.BlockPos;
 
 /*
 * Created by Hamburger on 13/01/2020
+*
+* FastBow Author Seth 4/30/2019
+*
+* https://github.com/seppukudevelopment/seppuku/blob/558636579c2c2df5941525d9af1f6e5a4ef658cc/src/main/java/me/rigamortis/seppuku/impl/module/combat/FastBowModule.java
 */
 
 @Module.Info(name = "FastUse", category = Module.Category.PLAYER, description = "Makes you use stuff fast")
@@ -36,10 +43,13 @@ public class FastUse extends Module {
         }
 
         if(fastBow.getValue()) {
-            if(main instanceof ItemBow | off instanceof ItemBow) {
-                mc.rightClickDelayTimer = 0;
-                return;
+            if (mc.player.inventory.getCurrentItem().getItem() instanceof net.minecraft.item.ItemBow &&
+                    mc.player.isHandActive() && mc.player.getItemInUseMaxCount() >= 3) {
+                mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, mc.player.getHorizontalFacing()));
+                mc.player.connection.sendPacket(new CPacketPlayerTryUseItem(mc.player.getActiveHand()));
+                mc.player.stopActiveHand();
             }
+
         }
 
         if(fastPlace.getValue()) {
