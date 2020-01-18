@@ -64,7 +64,7 @@ public class Surround extends Module {
                 //mc.player.rotationYaw = (float) lookAt[0];
                 //mc.player.rotationPitch = (float) lookAt[1];
 
-                mc.player.connection.sendPacket(
+                /*mc.player.connection.sendPacket(
                         new CPacketPlayerTryUseItemOnBlock(
                                 placeTarget,
                                 EnumFacing.UP,
@@ -73,7 +73,9 @@ public class Surround extends Module {
                                 0,
                                 0
                         )
-                );
+                );*/
+
+                mc.playerController.clickBlock(placeTarget, EnumFacing.UP);
 
                 Command.sendChatMessage("Placing: " + vec.x + " " + vec.y + " " + " " + vec.z + " at: " + placeTarget.x + " " + placeTarget.y + " " + placeTarget.z);
 
