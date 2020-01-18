@@ -2,6 +2,7 @@ package me.zeroeightsix.kami.module.modules.misc;
 
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
+import me.zeroeightsix.kami.KamiMod;
 import me.zeroeightsix.kami.event.events.PacketEvent;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.module.ModuleManager;
@@ -23,6 +24,7 @@ public class ChatAppend extends Module {
 
     private Setting<Boolean> commands = register(Settings.b("Commands", false));
     private Setting<Boolean> blue = register(Settings.b("Blue", false));
+    private Setting<Boolean> version = register(Settings.b("Version", true));
     public static Setting<ChatAppend.Mode> mode = Settings.e("Mode", Mode.CLINET);
 
 
@@ -51,18 +53,22 @@ public class ChatAppend extends Module {
             switch (mode.getValue()) {
                 case CLINET:
                     s+=CN_SUFFIX;
+                    if (version.getValue()) s+= (" \u23D0 " + KamiMod.MODVER);
                     break;
                 case CLINET2:
                     s+= CN_SUFFIX2;
+                    if (version.getValue()) s+= (" \u23D0 " + KamiMod.MODVER);
                     break;
                 case PLAINTEXT:
                     s+= CN_SUFFIX3;
+                    if (version.getValue()) s+= (" \u23D0 " + KamiMod.MODVER);
                     break;
                 case RANDOM:
                     String[] stringlist = {CN_SUFFIX, CN_SUFFIX2, CN_SUFFIX3};
                     Random r = new Random();
                     String randomsuffix = stringlist[r.nextInt(stringlist.length)];
                     s += doChatAppend(randomsuffix);
+                    if (version.getValue()) s+= (" \u23D0 " + KamiMod.MODVER);
                     break;
 
                 /*case PLIVIDCC:
