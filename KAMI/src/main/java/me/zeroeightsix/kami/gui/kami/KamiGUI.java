@@ -3,6 +3,7 @@ package me.zeroeightsix.kami.gui.kami;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.zeroeightsix.kami.KamiMod;
 import me.zeroeightsix.kami.command.Command;
+import me.zeroeightsix.kami.games.Pong;
 import me.zeroeightsix.kami.gui.kami.component.*;
 import me.zeroeightsix.kami.gui.kami.theme.kami.KamiTheme;
 import me.zeroeightsix.kami.gui.rgui.GUI;
@@ -276,12 +277,11 @@ public class KamiGUI extends GUI {
         frame = new Frame(getTheme(), new Stretcherlayout(1), "Games");
         frame.setCloseable(false);
         frame.setPinneable(true);
-        Button pong = new Button("Pong");
-        pong.addMouseListener(new MouseListener() {
+        Button pongButton = new Button("Pong");
+        pongButton.addMouseListener(new MouseListener() {
 
             @Override
             public void onMouseDown(MouseButtonEvent event) {
-
             }
 
             @Override
@@ -304,7 +304,7 @@ public class KamiGUI extends GUI {
 
             }
         });
-        frame.addChild(pong);
+        frame.addChild(pongButton);
         frames.add(frame);
 
 

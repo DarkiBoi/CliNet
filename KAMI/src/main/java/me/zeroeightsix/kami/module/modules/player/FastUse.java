@@ -28,6 +28,12 @@ public class FastUse extends Module {
     private Setting<Boolean> fastBow = register(Settings.b("FastBow", false));
     private Setting<Boolean> fastPlace = register(Settings.b("FastPlace", false));
 
+    public int originalRightClickDelayTimer;
+
+    @Override
+    public void onEnable() {
+        originalRightClickDelayTimer = mc.rightClickDelayTimer;
+    }
 
     @Override
     public void onUpdate() {
@@ -60,7 +66,7 @@ public class FastUse extends Module {
         }
 
         else {
-            mc.rightClickDelayTimer = 4;
+            mc.rightClickDelayTimer = originalRightClickDelayTimer;
         }
 
 
