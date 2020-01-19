@@ -4,6 +4,9 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -102,6 +105,18 @@ public class KamiTessellator extends Tessellator {
 
     public static void drawPlane(BlockPos blockPos, int r, int g, int b, int a, int sides) {
         drawBox(INSTANCE.getBuffer(), blockPos.x, blockPos.y, blockPos.z, 1, 0f, 1, r, g, b, a, sides);
+    }
+
+    public static void drawItemBox(EntityItem item, int argb, int sides) {
+        final int a = (argb >>> 24) & 0xFF;
+        final int r = (argb >>> 16) & 0xFF;
+        final int g = (argb >>> 8) & 0xFF;
+        final int b = argb & 0xFF;
+        drawItemBox(item, r, g, b, a, sides);
+    }
+
+    public static void drawItemBox(EntityItem item, int r, int g, int b, int a, int sides) {
+        drawBox(INSTANCE.getBuffer(), ((float) item.posX), ((float) item.posZ), ((float) item.posY), item.width, item.height, item.width, r, g, b, a, sides);
     }
 
     public static BufferBuilder getBufferBuilder() {

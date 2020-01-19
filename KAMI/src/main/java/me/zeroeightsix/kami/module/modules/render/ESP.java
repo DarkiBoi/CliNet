@@ -2,15 +2,22 @@ package me.zeroeightsix.kami.module.modules.render;
 
 import me.zeroeightsix.kami.event.events.RenderEvent;
 import me.zeroeightsix.kami.module.Module;
+import me.zeroeightsix.kami.module.modules.misc.ColourChat;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.util.EntityUtil;
+import me.zeroeightsix.kami.util.GeometryMasks;
+import me.zeroeightsix.kami.util.KamiTessellator;
 import me.zeroeightsix.kami.util.Wrapper;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
+
+import java.awt.*;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -24,20 +31,19 @@ public class ESP extends Module {
     private Setting<Boolean> players = register(Settings.b("Players", true));
     private Setting<Boolean> animals = register(Settings.b("Animals", false));
     private Setting<Boolean> mobs = register(Settings.b("Mobs", false));
+    private Setting<Boolean> items = register(Settings.b("Items", false));
 
     public static ESP instance = new ESP();
 
-    public ESP() {
-        register(mode);
-    }
 
     public enum ESPMode {
-        RECTANGLE
+        RECTANGLE, BOX
     }
 
     @Override
     public void onWorldRender(RenderEvent event) {
         if (Wrapper.getMinecraft().getRenderManager().options == null) return;
+
         switch (mode.getValue()) {
             case RECTANGLE:
                 boolean isThirdPersonFrontal = Wrapper.getMinecraft().getRenderManager().options.thirdPersonView == 2;
@@ -93,6 +99,19 @@ public class ESP extends Module {
                 GlStateManager.enableCull();
                 GlStateManager.glLineWidth(1);
                 glColor3f(1,1,1);
+                break;
+            case BOX:
+                if(items.getValue()) {
+                    mc.world.loadedEntityList.stream()
+                            .filter(entity -> (items.getValue() && entity instanceof EntityItem))
+                            .forEach(e -> {
+                                GlStateManager.pushMatrix();
+                                KamiTessellator.prepare(GL11.GL_QUADS);
+                                KamiTessellator.drawItemBox((EntityItem) e, 255, 255, 255, 40, GeometryMasks.Quad.ALL);
+                                KamiTessellator.release();
+                                GlStateManager.popMatrix();
+                            });
+                }
                 break;
             default:
                 break;
