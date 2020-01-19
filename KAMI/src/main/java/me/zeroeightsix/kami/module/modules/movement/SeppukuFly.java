@@ -6,6 +6,7 @@ import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import me.zeroeightsix.kami.event.events.PacketEvent;
 import me.zeroeightsix.kami.module.Module;
+import me.zeroeightsix.kami.module.ModuleManager;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.util.BlockInteractionHelper;
@@ -30,10 +31,12 @@ import java.util.List;
 @Module.Info(name = "SeppukuFly", description = "Makes you fly (Made by Seth)", category = Module.Category.MOVEMENT)
 public class SeppukuFly extends Module {
 
-    public final Setting<Float> speed = register(Settings.floatBuilder("Speed").withValue(1.0f).withMaximum(5.0f).withMinimum(0.0f).build());
+    public final Setting<Float> speed = register(Settings.floatBuilder("Speed").withValue(0.1f).withMaximum(5.0f).withMinimum(0.0f).build());
 
     public final Setting<Boolean> noKick = register(Settings.b("NoKick", true));
+    //public final Setting<Boolean> antiFlyDeath = register(Settings.b("AntiFlyDeath", true));
 
+    //private List<Module> modules = new ArrayList<>();
     private int teleportId;
     private List<CPacketPlayer> packets = new ArrayList<>();
 
@@ -46,7 +49,28 @@ public class SeppukuFly extends Module {
             this.packets.add(bounds);
             mc.player.connection.sendPacket(bounds);
         }
+        /*
+        if (antiFlyDeath.getValue()) {
+            if (ModuleManager.isModuleEnabled("AntiHunger")) {
+                ModuleManager.getModuleByName("AntiHunger").disable();
+                modules.add(ModuleManager.getModuleByName("AntiHunger"));
+            }
+            if (ModuleManager.isModuleEnabled("NoFall")) {
+                ModuleManager.getModuleByName("NoFall").disable();
+                modules.add(ModuleManager.getModuleByName("NoFall"));
+            }
+        }
+
+         */
     }
+
+    /*
+    @Override
+    public void onDisable() {
+        modules.forEach(Module::enable);
+    }
+
+     */
 
     @EventHandler
     public Listener<InputUpdateEvent> listener = new Listener<>(event -> {
