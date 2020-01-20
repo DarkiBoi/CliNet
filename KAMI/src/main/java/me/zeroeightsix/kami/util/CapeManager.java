@@ -1,6 +1,7 @@
 package me.zeroeightsix.kami.util;
 
 import me.zeroeightsix.kami.KamiMod;
+import me.zeroeightsix.kami.module.ModuleManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.util.ResourceLocation;
@@ -36,6 +37,9 @@ public class CapeManager {
     }
 
     public static boolean hasCape(final UUID uuid) {
+        if(ModuleManager.getModuleByName("Capes").isDisabled()) {
+            return false;
+        }
         return capeUsers.containsKey(sanitizeUuid(uuid));
     }
 
