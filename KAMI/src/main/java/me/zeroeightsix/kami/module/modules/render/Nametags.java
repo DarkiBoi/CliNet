@@ -43,6 +43,8 @@ public class Nametags extends Module {
 
     RenderItem itemRenderer = mc.getRenderItem();
 
+    private String str;
+
     @Override
     public void onWorldRender(RenderEvent event) {
         if (mc.getRenderManager().options == null) return;
@@ -86,7 +88,27 @@ public class Nametags extends Module {
         FontRenderer fontRendererIn = mc.fontRenderer;
         GlStateManager.scale(-0.025F, -0.025F, 0.025F);
 
-        String str = entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "c" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
+        float healthValue = Math.round(((EntityLivingBase) entityIn).getHealth());
+
+        float goldHearts = ((EntityPlayer) entityIn).getAbsorptionAmount();
+
+        float totalHealth = healthValue + goldHearts;
+
+        if(totalHealth <= 36 && totalHealth >= 21) {
+            str = entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "6" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
+        } else if(totalHealth <= 20 && totalHealth >= 15) {
+            str = entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "a" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
+        } else if(totalHealth <= 14 && totalHealth >= 8) {
+            str = entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "e" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
+        } else if(totalHealth <= 7 && totalHealth >= 4) {
+            str = entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "c" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
+        } else if(totalHealth <= 3 && totalHealth >= 0) {
+            str = entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "4" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
+        }
+
+
+
+
         int i = fontRendererIn.getStringWidth(str) / 2;
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
