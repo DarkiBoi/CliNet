@@ -3,10 +3,7 @@ package me.zeroeightsix.kami.module.modules.player;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemExpBottle;
-import net.minecraft.item.ItemFood;
+import net.minecraft.item.*;
 import net.minecraft.network.play.client.CPacketPlayerDigging;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItem;
 import net.minecraft.util.math.BlockPos;
@@ -27,6 +24,8 @@ public class FastUse extends Module {
     private Setting<Boolean> fastXP = register(Settings.b("FastXP", true));
     private Setting<Boolean> fastBow = register(Settings.b("FastBow", false));
     private Setting<Boolean> fastPlace = register(Settings.b("FastPlace", false));
+    private Setting<Boolean> fastSnowball = register(Settings.b("FastSnowball", false));
+    private Setting<Boolean> fastEgg = register(Settings.b("FastEgg", false));
 
 
     @Override
@@ -58,14 +57,23 @@ public class FastUse extends Module {
             }
         }
 
+        if(fastSnowball.getValue()) {
+            if(main instanceof ItemSnowball | off instanceof ItemSnowball) {
+                mc.rightClickDelayTimer = 0;
+            }
+        }
 
-        else if(main instanceof ItemFood | off instanceof  ItemFood) {
+        if(fastEgg.getValue()) {
+            if(main instanceof ItemEgg | off instanceof ItemEgg) {
+                mc.rightClickDelayTimer = 0;
+            }
+        }
+
+        if(main instanceof ItemFood | off instanceof  ItemFood) {
             mc.rightClickDelayTimer = 0;
         }
 
-        else {
-            mc.rightClickDelayTimer = 6;
-        }
+
 
 
     }
