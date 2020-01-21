@@ -5,8 +5,8 @@ import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemExpBottle;
+import net.minecraft.item.ItemFood;
 import net.minecraft.network.play.client.CPacketPlayerDigging;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItem;
 import net.minecraft.util.math.BlockPos;
@@ -28,12 +28,6 @@ public class FastUse extends Module {
     private Setting<Boolean> fastBow = register(Settings.b("FastBow", false));
     private Setting<Boolean> fastPlace = register(Settings.b("FastPlace", false));
 
-    public int originalRightClickDelayTimer;
-
-    @Override
-    public void onEnable() {
-        originalRightClickDelayTimer = mc.rightClickDelayTimer;
-    }
 
     @Override
     public void onUpdate() {
@@ -44,8 +38,8 @@ public class FastUse extends Module {
         if(fastXP.getValue()) {
             if(main instanceof ItemExpBottle | off instanceof ItemExpBottle) {
                 mc.rightClickDelayTimer = 0;
-                return;
             }
+
         }
 
         if(fastBow.getValue()) {
@@ -61,12 +55,16 @@ public class FastUse extends Module {
         if(fastPlace.getValue()) {
             if(main instanceof ItemBlock | off instanceof ItemBlock) {
                 mc.rightClickDelayTimer = 0;
-                return;
             }
         }
 
+
+        else if(main instanceof ItemFood | off instanceof  ItemFood) {
+            mc.rightClickDelayTimer = 0;
+        }
+
         else {
-            mc.rightClickDelayTimer = originalRightClickDelayTimer;
+            mc.rightClickDelayTimer = 6;
         }
 
 
