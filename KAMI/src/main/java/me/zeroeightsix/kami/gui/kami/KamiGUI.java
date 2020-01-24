@@ -3,7 +3,6 @@ package me.zeroeightsix.kami.gui.kami;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.zeroeightsix.kami.KamiMod;
 import me.zeroeightsix.kami.command.Command;
-import me.zeroeightsix.kami.games.Pong;
 import me.zeroeightsix.kami.gui.kami.component.*;
 import me.zeroeightsix.kami.gui.kami.theme.kami.KamiTheme;
 import me.zeroeightsix.kami.gui.rgui.GUI;
@@ -273,40 +272,6 @@ public class KamiGUI extends GUI {
         watermark.setShadow(true);
         frame.addChild(watermark);
         frames.add(frame);
-
-        frame = new Frame(getTheme(), new Stretcherlayout(1), "Games");
-        frame.setCloseable(false);
-        frame.setPinneable(true);
-        Button pongButton = new Button("Pong");
-        pongButton.addMouseListener(new MouseListener() {
-
-            @Override
-            public void onMouseDown(MouseButtonEvent event) {
-            }
-
-            @Override
-            public void onMouseRelease(MouseButtonEvent event) {
-
-            }
-
-            @Override
-            public void onMouseDrag(MouseButtonEvent event) {
-
-            }
-
-            @Override
-            public void onMouseMove(MouseMoveEvent event) {
-
-            }
-
-            @Override
-            public void onScroll(MouseScrollEvent event) {
-
-            }
-        });
-        frame.addChild(pongButton);
-        frames.add(frame);
-
 
         frame = new Frame(getTheme(), new Stretcherlayout(1), "GUI");
         frame.setCloseable(false);

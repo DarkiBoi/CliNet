@@ -10,10 +10,7 @@ import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.module.ModuleManager;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
-import me.zeroeightsix.kami.util.BlockInteractionHelper;
-import me.zeroeightsix.kami.util.Friends;
-import me.zeroeightsix.kami.util.GeometryMasks;
-import me.zeroeightsix.kami.util.KamiTessellator;
+import me.zeroeightsix.kami.util.*;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -294,6 +291,8 @@ public class CrystalAura extends Module {
                 continue;
             }
 
+
+
             EntityPlayer testTarget = (EntityPlayer) entity;
 
             // ignore dead
@@ -314,6 +313,7 @@ public class CrystalAura extends Module {
                 float healthTarget = testTarget.getHealth() + testTarget.getAbsorptionAmount();
                 float healthSelf = mc.player.getHealth() + mc.player.getAbsorptionAmount();
 
+
                 // skip below mindamage
                 if (targetDamage < minDamage.getValue()) {
                     continue;
@@ -323,6 +323,8 @@ public class CrystalAura extends Module {
                 if (selfDamage >= healthSelf - 0.5) {
                     continue;
                 }
+
+
 
                 // if we get more damage then the target and cant kill the target, skip
                 if (selfDamage > targetDamage && targetDamage < healthTarget) {
