@@ -33,14 +33,14 @@ public class Module {
     public boolean alwaysListening;
     protected static final Minecraft mc = Minecraft.getMinecraft();
 
-    public boolean showOnArray = getAnnotation().showOnArray();
+    public Setting<Boolean> showOnArray = register(Settings.booleanBuilder("ShowOnArray").withVisibility(aBoolean -> false).withValue(true).build());
     private String hudInfo;
 
     public List<Setting> settingList = new ArrayList<>();
 
     public Module() {
         alwaysListening = getAnnotation().alwaysListening();
-        registerAll(bind, enabled);
+        registerAll(bind, enabled, showOnArray);
     }
 
     private Info getAnnotation() {
@@ -174,11 +174,11 @@ public class Module {
     }
 
     public boolean isShowOnArray() {
-        return showOnArray;
+        return showOnArray.getValue();
     }
 
     public void setShowOnArray(boolean showOnArray) {
-        this.showOnArray = showOnArray;
+        this.showOnArray.setValue(showOnArray);
     }
 
     /**

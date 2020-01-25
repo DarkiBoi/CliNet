@@ -10,10 +10,10 @@ public class TimerSwitch extends Module {
 
     private int tickWait = 0;
 
-    private Setting<Float> speedUsual = register(Settings.floatBuilder("Speed").withMinimum(1f).withMaximum(10f).withValue(4.2f));
-    private Setting<Float> fastUsual = register(Settings.floatBuilder("Fast Speed").withMinimum(1f).withMaximum(200f).withValue(10f));
-    private Setting<Float> tickToFast = register(Settings.floatBuilder("Tick To Fast").withMinimum(0f).withMaximum(20f).withValue(4f));
-    private Setting<Float> tickToNoFast = register(Settings.floatBuilder("Tick To Disable Fast").withMinimum(0f).withMaximum(20f).withValue(7f));
+    public Setting<Float> speedUsual = register(Settings.floatBuilder("Speed").withMinimum(1f).withMaximum(10f).withValue(4.2f));
+    public Setting<Float> fastUsual = register(Settings.floatBuilder("Fast Speed").withMinimum(1f).withMaximum(200f).withValue(10f));
+    public Setting<Float> tickToFast = register(Settings.floatBuilder("Tick To Fast").withMinimum(0f).withMaximum(20f).withValue(4f));
+    public Setting<Float> tickToNoFast = register(Settings.floatBuilder("Tick To Disable Fast").withMinimum(0f).withMaximum(20f).withValue(7f));
 
     @Override
     public void onDisable() {

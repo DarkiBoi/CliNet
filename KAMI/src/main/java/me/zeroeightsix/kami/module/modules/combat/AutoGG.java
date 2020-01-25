@@ -34,6 +34,7 @@ public class AutoGG extends Module {
 
     private ConcurrentHashMap<String, Integer> targetedPlayers = null;
 
+    public Setting<Boolean> nonaked = register(Settings.b("NoNaked", true));
     public static Setting<Mode> mode = Settings.e("Mode", Mode.CLINET);
 
     private final String CLINET1 = "Good Fight ";
@@ -89,6 +90,10 @@ public class AutoGG extends Module {
             // skip if player is alive
             if (player.getHealth() > 0) {
                 continue;
+            }
+
+            if(player.getArmorInventoryList().equals(null)) {
+                return;
             }
 
             String name = player.getName();

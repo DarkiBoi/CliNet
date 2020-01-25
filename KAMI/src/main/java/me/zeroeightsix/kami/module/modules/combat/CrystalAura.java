@@ -301,6 +301,7 @@ public class CrystalAura extends Module {
             }
 
 
+
             EntityPlayer testTarget = (EntityPlayer) entity;
 
             // ignore dead
@@ -329,6 +330,7 @@ public class CrystalAura extends Module {
                 float healthTarget = testTarget.getHealth() + testTarget.getAbsorptionAmount();
                 float healthSelf = mc.player.getHealth() + mc.player.getAbsorptionAmount();
 
+
                 // skip below mindamage
                 if (targetDamage < minDamage.getValue()) {
                     continue;
@@ -338,6 +340,8 @@ public class CrystalAura extends Module {
                 if (selfDamage >= healthSelf - 0.5) {
                     continue;
                 }
+
+
 
                 // if we get more damage then the target and cant kill the target, skip
                 if (selfDamage > targetDamage && targetDamage < healthTarget) {

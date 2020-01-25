@@ -273,41 +273,6 @@ public class KamiGUI extends GUI {
         frame.addChild(watermark);
         frames.add(frame);
 
-        frame = new Frame(getTheme(), new Stretcherlayout(1), "Games");
-        frame.setCloseable(false);
-        frame.setPinneable(true);
-        Button pong = new Button("Pong");
-        pong.addMouseListener(new MouseListener() {
-
-            @Override
-            public void onMouseDown(MouseButtonEvent event) {
-
-            }
-
-            @Override
-            public void onMouseRelease(MouseButtonEvent event) {
-
-            }
-
-            @Override
-            public void onMouseDrag(MouseButtonEvent event) {
-
-            }
-
-            @Override
-            public void onMouseMove(MouseMoveEvent event) {
-
-            }
-
-            @Override
-            public void onScroll(MouseScrollEvent event) {
-
-            }
-        });
-        frame.addChild(pong);
-        frames.add(frame);
-
-
         frame = new Frame(getTheme(), new Stretcherlayout(1), "GUI");
         frame.setCloseable(false);
         frame.setPinneable(false);
