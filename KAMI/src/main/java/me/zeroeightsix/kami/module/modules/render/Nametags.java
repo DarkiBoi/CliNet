@@ -100,8 +100,8 @@ public class Nametags extends Module {
         String ping = null;
         try {
             ping = df.format(clamp(mc.getConnection().getPlayerInfo(entityIn.getUniqueID()).getResponseTime(), 0, 1000));
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NullPointerException e) {
+
         }
 
         float healthValue = Math.round(((EntityLivingBase) entityIn).getHealth());

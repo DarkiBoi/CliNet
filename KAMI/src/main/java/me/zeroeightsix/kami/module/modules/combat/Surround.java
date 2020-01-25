@@ -45,6 +45,7 @@ public class Surround extends Module {
     private Setting<Boolean> disableSetting = register(Settings.b("Disable", false));
     private Setting<Boolean> rotateSetting = register(Settings.b("Rotate", true));
     private Setting<Integer> delaySetting = register(Settings.integerBuilder().withName("Delay").withMinimum(0).withMaximum(5).withValue(1).build());
+    private Setting<Boolean> debugSetting = register(Settings.b("Debug", false));
 
     private int delayTicksCurrent = 0;
 
@@ -145,10 +146,10 @@ public class Surround extends Module {
                 mc.player.swingArm(EnumHand.MAIN_HAND);
                 mc.rightClickDelayTimer = 4;
 
+                if(debugSetting.getValue()) {
+                    Command.sendChatMessage("Placing: " + vec.x + " " + vec.y + " " + " " + vec.z + " at: " + placeTarget.x + " " + placeTarget.y + " " + placeTarget.z);
+                }
 
-
-
-                Command.sendChatMessage("Placing: " + vec.x + " " + vec.y + " " + " " + vec.z + " at: " + placeTarget.x + " " + placeTarget.y + " " + placeTarget.z);
 
                 if (delaySetting.getValue() > 0) {
                     break;
