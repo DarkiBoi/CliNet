@@ -119,7 +119,7 @@ public class Nametags extends Module {
         } else if (totalHealth <= 7 && totalHealth >= 4) {
             str = (pingSetting.getValue() ? ping + "ms " : "") + entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "c" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
         } else if (totalHealth <= 3 && totalHealth >= 0) {
-            str = (pingSetting.getValue() ? ping + "ms " : "") + entityIn + entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "4" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
+            str = (pingSetting.getValue() ? ping + "ms " : "") + entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "4" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
         }
 
 
