@@ -3,6 +3,7 @@ package me.zeroeightsix.kami.module.modules.misc;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
+import org.lwjgl.input.Keyboard;
 
 @Module.Info(name = "TimerSwitch", description = "A thing to use fast timer for a short time and go fast", category = Module.Category.MISC)
 public class TimerSwitch extends Module {
@@ -32,6 +33,5 @@ public class TimerSwitch extends Module {
         }
         tickWait++;
     }
-
 
 }

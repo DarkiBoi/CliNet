@@ -10,10 +10,7 @@ import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.module.ModuleManager;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
-import me.zeroeightsix.kami.util.BlockInteractionHelper;
-import me.zeroeightsix.kami.util.Friends;
-import me.zeroeightsix.kami.util.GeometryMasks;
-import me.zeroeightsix.kami.util.KamiTessellator;
+import me.zeroeightsix.kami.util.*;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -281,6 +278,15 @@ public class CrystalAura extends Module {
         double targetBlockDamage = 0;
 
         target = null;
+        boolean enemyInRange = false;
+
+        if (Enemies.isEnemyNearby(placeRange.getValue())) {
+            for (Entity entity2 : entities) {
+                if (Enemies.isEnemy(entity2.getName())) {
+                    enemyInRange = true;
+                }
+            }
+        }
 
         for (Entity entity : entities) {
 
@@ -294,12 +300,21 @@ public class CrystalAura extends Module {
                 continue;
             }
 
+
             EntityPlayer testTarget = (EntityPlayer) entity;
 
             // ignore dead
             if (testTarget.isDead || testTarget.getHealth() <= 0) {
                 continue;
             }
+
+            if (enemyInRange) {
+                if (!Enemies.isEnemy(testTarget.getName())) {
+                    continue;
+                }
+            }
+
+
 
             for (BlockPos blockPos : blocks) {
 
