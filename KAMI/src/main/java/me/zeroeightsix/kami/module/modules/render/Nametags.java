@@ -1,10 +1,14 @@
 package me.zeroeightsix.kami.module.modules.render;
 
+import com.google.common.collect.Lists;
+import com.mojang.realmsclient.gui.ChatFormatting;
+import io.netty.util.internal.MathUtil;
 import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.event.events.RenderEvent;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
+import me.zeroeightsix.kami.util.ColourHolder;
 import me.zeroeightsix.kami.util.Enemies;
 import me.zeroeightsix.kami.util.EntityUtil;
 import me.zeroeightsix.kami.util.Friends;
@@ -13,17 +17,19 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.Vec3d;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
+import java.text.DecimalFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -40,6 +46,7 @@ public class Nametags extends Module {
     private Setting<Double> range = register(Settings.d("Range", 200));
     private Setting<Float> scale = register(Settings.floatBuilder("Scale").withMinimum(.5f).withMaximum(10f).withValue(1f).build());
     private Setting<Boolean> health = register(Settings.b("Health", true));
+    private Setting<Boolean> pingSetting = register(Settings.b("Ping", true));
 
     RenderItem itemRenderer = mc.getRenderItem();
 
@@ -88,25 +95,32 @@ public class Nametags extends Module {
         FontRenderer fontRendererIn = mc.fontRenderer;
         GlStateManager.scale(-0.025F, -0.025F, 0.025F);
 
+        DecimalFormat df = new DecimalFormat("##");
+
+        String ping = null;
+        try {
+            ping = df.format(clamp(mc.getConnection().getPlayerInfo(entityIn.getUniqueID()).getResponseTime(), 0, 1000));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         float healthValue = Math.round(((EntityLivingBase) entityIn).getHealth());
 
         float goldHearts = ((EntityPlayer) entityIn).getAbsorptionAmount();
 
         float totalHealth = healthValue + goldHearts;
 
-        if(totalHealth <= 36 && totalHealth >= 21) {
-            str = entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "6" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
-        } else if(totalHealth <= 20 && totalHealth >= 15) {
-            str = entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "a" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
-        } else if(totalHealth <= 14 && totalHealth >= 8) {
-            str = entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "e" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
-        } else if(totalHealth <= 7 && totalHealth >= 4) {
-            str = entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "c" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
-        } else if(totalHealth <= 3 && totalHealth >= 0) {
-            str = entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "4" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
+        if (totalHealth <= 36 && totalHealth >= 21) {
+            str = (pingSetting.getValue() ? ping + "ms " : "") + entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "6" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
+        } else if (totalHealth <= 20 && totalHealth >= 15) {
+            str = (pingSetting.getValue() ? ping + "ms " : "") + entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "a" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
+        } else if (totalHealth <= 14 && totalHealth >= 8) {
+            str = (pingSetting.getValue() ? ping + "ms " : "") + entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "e" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
+        } else if (totalHealth <= 7 && totalHealth >= 4) {
+            str = (pingSetting.getValue() ? ping + "ms " : "") + entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "c" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
+        } else if (totalHealth <= 3 && totalHealth >= 0) {
+            str = (pingSetting.getValue() ? ping + "ms " : "") + entityIn + entityIn.getName() + (health.getValue() ? " " + Command.SECTIONSIGN() + "4" + Math.round(((EntityLivingBase) entityIn).getHealth() + (entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getAbsorptionAmount() : 0)) : "");
         }
-
-
 
 
         int i = fontRendererIn.getStringWidth(str) / 2;
@@ -182,5 +196,18 @@ public class Nametags extends Module {
         });
 
         GlStateManager.popMatrix();
+
     }
+
+    public static float clamp(float val, float min, float max) {
+        if (val <= min) {
+            val = min;
+        }
+        if (val >= max) {
+            val = max;
+        }
+        return val;
+    }
+
+
 }
