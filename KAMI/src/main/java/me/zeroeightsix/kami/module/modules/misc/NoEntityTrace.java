@@ -3,6 +3,8 @@ package me.zeroeightsix.kami.module.modules.misc;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
+import net.minecraft.item.ItemPickaxe;
+import net.minecraft.util.EnumHand;
 
 /**
  * Created by 086 on 8/04/2018.
@@ -11,6 +13,7 @@ import me.zeroeightsix.kami.setting.Settings;
 public class NoEntityTrace extends Module {
 
     private Setting<TraceMode> mode = register(Settings.e("Mode", TraceMode.DYNAMIC));
+    private Setting<Boolean> pickaxe = register(Settings.b("Pickaxe", true));
 
     private static NoEntityTrace INSTANCE;
 
@@ -19,6 +22,13 @@ public class NoEntityTrace extends Module {
     }
 
     public static boolean shouldBlock() {
+        if (INSTANCE.pickaxe.getValue()) {
+            if (mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemPickaxe) {
+                return INSTANCE.isEnabled() && (INSTANCE.mode.getValue() == TraceMode.STATIC || mc.playerController.isHittingBlock);
+            } else {
+                return true;
+            }
+        }
         return INSTANCE.isEnabled() && (INSTANCE.mode.getValue() == TraceMode.STATIC || mc.playerController.isHittingBlock);
     }
 
