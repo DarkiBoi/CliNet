@@ -107,6 +107,10 @@ public class EntityUtil {
         return getInterpolatedPos(entity, ticks).subtract(Wrapper.getMinecraft().getRenderManager().renderPosX,Wrapper.getMinecraft().getRenderManager().renderPosY,Wrapper.getMinecraft().getRenderManager().renderPosZ);
     }
 
+    public static Vec3d getInterpolatedRenderPos(Vec3d vec) {
+        return new Vec3d(vec.x, vec.y, vec.z).subtract(Wrapper.getMinecraft().getRenderManager().renderPosX,Wrapper.getMinecraft().getRenderManager().renderPosY,Wrapper.getMinecraft().getRenderManager().renderPosZ);
+    }
+
     public static boolean isInWater(Entity entity) {
         if(entity == null) return false;
 

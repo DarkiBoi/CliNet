@@ -64,6 +64,7 @@ public class LogoutSpots extends Module {
     public Setting<Integer> gSetting = register(Settings.integerBuilder("Green").withMinimum(0).withMaximum(255).withValue(0).build());
     public Setting<Integer> bSetting = register(Settings.integerBuilder("Blue").withMinimum(0).withMaximum(255).withValue(0).build());
     public Setting<Integer> aSetting = register(Settings.integerBuilder("Alpha").withMinimum(0).withMaximum(255).withValue(255).build());
+    private Setting<Float> scale = register(Settings.floatBuilder("Scale").withMinimum(.5f).withMaximum(10f).withValue(1f).build());
     public Setting<Boolean> debugSetting = register(Settings.b("Debug", false));
 
 
@@ -118,21 +119,25 @@ public class LogoutSpots extends Module {
 
     @Override
     public void onWorldRender(RenderEvent event) {
-        KamiTessellator.prepare(GL_QUADS);
-
         for(Map.Entry<String, Vec3d> entry : loggedPlayers.entrySet()) {
             String name = entry.getKey();
             Vec3d pos = entry.getValue();
-
-            String str = name + " logout spot at " + pos.toString();
-
+            int x = (int) Math.round(pos.x);
+            int y = (int) Math.round(pos.y);
+            int z = (int) Math.round(pos.z);
+            String str = name + " logout spot at X: " + x + " Y: " + y + " Z: " + z;
+            KamiTessellator.prepare(GL_LINE_LOOP);
             KamiTessellator.drawBoxWithVec3d(pos, rSetting.getValue(), gSetting.getValue(), bSetting.getValue(), aSetting.getValue(), GeometryMasks.Quad.ALL);
-
-
-
+            KamiTessellator.release();
+            GlStateManager.enableTexture2D();
+            GlStateManager.disableLighting();
+            GlStateManager.disableDepth();
+            drawNametag(str, pos.add(0.5, 0.5, 0.5));
+            GlStateManager.disableTexture2D();
+            RenderHelper.disableStandardItemLighting();
+            GlStateManager.enableLighting();
+            GlStateManager.enableDepth();
         }
-
-        KamiTessellator.release();
     }
 
     @Override
@@ -327,6 +332,60 @@ public class LogoutSpots extends Module {
                             .toMillis(sec));
             return String.format("%02d:%02d:%02d.%03d", hr, min, sec, ms);
         }
+    }
+
+    public void drawNametag(String str, Vec3d vec) {
+        GlStateManager.pushMatrix();
+
+        Vec3d interp = EntityUtil.getInterpolatedRenderPos(vec);
+        float yAdd = 2;
+        double x = interp.x;
+        double y = interp.y + yAdd;
+        double z = interp.z;
+
+        float viewerYaw = mc.getRenderManager().playerViewY;
+        float viewerPitch = mc.getRenderManager().playerViewX;
+        boolean isThirdPersonFrontal = mc.getRenderManager().options.thirdPersonView == 2;
+        GlStateManager.translate(x, y, z);
+        GlStateManager.rotate(-viewerYaw, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate((float) (isThirdPersonFrontal ? -1 : 1) * viewerPitch, 1.0F, 0.0F, 0.0F);
+
+        float f = (float) mc.player.getDistance(vec.x, vec.y, vec.z);
+        float m = (f / 8f) * (float) (Math.pow(1.2589254f, this.scale.getValue()));
+        GlStateManager.scale(m, m, m);
+
+        FontRenderer fontRendererIn = mc.fontRenderer;
+        GlStateManager.scale(-0.025F, -0.025F, 0.025F);
+
+        int i = fontRendererIn.getStringWidth(str) / 2;
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        GlStateManager.disableTexture2D();
+        Tessellator tessellator = Tessellator.getInstance();
+
+        BufferBuilder bufferbuilder = tessellator.getBuffer();
+
+        glTranslatef(0, -20, 0);
+        bufferbuilder.begin(GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+        bufferbuilder.pos(-i - 1, 8, 0.0D).color(0.0F, 0.0F, 0.0F, 0.5F).endVertex();
+        bufferbuilder.pos(-i - 1, 19, 0.0D).color(0.0F, 0.0F, 0.0F, 0.5F).endVertex();
+        bufferbuilder.pos(i + 1, 19, 0.0D).color(0.0F, 0.0F, 0.0F, 0.5F).endVertex();
+        bufferbuilder.pos(i + 1, 8, 0.0D).color(0.0F, 0.0F, 0.0F, 0.5F).endVertex();
+        tessellator.draw();
+
+        bufferbuilder.begin(GL_LINE_LOOP, DefaultVertexFormats.POSITION_COLOR);
+        bufferbuilder.pos(-i - 1, 8, 0.0D).color(.1f, .1f, .1f, .1f).endVertex();
+        bufferbuilder.pos(-i - 1, 19, 0.0D).color(.1f, .1f, .1f, .1f).endVertex();
+        bufferbuilder.pos(i + 1, 19, 0.0D).color(.1f, .1f, .1f, .1f).endVertex();
+        bufferbuilder.pos(i + 1, 8, 0.0D).color(.1f, .1f, .1f, .1f).endVertex();
+        tessellator.draw();
+
+        GlStateManager.enableTexture2D();
+        GlStateManager.glNormal3f(0.0F, 1.0F, 0.0F);
+        fontRendererIn.drawString(str, -i, 10, 0xffffff);
+        GlStateManager.glNormal3f(0.0F, 0.0F, 0.0F);
+        GlStateManager.popMatrix();
+
     }
 
 
