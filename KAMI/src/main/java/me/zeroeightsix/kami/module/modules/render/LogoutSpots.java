@@ -64,7 +64,7 @@ public class LogoutSpots extends Module {
     public Setting<Integer> gSetting = register(Settings.integerBuilder("Green").withMinimum(0).withMaximum(255).withValue(0).build());
     public Setting<Integer> bSetting = register(Settings.integerBuilder("Blue").withMinimum(0).withMaximum(255).withValue(0).build());
     public Setting<Integer> aSetting = register(Settings.integerBuilder("Alpha").withMinimum(0).withMaximum(255).withValue(255).build());
-    private Setting<Float> scale = register(Settings.floatBuilder("Scale").withMinimum(.5f).withMaximum(10f).withValue(1f).build());
+    public Setting<Boolean> debugSetting = register(Settings.b("Debug", false));
 
 
 
@@ -81,7 +81,9 @@ public class LogoutSpots extends Module {
         EntityPlayer player = mc.world.getPlayerEntityByUUID(event.getPlayerInfo().getId());
         if (player != null && mc.player != null && !mc.player.equals(player)) {
             loggedPlayers.put(player.getName(), player.getPositionVector());
-            Command.sendChatMessage(player.getName() + " logged out at " + player.getPositionVector());
+            if(debugSetting.getValue()) {
+                Command.sendChatMessage(player.getName() + " logged out at " + player.getPositionVector());
+            }
         }
 
     });
@@ -98,6 +100,10 @@ public class LogoutSpots extends Module {
 
        EntityPlayer player = mc.world.getPlayerEntityByUUID(event.getPlayerInfo().getId());
 
+       if(player == null) {
+           return;
+       }
+
        if(loggedPlayers.containsKey(player.getName())) {
            Command.sendChatMessage(player.getName() + " joined after leaving!");
            loggedPlayers.remove(player.getName(), loggedPlayers.get(player.getName()));
@@ -112,7 +118,7 @@ public class LogoutSpots extends Module {
 
     @Override
     public void onWorldRender(RenderEvent event) {
-        KamiTessellator.prepare(GL11.GL_LINE_LOOP);
+        KamiTessellator.prepare(GL_QUADS);
 
         for(Map.Entry<String, Vec3d> entry : loggedPlayers.entrySet()) {
             String name = entry.getKey();
@@ -131,6 +137,11 @@ public class LogoutSpots extends Module {
 
     @Override
     public void onDisable() {
+        loggedPlayers.clear();
+    }
+
+    @Override
+    public void onEnable() {
         loggedPlayers.clear();
     }
 
