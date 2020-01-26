@@ -7,6 +7,8 @@ import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.event.events.RenderEvent;
 import me.zeroeightsix.kami.util.*;
 import com.mojang.authlib.GameProfile;
+
+import java.text.DecimalFormat;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -19,8 +21,18 @@ import me.zeroeightsix.kami.event.events.PacketEvent;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.SPacketChunkData;
 import net.minecraft.network.play.server.SPacketCustomPayload;
 import net.minecraft.network.play.server.SPacketPlayerListItem;
@@ -34,6 +46,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.glTranslatef;
 
 @Module.Info(name = "LogoutSpots", description = "Shows you where players logged off", category = Module.Category.RENDER)
 public class LogoutSpots extends Module {
@@ -48,6 +64,8 @@ public class LogoutSpots extends Module {
     public Setting<Integer> gSetting = register(Settings.integerBuilder("Green").withMinimum(0).withMaximum(255).withValue(0).build());
     public Setting<Integer> bSetting = register(Settings.integerBuilder("Blue").withMinimum(0).withMaximum(255).withValue(0).build());
     public Setting<Integer> aSetting = register(Settings.integerBuilder("Alpha").withMinimum(0).withMaximum(255).withValue(255).build());
+    private Setting<Float> scale = register(Settings.floatBuilder("Scale").withMinimum(.5f).withMaximum(10f).withValue(1f).build());
+
 
 
     @EventHandler
@@ -100,11 +118,20 @@ public class LogoutSpots extends Module {
             String name = entry.getKey();
             Vec3d pos = entry.getValue();
 
+            String str = name + " logout spot at " + pos.toString();
+
             KamiTessellator.drawBoxWithVec3d(pos, rSetting.getValue(), gSetting.getValue(), bSetting.getValue(), aSetting.getValue(), GeometryMasks.Quad.ALL);
+
+
 
         }
 
         KamiTessellator.release();
+    }
+
+    @Override
+    public void onDisable() {
+        loggedPlayers.clear();
     }
 
     private void fireEvents(SPacketPlayerListItem.Action action, PlayerInfo info, GameProfile profile) {

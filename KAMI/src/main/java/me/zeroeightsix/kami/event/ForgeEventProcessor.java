@@ -29,6 +29,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -192,6 +193,11 @@ public class ForgeEventProcessor {
 
     @SubscribeEvent
     public void onDeath(LivingDeathEvent event){
+        KamiMod.EVENT_BUS.post(event);
+    }
+
+    @SubscribeEvent
+    public void onConnectServer(FMLNetworkEvent.ClientConnectedToServerEvent event) {
         KamiMod.EVENT_BUS.post(event);
     }
 

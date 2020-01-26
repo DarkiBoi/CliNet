@@ -52,6 +52,8 @@ public class Nametags extends Module {
 
     private String str;
 
+    public static Nametags instance = new Nametags();
+
     @Override
     public void onWorldRender(RenderEvent event) {
         if (mc.getRenderManager().options == null) return;
@@ -72,7 +74,7 @@ public class Nametags extends Module {
         GlStateManager.enableDepth();
     }
 
-    private void drawNametag(Entity entityIn) {
+    public void drawNametag(Entity entityIn) {
         GlStateManager.pushMatrix();
 
         Vec3d interp = EntityUtil.getInterpolatedRenderPos(entityIn, mc.getRenderPartialTicks());

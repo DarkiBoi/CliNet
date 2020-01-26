@@ -331,9 +331,9 @@ public class CrystalAura extends Module {
                 float healthSelf = mc.player.getHealth() + mc.player.getAbsorptionAmount();
 
 
-                // skip below mindamage
-                if (targetDamage < minDamage.getValue()) {
-                    continue;
+                    // skip below mindamage
+                    if (targetDamage < minDamage.getValue()) {
+                        continue;
                 }
 
                 // we dont wanna suicide ever

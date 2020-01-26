@@ -6,6 +6,7 @@ import me.zeroeightsix.kami.event.events.PacketEvent;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
+import me.zeroeightsix.kami.util.Friends;
 import me.zeroeightsix.kami.util.SnappleFacts;
 import net.minecraft.network.play.server.SPacketChat;
 import me.zeroeightsix.kami.command.commands.AutoReplyCommand;
@@ -28,6 +29,11 @@ public class AutoReply extends Module {
     private Listener<PacketEvent.Receive> receiveListener = new Listener<>(event -> {
         if (event.getPacket() instanceof SPacketChat) {
             String r = ((SPacketChat) event.getPacket()).getChatComponent().getUnformattedText();
+            for(Friends.Friend friend : Friends.friends.getValue()) {
+                if(r.contains(friend.getUsername() + " whispers: ")) return;
+                else continue;
+            }
+
             if (r.contains("whispers: ")) {
                 String msg = "";
 
