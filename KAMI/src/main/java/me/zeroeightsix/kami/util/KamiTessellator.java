@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
@@ -27,31 +28,11 @@ public class KamiTessellator extends Tessellator {
         begin(mode);
     }
 
-    public static void prepareOutlines(float width) {
-        prepareGLwithWidth(width);
-        begin(GL_LINE_LOOP);
-    }
-
     public static void prepareGL() {
 //        GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         GlStateManager.glLineWidth(1.5F);
-        GlStateManager.disableTexture2D();
-        GlStateManager.depthMask(false);
-        GlStateManager.enableBlend();
-        GlStateManager.disableDepth();
-        GlStateManager.disableLighting();
-        GlStateManager.disableCull();
-        GlStateManager.enableAlpha();
-        GlStateManager.color(1,1,1);
-    }
-
-    public static void prepareGLwithWidth(float width) {
-        GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        GlStateManager.glLineWidth(width);
         GlStateManager.disableTexture2D();
         GlStateManager.depthMask(false);
         GlStateManager.enableBlend();

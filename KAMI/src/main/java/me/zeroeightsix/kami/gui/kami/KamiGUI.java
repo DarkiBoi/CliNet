@@ -245,9 +245,10 @@ public class KamiGUI extends GUI {
         te.setShadow(true);
         te.addTickListener(() -> {
             te.setText("");
-            int totemCount=0;
-            int crystalCount=0;
-            int gappleCount=0;
+            int totemCount = 0;
+            int crystalCount = 0;
+            int gappleCount = 0;
+            int xpCount = 0;
             for (int i=0; i < 45; i++) {
                 ItemStack itemStack = Wrapper.getMinecraft().player.inventory.getStackInSlot(i);
                 if (itemStack.getItem() == Items.TOTEM_OF_UNDYING) {
@@ -266,9 +267,16 @@ public class KamiGUI extends GUI {
                     gappleCount += itemStack.stackSize;
                 }
             }
+            for(int i = 0; i < 45; i++) {
+                ItemStack itemStack = Wrapper.getMinecraft().player.inventory.getStackInSlot(i);
+                if(itemStack.getItem() == Items.EXPERIENCE_BOTTLE) {
+                    xpCount += itemStack.stackSize;
+                }
+            }
             te.addLine("Totems: " + String.valueOf(totemCount));
             te.addLine("Crystals: " + String.valueOf(crystalCount));
             te.addLine("Gapples: " + String.valueOf(gappleCount));
+            te.addLine("XP: " + String.valueOf(xpCount));
         });
         frame.addChild(te);
         te.setFontRenderer(fontRenderer);

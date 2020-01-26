@@ -19,12 +19,14 @@ import me.zeroeightsix.kami.event.events.PacketEvent;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.server.SPacketChunkData;
 import net.minecraft.network.play.server.SPacketCustomPayload;
 import net.minecraft.network.play.server.SPacketPlayerListItem;
 import net.minecraft.network.play.server.SPacketPlayerListItem.Action;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import org.lwjgl.opengl.GL11;
 
@@ -66,15 +68,39 @@ public class LogoutSpots extends Module {
 
     });
 
+    @EventHandler
+    public Listener<EntityConnectEvent.Join> joinEvent = new Listener<>(event -> {
+       if(loggedPlayers == null) {
+           return;
+       }
+
+       if(mc.world == null) {
+           return;
+       }
+
+       EntityPlayer player = mc.world.getPlayerEntityByUUID(event.getPlayerInfo().getId());
+
+       if(loggedPlayers.containsKey(player.getName())) {
+           Command.sendChatMessage(player.getName() + " joined after leaving!");
+           loggedPlayers.remove(player.getName(), loggedPlayers.get(player.getName()));
+       }
+
+
+
+
+
+
+    });
+
     @Override
     public void onWorldRender(RenderEvent event) {
-        KamiTessellator.prepareOutlines(10F);
+        KamiTessellator.prepare(GL11.GL_LINE_LOOP);
 
         for(Map.Entry<String, Vec3d> entry : loggedPlayers.entrySet()) {
             String name = entry.getKey();
             Vec3d pos = entry.getValue();
 
-            KamiTessellator.drawBoxWithVec3d(entry.getValue(), rSetting.getValue(), gSetting.getValue(), bSetting.getValue(), aSetting.getValue(), GeometryMasks.Quad.ALL);
+            KamiTessellator.drawBoxWithVec3d(pos, rSetting.getValue(), gSetting.getValue(), bSetting.getValue(), aSetting.getValue(), GeometryMasks.Quad.ALL);
 
         }
 
@@ -105,6 +131,7 @@ public class LogoutSpots extends Module {
     @EventHandler
     public Listener<FMLNetworkEvent.ClientDisconnectionFromServerEvent> onClientDisconnect = new Listener<>(event -> {
         ignore = false;
+        loggedPlayers.clear();
     });
 
     @EventHandler

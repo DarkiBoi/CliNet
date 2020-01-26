@@ -32,12 +32,12 @@ public class TotemPopCounter extends Module {
 
         if(popList.get(event.getEntity().getName()) == null) {
             popList.put(event.getEntity().getName(), 1);
-            Command.sendChatMessage(Command.SECTIONSIGN() + " d" + event.getEntity().getName() + " popped " + 1 + " totem!");
+            Command.sendChatMessage("&d" + event.getEntity().getName() + " popped " + 1 + " totem!");
         } else if(!(popList.get(event.getEntity().getName()) == null)) {
             int popCounter = popList.get(event.getEntity().getName());
             int newPopCounter = popCounter += 1;
             popList.put(event.getEntity().getName(), newPopCounter);
-            Command.sendChatMessage(Command.SECTIONSIGN() + " d" + event.getEntity().getName() + " popped " + newPopCounter + " totems!");
+            Command.sendChatMessage("&d" + event.getEntity().getName() + " popped " + newPopCounter + " totems!");
         }
 
     });
@@ -47,7 +47,7 @@ public class TotemPopCounter extends Module {
         for(EntityPlayer player : mc.world.playerEntities) {
             if(player.getHealth() <= 0) {
                 if(popList.containsKey(player.getName())) {
-                    Command.sendChatMessage(Command.SECTIONSIGN() + " d" + player.getName() + " died after popping " + popList.get(player.getName()) + " totems!");
+                    Command.sendChatMessage("&d" + player.getName() + " died after popping " + popList.get(player.getName()) + " totems!");
                     popList.remove(player.getName(), popList.get(player.getName()));
                 }
             }
