@@ -28,6 +28,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.entity.projectile.EntityWitherSkull;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 
@@ -235,6 +236,42 @@ public class KamiGUI extends GUI {
         });
         frame.addChild(friends);
         friends.setFontRenderer(fontRenderer);
+        frames.add(frame);
+
+        frame = new Frame(getTheme(), new Stretcherlayout(1), "PvP Info");
+        frame.setCloseable(false);
+        frame.setPinneable(true);
+        Label te = new Label("");
+        te.setShadow(true);
+        te.addTickListener(() -> {
+            te.setText("");
+            int totemCount=0;
+            int crystalCount=0;
+            int gappleCount=0;
+            for (int i=0; i < 45; i++) {
+                ItemStack itemStack = Wrapper.getMinecraft().player.inventory.getStackInSlot(i);
+                if (itemStack.getItem() == Items.TOTEM_OF_UNDYING) {
+                    totemCount += itemStack.stackSize;
+                }
+            }
+            for (int i=0; i < 45; i++) {
+                ItemStack itemStack = Wrapper.getMinecraft().player.inventory.getStackInSlot(i);
+                if (itemStack.getItem() == Items.END_CRYSTAL) {
+                    crystalCount += itemStack.stackSize;
+                }
+            }
+            for (int i=0; i < 45; i++) {
+                ItemStack itemStack = Wrapper.getMinecraft().player.inventory.getStackInSlot(i);
+                if (itemStack.getItem() == Items.GOLDEN_APPLE && itemStack.getItemDamage() == 1) {
+                    gappleCount += itemStack.stackSize;
+                }
+            }
+            te.addLine("Totems: " + String.valueOf(totemCount));
+            te.addLine("Crystals: " + String.valueOf(crystalCount));
+            te.addLine("Gapples: " + String.valueOf(gappleCount));
+        });
+        frame.addChild(te);
+        te.setFontRenderer(fontRenderer);
         frames.add(frame);
 
         frame = new Frame(getTheme(), new Stretcherlayout(1), "Item Durability");

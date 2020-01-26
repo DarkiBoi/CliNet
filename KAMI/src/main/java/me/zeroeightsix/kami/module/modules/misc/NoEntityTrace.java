@@ -22,14 +22,17 @@ public class NoEntityTrace extends Module {
     }
 
     public static boolean shouldBlock() {
-        if (INSTANCE.pickaxe.getValue()) {
-            if (mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemPickaxe) {
-                return INSTANCE.isEnabled() && (INSTANCE.mode.getValue() == TraceMode.STATIC || mc.playerController.isHittingBlock);
-            } else {
-                return true;
+        if (INSTANCE.isEnabled()) {
+            if (INSTANCE.pickaxe.getValue()) {
+                if (mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemPickaxe) {
+                    return true;
+                } else {
+                    return INSTANCE.mode.getValue() == TraceMode.STATIC || mc.playerController.isHittingBlock;
+                }
             }
+            return INSTANCE.mode.getValue() == TraceMode.STATIC || mc.playerController.isHittingBlock;
         }
-        return INSTANCE.isEnabled() && (INSTANCE.mode.getValue() == TraceMode.STATIC || mc.playerController.isHittingBlock);
+        return false;
     }
 
     private enum TraceMode {
