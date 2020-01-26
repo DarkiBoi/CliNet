@@ -29,6 +29,7 @@ import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 
@@ -366,6 +367,12 @@ public class KamiGUI extends GUI {
             for (Entity e : entityList) {
                 if (e.getName().equals(mc.player.getName())) continue;
                 String posString = (e.posY > mc.player.posY ? ChatFormatting.DARK_GREEN + "+" : (e.posY == mc.player.posY ? " " : ChatFormatting.DARK_RED + "-"));
+
+                String strengthfactor = "";
+                EntityPlayer eplayer = (EntityPlayer) e;
+                if (eplayer.isPotionActive(MobEffects.STRENGTH) && ModuleManager.isModuleEnabled("StrengthDetect")){
+                    strengthfactor = "S";
+                }
                 float hpRaw = ((EntityLivingBase) e).getHealth() + ((EntityLivingBase) e).getAbsorptionAmount();
                 String hp = dfHealth.format(hpRaw);
                 healthSB.append(Command.SECTIONSIGN());
@@ -379,7 +386,7 @@ public class KamiGUI extends GUI {
                     healthSB.append("c");
                 }
                 healthSB.append(hp);
-                players.put(ChatFormatting.GRAY + posString + " " + healthSB.toString() + " " + ChatFormatting.GRAY + e.getName(), (int) mc.player.getDistance(e));
+                players.put(ChatFormatting.GRAY + posString + " " + healthSB.toString() + " " + ChatFormatting.RED + strengthfactor + " " + ChatFormatting.GRAY + e.getName(), (int) mc.player.getDistance(e));
                 healthSB.setLength(0);
             }
 
