@@ -5,9 +5,9 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -27,11 +27,31 @@ public class KamiTessellator extends Tessellator {
         begin(mode);
     }
 
+    public static void prepareOutlines(float width) {
+        prepareGLwithWidth(width);
+        begin(GL_LINE_LOOP);
+    }
+
     public static void prepareGL() {
 //        GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         GlStateManager.glLineWidth(1.5F);
+        GlStateManager.disableTexture2D();
+        GlStateManager.depthMask(false);
+        GlStateManager.enableBlend();
+        GlStateManager.disableDepth();
+        GlStateManager.disableLighting();
+        GlStateManager.disableCull();
+        GlStateManager.enableAlpha();
+        GlStateManager.color(1,1,1);
+    }
+
+    public static void prepareGLwithWidth(float width) {
+        GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        GlStateManager.glLineWidth(width);
         GlStateManager.disableTexture2D();
         GlStateManager.depthMask(false);
         GlStateManager.enableBlend();
@@ -116,11 +136,66 @@ public class KamiTessellator extends Tessellator {
     }
 
     public static void drawItemBox(EntityItem item, int r, int g, int b, int a, int sides) {
-        drawBox(INSTANCE.getBuffer(), ((float) item.posX), ((float) item.posZ), ((float) item.posY), item.width, item.height, item.width, r, g, b, a, sides);
+        drawBox(INSTANCE.getBuffer(), ((float) item.posX), ((float) item.posY), ((float) item.posZ), item.width, item.height, item.width, r, g, b, a, sides);
     }
 
     public static BufferBuilder getBufferBuilder() {
         return INSTANCE.getBuffer();
+    }
+
+    public static void drawLinesWithVec3d(Vec3d vec, int r, int g, int b, int a, int sides) {
+        drawLines(INSTANCE.getBuffer(), ((float) vec.x), ((float) vec.y), ((float) vec.z), 1, 2, 1, r, g, b, a, sides);
+    }
+
+    public static void drawBoxWithVec3d(Vec3d vec, int r, int g, int b, int a, int sides) {
+        drawBox(INSTANCE.getBuffer(), ((float) vec.x), ((float) vec.y), ((float) vec.z), 1, 2, 1, r, g, b, a, sides);
+    }
+
+    public static void drawOutlinesWithVec3d(Vec3d vec, int r, int g, int b, int a, int sides) {
+    }
+
+    public static void drawOutlines(final BufferBuilder buffer, float x, float y, float z, float w, float h, float d, int r, int g, int b, int a, int sides) {
+        if ((sides & GeometryMasks.Quad.DOWN) != 0) {
+            buffer.pos(x+w, y, z).color(r, g, b, a).endVertex();
+            buffer.pos(x+w, y, z+d).color(r, g, b, a).endVertex();
+            buffer.pos(x, y, z+d).color(r, g, b, a).endVertex();
+            buffer.pos(x, y, z).color(r, g, b, a).endVertex();
+        }
+
+        if ((sides & GeometryMasks.Quad.UP) != 0) {
+            buffer.pos(x+w, y+h, z).color(r, g, b, a).endVertex();
+            buffer.pos(x, y+h, z).color(r, g, b, a).endVertex();
+            buffer.pos(x, y+h, z+d).color(r, g, b, a).endVertex();
+            buffer.pos(x+w, y+h, z+d).color(r, g, b, a).endVertex();
+        }
+
+        if ((sides & GeometryMasks.Quad.NORTH) != 0) {
+            buffer.pos(x+w, y, z).color(r, g, b, a).endVertex();
+            buffer.pos(x, y, z).color(r, g, b, a).endVertex();
+            buffer.pos(x, y+h, z).color(r, g, b, a).endVertex();
+            buffer.pos(x+w, y+h, z).color(r, g, b, a).endVertex();
+        }
+
+        if ((sides & GeometryMasks.Quad.SOUTH) != 0) {
+            buffer.pos(x, y, z+d).color(r, g, b, a).endVertex();
+            buffer.pos(x+w, y, z+d).color(r, g, b, a).endVertex();
+            buffer.pos(x+w, y+h, z+d).color(r, g, b, a).endVertex();
+            buffer.pos(x, y+h, z+d).color(r, g, b, a).endVertex();
+        }
+
+        if ((sides & GeometryMasks.Quad.WEST) != 0) {
+            buffer.pos(x, y, z).color(r, g, b, a).endVertex();
+            buffer.pos(x, y, z+d).color(r, g, b, a).endVertex();
+            buffer.pos(x, y+h, z+d).color(r, g, b, a).endVertex();
+            buffer.pos(x, y+h, z).color(r, g, b, a).endVertex();
+        }
+
+        if ((sides & GeometryMasks.Quad.EAST) != 0) {
+            buffer.pos(x+w, y, z+d).color(r, g, b, a).endVertex();
+            buffer.pos(x+w, y, z).color(r, g, b, a).endVertex();
+            buffer.pos(x+w, y+h, z).color(r, g, b, a).endVertex();
+            buffer.pos(x+w, y+h, z+d).color(r, g, b, a).endVertex();
+        }
     }
 
     public static void drawBox(final BufferBuilder buffer, float x, float y, float z, float w, float h, float d, int r, int g, int b, int a, int sides) {
