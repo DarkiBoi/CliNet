@@ -21,6 +21,7 @@ import me.zeroeightsix.kami.event.events.PacketEvent;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -38,7 +39,9 @@ import net.minecraft.network.play.server.SPacketCustomPayload;
 import net.minecraft.network.play.server.SPacketPlayerListItem;
 import net.minecraft.network.play.server.SPacketPlayerListItem.Action;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import org.lwjgl.opengl.GL11;
 
@@ -117,8 +120,16 @@ public class LogoutSpots extends Module {
 
     });
 
+    @SubscribeEvent
+    public void onClientDisconnect(FMLNetworkEvent.ClientDisconnectionFromServerEvent event){
+        loggedPlayers.clear();
+    }
+
     @Override
     public void onWorldRender(RenderEvent event) {
+        if(mc.world == null || mc.player == null) {
+            return;
+        }
         for(Map.Entry<String, Vec3d> entry : loggedPlayers.entrySet()) {
             String name = entry.getKey();
             Vec3d pos = entry.getValue();
@@ -142,11 +153,19 @@ public class LogoutSpots extends Module {
 
     @Override
     public void onDisable() {
+        MinecraftForge.EVENT_BUS.unregister((Object) this);
+        if(mc.world == null || mc.player == null) {
+            return;
+        }
         loggedPlayers.clear();
     }
 
     @Override
     public void onEnable() {
+        MinecraftForge.EVENT_BUS.register((Object) this);
+        if(mc.world == null || mc.player == null) {
+            return;
+        }
         loggedPlayers.clear();
     }
 

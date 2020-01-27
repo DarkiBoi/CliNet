@@ -2,26 +2,45 @@ package me.zeroeightsix.kami.module.modules.misc;
 
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
+import me.zeroeightsix.kami.event.KamiEvent;
 import me.zeroeightsix.kami.event.events.PacketEvent;
 import me.zeroeightsix.kami.module.Module;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.play.server.SPacketJoinGame;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.fml.client.FMLClientHandler;
+import me.zeroeightsix.kami.util.Timer;
+import net.minecraft.client.multiplayer.GuiConnecting;
+import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.network.login.server.SPacketLoginSuccess;
+import net.minecraft.network.play.client.CPacketChatMessage;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
-
-import javax.swing.text.html.parser.Entity;
 
 @Module.Info(name="CliNetJoinMessage", description = "Says \"CliNet On Top!\" when you join a server", category = Module.Category.MISC)
 public class CliNetJoinMessage extends Module {
 
-    @EventHandler
-    public Listener<PacketEvent.Send> connectedToServerEvent = new Listener<>(event -> {
-        if(event.getPacket() instanceof SPacketJoinGame) {
-            mc.player.sendChatMessage("CliNet On Top!");
-        }
+    private Timer timer = new Timer();
 
-    });
+    @SubscribeEvent
+    public void onConnect(FMLNetworkEvent.ClientConnectedToServerEvent event) {
+        timer.passed(3000);
+        if(mc.world == null || mc.player == null) {
+            timer.passed(10000);
+            mc.player.sendChatMessage("CliNet On Top!");
+            timer.reset();
+        }
+        mc.player.sendChatMessage("CliNet On Top!");
+        timer.reset();
+    }
+
+    @Override
+    public void onEnable() {
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    @Override
+    public void onDisable() {
+        MinecraftForge.EVENT_BUS.unregister(this);
+    }
+
 
 
 

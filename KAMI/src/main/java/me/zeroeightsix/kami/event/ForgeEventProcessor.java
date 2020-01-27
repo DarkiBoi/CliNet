@@ -201,4 +201,9 @@ public class ForgeEventProcessor {
         KamiMod.EVENT_BUS.post(event);
     }
 
+    @SubscribeEvent
+    public void onDisconnectServer(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
+        KamiMod.EVENT_BUS.post(event);
+    }
+
 }
