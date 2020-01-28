@@ -183,6 +183,7 @@ public class Nametags extends Module {
 
         Collection<ItemStack> a = equipment.stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
         GlStateManager.translate(((a.size() - 1) / 2f) * .5f, .6, 0);
+        int posX = (int) (((a.size() - 1) / 2f) * .5f);
 
         a.forEach(itemStack -> {
             GlStateManager.pushAttrib();
@@ -195,6 +196,7 @@ public class Nametags extends Module {
             GlStateManager.scale(2, 2, 0);
             GlStateManager.popAttrib();
             GlStateManager.translate(-.5f, 0, 0);
+            fontRendererIn.drawString(str, posX, (int) .6, 0xffffff);
         });
 
         GlStateManager.popMatrix();
