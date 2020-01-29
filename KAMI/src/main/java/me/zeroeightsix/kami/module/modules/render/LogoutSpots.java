@@ -104,13 +104,14 @@ public class LogoutSpots extends Module {
 
        EntityPlayer player = mc.world.getPlayerEntityByUUID(event.getPlayerInfo().getId());
 
-       if(player == null) {
-           return;
+        if (player != null && mc.player != null && !mc.player.equals(player)) {
+            if(loggedPlayers.containsKey(player.getName())) {
+            loggedPlayers.remove(player.getName());
+            Command.sendChatMessage(player.getName() + " joined after leaving!");
        }
 
-       if(loggedPlayers.containsKey(player.getName())) {
-           Command.sendChatMessage(player.getName() + " joined after leaving!");
-           loggedPlayers.remove(player.getName(), loggedPlayers.get(player.getName()));
+
+
        }
 
 

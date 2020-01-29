@@ -196,7 +196,6 @@ public class Nametags extends Module {
             GlStateManager.scale(2, 2, 0);
             GlStateManager.popAttrib();
             GlStateManager.translate(-.5f, 0, 0);
-            fontRendererIn.drawString(str, posX, (int) .6, 0xffffff);
         });
 
         GlStateManager.popMatrix();
