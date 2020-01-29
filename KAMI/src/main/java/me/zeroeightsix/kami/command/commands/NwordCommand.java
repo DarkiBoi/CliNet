@@ -37,16 +37,14 @@ public class NwordCommand extends Command {
             return;
         }
 
-        String playerList = Minecraft.getMinecraft().world.playerEntities.toString();
-
-        if (playerList.contains(playername)) {
-            sendNigger(playername);
-        } else if (playername.equals(Minecraft.getMinecraft().player.getName())) {
+        if (playername.equals(Minecraft.getMinecraft().player.getName())) {
             Command.sendChatMessage("You cant send this to yourself retard");
-        } else {
-            Command.sendChatMessage("This player does not exist!");
             return;
         }
+
+        sendNigger(playername);
+
+
 
     }
 
