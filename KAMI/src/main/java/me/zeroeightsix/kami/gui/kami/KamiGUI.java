@@ -239,49 +239,87 @@ public class KamiGUI extends GUI {
         friends.setFontRenderer(fontRenderer);
         frames.add(frame);
 
-        frame = new Frame(getTheme(), new Stretcherlayout(1), "PvP Info");
+
+        frame = new Frame(getTheme(), new Stretcherlayout(1), "Totems");
         frame.setCloseable(false);
         frame.setPinneable(true);
-        Label te = new Label("");
-        te.setShadow(true);
-        te.addTickListener(() -> {
-            te.setText("");
+        Label totem = new Label("");
+        totem.setShadow(true);
+        totem.addTickListener(() -> {
+            totem.setText("");
             int totemCount = 0;
-            int crystalCount = 0;
-            int gappleCount = 0;
-            int xpCount = 0;
             for (int i=0; i < 45; i++) {
                 ItemStack itemStack = Wrapper.getMinecraft().player.inventory.getStackInSlot(i);
                 if (itemStack.getItem() == Items.TOTEM_OF_UNDYING) {
                     totemCount += itemStack.stackSize;
                 }
             }
+            totem.addLine("Totems: " + String.valueOf(totemCount));
+        });
+        frame.addChild(totem);
+        totem.setFontRenderer(fontRenderer);
+        frames.add(frame);
+
+        frame = new Frame(getTheme(), new Stretcherlayout(1), "Crystals");
+        frame.setCloseable(false);
+        frame.setPinneable(true);
+        Label crystals = new Label("");
+        crystals.setShadow(true);
+        crystals.addTickListener(() -> {
+            crystals.setText("");
+            int crystalCount = 0;
             for (int i=0; i < 45; i++) {
                 ItemStack itemStack = Wrapper.getMinecraft().player.inventory.getStackInSlot(i);
                 if (itemStack.getItem() == Items.END_CRYSTAL) {
                     crystalCount += itemStack.stackSize;
                 }
             }
+            crystals.addText("Crystals: " + String.valueOf(crystalCount));
+        });
+        frame.addChild(crystals);
+        crystals.setFontRenderer(fontRenderer);
+        frames.add(frame);
+
+        frame = new Frame(getTheme(), new Stretcherlayout(1), "Gapples");
+        frame.setCloseable(false);
+        frame.setPinneable(true);
+        Label gapples = new Label("");
+        gapples.setShadow(true);
+        gapples.addTickListener(() -> {
+            gapples.setText("");
+            int gappleCount = 0;
             for (int i=0; i < 45; i++) {
                 ItemStack itemStack = Wrapper.getMinecraft().player.inventory.getStackInSlot(i);
                 if (itemStack.getItem() == Items.GOLDEN_APPLE && itemStack.getItemDamage() == 1) {
                     gappleCount += itemStack.stackSize;
                 }
             }
+            crystals.addText("Gapples: " + String.valueOf(gappleCount));
+        });
+        frame.addChild(gapples);
+        gapples.setFontRenderer(fontRenderer);
+        frames.add(frame);
+
+        frame = new Frame(getTheme(), new Stretcherlayout(1), "EXP");
+        frame.setCloseable(false);
+        frame.setPinneable(true);
+        Label xp = new Label("");
+        xp.setShadow(true);
+        xp.addTickListener(() -> {
+            xp.setText("");
+            int xpCount = 0;
             for(int i = 0; i < 45; i++) {
                 ItemStack itemStack = Wrapper.getMinecraft().player.inventory.getStackInSlot(i);
                 if(itemStack.getItem() == Items.EXPERIENCE_BOTTLE) {
                     xpCount += itemStack.stackSize;
                 }
             }
-            te.addLine("Totems: " + String.valueOf(totemCount));
-            te.addLine("Crystals: " + String.valueOf(crystalCount));
-            te.addLine("Gapples: " + String.valueOf(gappleCount));
-            te.addLine("XP: " + String.valueOf(xpCount));
+            xp.addText("XP: " + String.valueOf(xpCount));
         });
-        frame.addChild(te);
-        te.setFontRenderer(fontRenderer);
+        frame.addChild(xp);
+        xp.setFontRenderer(fontRenderer);
         frames.add(frame);
+
 
         frame = new Frame(getTheme(), new Stretcherlayout(1), "Item Durability");
         frame.setCloseable(false);
