@@ -21,6 +21,7 @@ import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.module.ModuleManager;
 import me.zeroeightsix.kami.util.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.*;
@@ -347,6 +348,19 @@ public class KamiGUI extends GUI {
         frame.addChild(bArrayListColour);
         frame.addChild(RB);
         information.setFontRenderer(fontRenderer);
+        frames.add(frame);
+
+        frame = new Frame(getTheme(), new Stretcherlayout(1), "Inventory Viewer");
+        frame.setCloseable(false);
+        frame.setMinimizeable(false);
+        frame.setPinneable(true);
+        Label inventory = new Label("");
+        inventory.setShadow(true);
+        inventory.addTickListener(() -> {
+            inventory.setText("      ");
+        });
+        frame.addChild(inventory);
+        inventory.setFontRenderer(fontRenderer);
         frames.add(frame);
 
         frame = new Frame(getTheme(), new Stretcherlayout(1), "Text Radar");

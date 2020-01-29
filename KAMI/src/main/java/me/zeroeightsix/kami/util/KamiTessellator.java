@@ -117,7 +117,7 @@ public class KamiTessellator extends Tessellator {
     }
 
     public static void drawItemBox(EntityItem item, int r, int g, int b, int a, int sides) {
-        drawBox(INSTANCE.getBuffer(), ((float) item.posX), ((float) item.posY), ((float) item.posZ), item.width, item.height, item.width, r, g, b, a, sides);
+        drawBox(INSTANCE.getBuffer(), ((float) item.posX - 0.1f), ((float) item.posY), ((float) item.posZ - 0.1f), item.width + 0.1f, item.height + 0.1f, item.width + 0.1f, r, g, b, a, sides);
     }
 
     public static BufferBuilder getBufferBuilder() {
@@ -284,6 +284,26 @@ public class KamiTessellator extends Tessellator {
             buffer.pos(x+w, y, z+d).color(r, g, b, a).endVertex();
             buffer.pos(x+w, y+h, z+d).color(r, g, b, a).endVertex();
         }
+    }
+
+    public static void drawRect(float x, float y, float w, float h, int color) {
+        float alpha = (float) (color >> 24 & 255) / 255.0F;
+        float red = (float) (color >> 16 & 255) / 255.0F;
+        float green = (float) (color >> 8 & 255) / 255.0F;
+        float blue = (float) (color & 255) / 255.0F;
+        final Tessellator tessellator = Tessellator.getInstance();
+        final BufferBuilder bufferbuilder = tessellator.getBuffer();
+        GlStateManager.enableBlend();
+        GlStateManager.disableTexture2D();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
+        bufferbuilder.pos((double) x, (double) h, 0.0D).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos((double) w, (double) h, 0.0D).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos((double) w, (double) y, 0.0D).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos((double) x, (double) y, 0.0D).color(red, green, blue, alpha).endVertex();
+        tessellator.draw();
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableBlend();
     }
 
 }

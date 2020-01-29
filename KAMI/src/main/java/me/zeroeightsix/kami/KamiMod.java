@@ -119,6 +119,7 @@ public class KamiMod {
 
         try {
             ModuleManager.getModuleByName("ChatAppend").setEnabled(true);
+            ModuleManager.getModuleByName("InventoryViewer").setEnabled(true);
             if (((DiscordRPCModule) ModuleManager.getModuleByName("DiscordRPC")).startupGlobal.getValue()) {
                 ModuleManager.getModuleByName("DiscordRPC").setEnabled(true);
             }
