@@ -10,7 +10,6 @@ import me.zeroeightsix.kami.gui.rgui.component.container.use.Frame;
 import me.zeroeightsix.kami.gui.rgui.component.container.use.Scrollpane;
 import me.zeroeightsix.kami.gui.rgui.component.listen.MouseListener;
 import me.zeroeightsix.kami.gui.rgui.component.listen.TickListener;
-import me.zeroeightsix.kami.gui.rgui.component.use.Button;
 import me.zeroeightsix.kami.gui.rgui.component.use.CheckButton;
 import me.zeroeightsix.kami.gui.rgui.component.use.Label;
 import me.zeroeightsix.kami.gui.rgui.component.use.Slider;
@@ -21,7 +20,6 @@ import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.module.ModuleManager;
 import me.zeroeightsix.kami.util.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.*;
@@ -37,6 +35,9 @@ import net.minecraft.util.text.TextFormatting;
 import javax.annotation.Nonnull;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -388,6 +389,19 @@ public class KamiGUI extends GUI {
         information.setFontRenderer(fontRenderer);
         frames.add(frame);
 
+        frame = new Frame(getTheme(), new Stretcherlayout(1), "Clock");
+        frame.setCloseable(false);
+        frame.setMinimizeable(false);
+        frame.setPinneable(true);
+        Label clock = new Label("");
+        clock.setShadow(true);
+        clock.addTickListener(() -> {
+            clock.setText(DateTimeFormatter.ofPattern("HH:mm").format(LocalDateTime.now()));
+        });
+        frame.addChild(clock);
+        clock.setFontRenderer(fontRenderer);
+        frames.add(frame);
+
         frame = new Frame(getTheme(), new Stretcherlayout(1), "Inventory Viewer");
         frame.setCloseable(false);
         frame.setMinimizeable(false);
@@ -638,4 +652,5 @@ public class KamiGUI extends GUI {
             component.setY(Wrapper.getMinecraft().displayHeight / (DisplayGuiScreen.getScale() * 2) - component.getHeight() / 2);
 
     }
+
 }
