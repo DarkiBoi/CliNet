@@ -20,8 +20,14 @@ import java.util.Date;
 @Module.Info(name = "ChatTimestamps", description = "Shows timestamps next to messages in chat", category = Module.Category.MISC)
 public class ChatTimestamps extends Module {
 
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("<HH:mm:ss> ");
-    LocalDateTime now = LocalDateTime.now();
+    DateTimeFormatter dtf;
+    LocalDateTime now;
+
+    @Override
+    public void onUpdate() {
+        dtf = DateTimeFormatter.ofPattern("<HH:mm:ss> ");
+        now = LocalDateTime.now();
+    }
 
     @EventHandler
     public Listener<ClientChatReceivedEvent> listener = new Listener<>(event -> {

@@ -295,7 +295,7 @@ public class KamiGUI extends GUI {
                     gappleCount += itemStack.stackSize;
                 }
             }
-            crystals.addText("Gapples: " + String.valueOf(gappleCount));
+            gapples.addText("Gapples: " + String.valueOf(gappleCount));
         });
         frame.addChild(gapples);
         gapples.setFontRenderer(fontRenderer);
@@ -438,7 +438,7 @@ public class KamiGUI extends GUI {
                     healthSB.append("c");
                 }
                 healthSB.append(hp);
-                players.put(ChatFormatting.GRAY + posString + " " + healthSB.toString() + " " + ChatFormatting.RED + strengthfactor + " " + ChatFormatting.GRAY + e.getName(), (int) mc.player.getDistance(e));
+                players.put(ChatFormatting.GRAY + posString + " " + healthSB.toString() + " " + ChatFormatting.RED +  strengthfactor + (strengthfactor.equals("S") ? " " : "") + (Friends.isFriend(e.getName()) ? ChatFormatting.BLUE : ChatFormatting.GRAY) + e.getName(), (int) mc.player.getDistance(e));
                 healthSB.setLength(0);
             }
 
