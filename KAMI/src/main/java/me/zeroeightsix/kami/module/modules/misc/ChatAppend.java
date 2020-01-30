@@ -52,15 +52,15 @@ public class ChatAppend extends Module {
             if (s.startsWith("/") && !commands.getValue()) return;
             switch (mode.getValue()) {
                 case CLINET:
-                    s+=CN_SUFFIX;
+                    s+=doChatAppend(CN_SUFFIX);
                     if (version.getValue()) s+= (" \u23D0 " + KamiMod.MODVER);
                     break;
                 case CLINET2:
-                    s+= CN_SUFFIX2;
+                    s+= doChatAppend(CN_SUFFIX2);
                     if (version.getValue()) s+= (" \u23D0 " + KamiMod.MODVER);
                     break;
                 case PLAINTEXT:
-                    s+= CN_SUFFIX3;
+                    s+= doChatAppend(CN_SUFFIX3);
                     if (version.getValue()) s+= (" \u23D0 " + KamiMod.MODVER);
                     break;
                 case RANDOM:
