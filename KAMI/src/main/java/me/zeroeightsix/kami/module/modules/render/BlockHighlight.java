@@ -25,10 +25,10 @@ public class BlockHighlight extends Module {
     RayTraceResult result;
 
 
-    private Setting<Integer> rSetting = register(Settings.integerBuilder("Bedrock Red").withMinimum(0).withMaximum(255).withValue(colourArray[0]).build());
-    private Setting<Integer> gSetting = register(Settings.integerBuilder("Bedrock Green").withMinimum(0).withMaximum(255).withValue(colourArray[1]).build());
-    private Setting<Integer> bSetting = register(Settings.integerBuilder("Bedrock Blue").withMinimum(0).withMaximum(255).withValue(colourArray[2]).build());
-    private Setting<Integer> aSetting = register(Settings.integerBuilder("Bedrock Alpha").withMinimum(0).withMaximum(255).withValue(colourArray[3]).build());
+    private Setting<Integer> rSetting = register(Settings.integerBuilder("Red").withMinimum(0).withMaximum(255).withValue(colourArray[0]).build());
+    private Setting<Integer> gSetting = register(Settings.integerBuilder("Green").withMinimum(0).withMaximum(255).withValue(colourArray[1]).build());
+    private Setting<Integer> bSetting = register(Settings.integerBuilder("Blue").withMinimum(0).withMaximum(255).withValue(colourArray[2]).build());
+    private Setting<Integer> aSetting = register(Settings.integerBuilder("Alpha").withMinimum(0).withMaximum(255).withValue(colourArray[3]).build());
 
     @Override
     public void onUpdate() {
