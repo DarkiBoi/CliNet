@@ -71,7 +71,19 @@ public class AntiSpam extends Module {
                     "I just placed",
                     "I just ate",
                     "I just healed",
-                    "I just took"
+                    "I just took",
+                    "I walked",
+                    "I flew",
+                    "I walked",
+                    "I flew",
+                    "I placed",
+                    "I ate",
+                    "I healed",
+                    "I took",
+                    "I gained",
+                    "I mined",
+                    "I lost",
+                    "I moved"
             };
 
 }
