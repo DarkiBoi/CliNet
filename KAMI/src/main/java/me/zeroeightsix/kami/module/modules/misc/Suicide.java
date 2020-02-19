@@ -16,6 +16,6 @@ public class Suicide extends Module {
         this.disable();
         }
 
-
-
 }
+
+

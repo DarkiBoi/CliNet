@@ -32,7 +32,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-
+import net.minecraftforge.fml.common.gameevent.InputEvent;
 /**
  * Created by 086 on 11/11/2017.
  */
@@ -111,6 +111,9 @@ public class ForgeEventProcessor {
         if (Keyboard.getEventKeyState())
             ModuleManager.onBind(Keyboard.getEventKey());
     }
+    @SubscribeEvent(priority = EventPriority.NORMAL)
+    public void onMouseInput(InputEvent.MouseInputEvent event) { KamiMod.EVENT_BUS.post(event); }
+
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onChatSent(ClientChatEvent event) {
@@ -200,6 +203,8 @@ public class ForgeEventProcessor {
     public void onConnectServer(FMLNetworkEvent.ClientConnectedToServerEvent event) {
         KamiMod.EVENT_BUS.post(event);
     }
+
+
 
     @SubscribeEvent
     public void onDisconnectServer(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
