@@ -32,6 +32,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/*
+ * Created by Hub
+ * Added by Darki
+ */
+
 @Module.Info(name = "AutoTrap", category = Module.Category.COMBAT)
 public class HephAutoTrap extends Module {
 

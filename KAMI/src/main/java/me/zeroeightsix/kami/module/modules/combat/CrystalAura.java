@@ -43,6 +43,7 @@ import static me.zeroeightsix.kami.util.EntityUtil.calculateLookAt;
 /**
  * Created by hub
  * Updated 27 November 2019 by 3vt
+ * Added by Darki
  * Updated by Darki on 08/01/2020
  */
 @Module.Info(name = "CrystalAura", category = Module.Category.COMBAT)

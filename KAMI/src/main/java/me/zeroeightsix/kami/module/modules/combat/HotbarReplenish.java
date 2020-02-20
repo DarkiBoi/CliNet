@@ -15,6 +15,12 @@ import net.minecraft.item.ItemStack;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+ * Created by Hub
+ * Added by Darki
+ */
+
+
 @Module.Info(name = "HotbarReplenish", description = "Replenishes on items if you're low", category = Module.Category.COMBAT)
 public class HotbarReplenish extends Module {
 

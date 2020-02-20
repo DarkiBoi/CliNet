@@ -24,8 +24,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created 15 November 2019 by hub
  * Updated 24 November 2019 by hub
- * Updated by Hamburger on 12/01/2020 - Random mode
- * Updated by Darki on 13/01/2020
+ * Added by Darki
+ * Updated by Hamburger on 12/01/2020
  */
 
 
