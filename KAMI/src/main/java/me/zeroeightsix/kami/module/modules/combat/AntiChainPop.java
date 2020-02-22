@@ -13,7 +13,6 @@ import net.minecraft.entity.player.EntityPlayer;
  * Hamburger made 21/02/2020
  */
 
-
 @Module.Info(name = "AntiChainPop", description = "Stops Chain pops of Totems", category = Module.Category.COMBAT)
 public class AntiChainPop extends Module {
 

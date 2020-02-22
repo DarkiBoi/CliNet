@@ -1,16 +1,12 @@
 package me.zeroeightsix.kami.module.modules.render;
 
-import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.event.events.RenderEvent;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.util.GeometryMasks;
 import me.zeroeightsix.kami.util.KamiTessellator;
-import net.minecraft.block.BlockAir;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import org.lwjgl.opengl.GL11;
@@ -19,16 +15,12 @@ import org.lwjgl.opengl.GL11;
 @Module.Info(name = "BlockHighlight", category = Module.Category.RENDER, description = "Better crosshair highlighting")
 public class BlockHighlight extends Module {
 
-
     private Integer[] colourArray = new Integer[] {255, 0, 0, 40};
-
-    RayTraceResult result;
-
-
     private Setting<Integer> rSetting = register(Settings.integerBuilder("Red").withMinimum(0).withMaximum(255).withValue(colourArray[0]).build());
     private Setting<Integer> gSetting = register(Settings.integerBuilder("Green").withMinimum(0).withMaximum(255).withValue(colourArray[1]).build());
     private Setting<Integer> bSetting = register(Settings.integerBuilder("Blue").withMinimum(0).withMaximum(255).withValue(colourArray[2]).build());
     private Setting<Integer> aSetting = register(Settings.integerBuilder("Alpha").withMinimum(0).withMaximum(255).withValue(colourArray[3]).build());
+    RayTraceResult result;
 
     @Override
     public void onUpdate() {
