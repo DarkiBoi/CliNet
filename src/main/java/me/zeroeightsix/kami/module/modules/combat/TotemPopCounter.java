@@ -9,6 +9,7 @@ import me.zeroeightsix.kami.event.events.TotemPopEvent;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.util.EntityUtil;
 import me.zeroeightsix.kami.util.PlayerInfo;
+import me.zeroeightsix.kami.util.Wrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -57,13 +58,13 @@ public class TotemPopCounter extends Module {
     @EventHandler
     public Listener<PacketEvent.Receive> totemPopListener = new Listener<>(event -> {
 
-        if(mc.world == null || mc.player == null) {
+        if (mc.world == null || mc.player == null) {
             return;
         }
 
-        if(event.getPacket() instanceof SPacketEntityStatus) {
+        if (event.getPacket() instanceof SPacketEntityStatus) {
             SPacketEntityStatus packet = (SPacketEntityStatus) event.getPacket();
-            if(packet.getOpCode() == 35) {
+            if (packet.getOpCode() == 35) {
                 Entity entity = packet.getEntity(mc.world);
                 KamiMod.EVENT_BUS.post(new TotemPopEvent(entity));
             }
