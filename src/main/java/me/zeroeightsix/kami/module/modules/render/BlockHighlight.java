@@ -12,6 +12,10 @@ import net.minecraft.util.math.RayTraceResult;
 import org.lwjgl.opengl.GL11;
 
 
+/*
+ * Created by Darki / Hamburger
+ */
+
 @Module.Info(name = "BlockHighlight", category = Module.Category.RENDER, description = "Better crosshair highlighting")
 public class BlockHighlight extends Module {
 

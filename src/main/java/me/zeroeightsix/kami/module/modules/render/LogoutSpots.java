@@ -1,58 +1,48 @@
 package me.zeroeightsix.kami.module.modules.render;
 
 import com.google.common.util.concurrent.FutureCallback;
+import com.mojang.authlib.GameProfile;
+import joptsimple.internal.Strings;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
-import me.zeroeightsix.kami.command.Command;
-import me.zeroeightsix.kami.event.events.RenderEvent;
-import me.zeroeightsix.kami.util.*;
-import com.mojang.authlib.GameProfile;
-
-import java.text.DecimalFormat;
-import java.util.Objects;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nullable;
-import joptsimple.internal.Strings;
 import me.zeroeightsix.kami.KamiMod;
+import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.event.KamiEvent;
 import me.zeroeightsix.kami.event.events.EntityConnectEvent;
 import me.zeroeightsix.kami.event.events.PacketEvent;
+import me.zeroeightsix.kami.event.events.RenderEvent;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
-import net.minecraft.client.Minecraft;
+import me.zeroeightsix.kami.util.*;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.SPacketChunkData;
 import net.minecraft.network.play.server.SPacketCustomPayload;
 import net.minecraft.network.play.server.SPacketPlayerListItem;
 import net.minecraft.network.play.server.SPacketPlayerListItem.Action;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
-import org.lwjgl.opengl.GL11;
 
+import javax.annotation.Nullable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL11.glTranslatef;
+
+/*
+ * Created by Darki
+ */
 
 @Module.Info(name = "LogoutSpots", description = "Shows you where players logged off", category = Module.Category.RENDER)
 public class LogoutSpots extends Module {

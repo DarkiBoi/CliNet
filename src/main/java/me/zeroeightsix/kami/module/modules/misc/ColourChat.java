@@ -43,9 +43,6 @@ public class ColourChat extends Module {
                         s = "`" + s;
                         break;
                     case SPOILER:
-                        //if(ModuleManager.isModuleEnabled("ChatAppend")) {
-                        //CustomChat cc = new CustomChat();      Name was changed so commenting this out ftm
-                        //String suffix = cc.KAMI_SUFFIX;
                         s = "[SPOILER]" + s + "[/SPOILER]";
 
                         break;

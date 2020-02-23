@@ -1,10 +1,10 @@
 package me.zeroeightsix.kami.module.modules.player;
 
-import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.module.Module;
-import net.minecraft.world.chunk.Chunk;
 
-import java.util.Random;
+/*
+ * Created by Darki
+ */
 
 @Module.Info(name = "InvalidTeleport", category = Module.Category.MISC)
 public class InvalidTeleport extends Module {

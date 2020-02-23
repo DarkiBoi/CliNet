@@ -5,6 +5,10 @@ import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import net.minecraft.inventory.EntityEquipmentSlot;
 
+/*
+ * Created by TBM
+ */
+
 @Module.Info(name="AntiArmourRender", category = Module.Category.RENDER)
 public class AntiArmourRender extends Module {
 

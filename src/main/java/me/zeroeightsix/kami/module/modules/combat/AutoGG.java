@@ -34,23 +34,23 @@ public class AutoGG extends Module {
 
     private ConcurrentHashMap<String, Integer> targetedPlayers = null;
 
-    public Setting<Boolean> nonaked = register(Settings.b("NoNaked", true));
+    public Setting<Boolean> nonaked = register(Settings.b("NoNaked", true)); //TODO
     public static Setting<Mode> mode = Settings.e("Mode", Mode.CLINET);
 
     private final String CLINET1 = "Good Fight ";
     private final String CLINET2 = "! CliNet owns me and all!";
     private final String TOXIC = "EZZZZZZZ ";
-    private final String PLIVID = "Buenos Dios Fuckboy";
+    private final String SPANISH = "Buenos Dios Fuckboy";
     private final String DUTCHERINO1 = "GG volgende keer beter";
     private final String DUTCHERINO2 = "GG Goed Gevecht ";
     private final String DUTCHERINO21 = "! CliNet beheert mij en iedereen!";
     private final String DUTCHERINO3 = "GG! Goed Gevecht ";
     private final String DUTCHERINO31 = ", maar niet goed genoeg";
     private final String DUTCHERINO4 = "GG beetje jammer dat je hebt verloren!";
-
+    private final String NUTGOD = "Nutgod owns me and all!";
 
     public enum Mode {
-        CLINET, TOXIC, PLIVID, DUTCHERINO, RANDOM
+        CLINET, TOXIC, SPANISH, DUTCHERINO, NUTGOD, RANDOM
     }
 
     public AutoGG() {
@@ -198,9 +198,11 @@ public class AutoGG extends Module {
             case TOXIC:
                 postGG(TOXIC + name);
                 break;
-            case PLIVID:
-                postGG(PLIVID);
+            case SPANISH:
+                postGG(SPANISH);
                 break;
+            case NUTGOD:
+                postGG(NUTGOD);
             case DUTCHERINO:
                 Random r = new Random();
                 int n = r.nextInt(4);
@@ -219,7 +221,7 @@ public class AutoGG extends Module {
                 }
                 break;
             case RANDOM:
-                String[] gglist = {CLINET1, DUTCHERINO1, TOXIC, DUTCHERINO2, DUTCHERINO3, DUTCHERINO4, PLIVID};
+                String[] gglist = {CLINET1, DUTCHERINO1, TOXIC, DUTCHERINO2, DUTCHERINO3, DUTCHERINO4, SPANISH, NUTGOD};
                 Random random = new Random();
                 String randomgg = gglist[random.nextInt(gglist.length)];
                 if (randomgg == DUTCHERINO2) {

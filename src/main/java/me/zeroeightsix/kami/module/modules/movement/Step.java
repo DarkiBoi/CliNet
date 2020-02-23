@@ -6,6 +6,10 @@ import me.zeroeightsix.kami.setting.Settings;
 
 import java.text.DecimalFormat;
 
+/*
+ * Created by Darki
+ */
+
 @Module.Info(name = "Step", description = "Makes you teleport up blocks", category = Module.Category.MOVEMENT)
 public class Step extends Module {
 

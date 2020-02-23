@@ -30,7 +30,6 @@ public class AntiChainPop extends Module {
     public Listener<TotemPopEvent> totemPopEvent = new Listener<>(event -> {
         EntityPlayer entity = (EntityPlayer) event.getEntity();
         if (mc.player == entity) {
-            Command.sendChatMessage("test");
             m = ModuleManager.getModuleByName("Surround");
             if (!ModuleManager.isModuleEnabled("Surround")) m.toggle();
         }

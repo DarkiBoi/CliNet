@@ -7,7 +7,7 @@ import me.zeroeightsix.kami.module.Module;
 * Created by Hamburger 8/1/2020
  */
 
-@Module.Info(name = "Suicide (KILLS YOU!)", category = Module.Category.MISC, description = "Kills self by running the /kill command")
+@Module.Info(name = "Suicide (KILLS YOU!)", category = Module.Category.HIDDEN, description = "Kills self by running the /kill command")
 public class Suicide extends Module {
 
     @Override

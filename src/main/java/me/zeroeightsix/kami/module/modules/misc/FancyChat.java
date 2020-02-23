@@ -9,7 +9,7 @@ import me.zeroeightsix.kami.setting.Settings;
 import net.minecraft.network.play.client.CPacketChatMessage;
 
 /**
- * The epic packet base by 086 on 8/04/2018. Created by Hamburger on 2/01/2020
+ *  Created by Hamburger on 2/01/2020
  */
 @Module.Info(name = "FancyChat", category = Module.Category.MISC, description = "Allows you to talk in different unicode types")
 public class FancyChat extends Module {
