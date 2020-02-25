@@ -121,3 +121,8 @@ Note: This assumes your minecraft folder is in the default location under your %
 The [Minecraft Forge team](https://github.com/MinecraftForge) for [forge](https://files.minecraftforge.net/)
 
 [TBM](https://github.com/TheBritishMidget) & [Darki](https://github.com/DarkiBoi) for being OG dev
+
+Contributors:
+[hub](https://github.com/blockparole)
+[Bella](https://github.com/S-B99)
+[3arthqu4ke](https://github.com/3arthqu4ke)
