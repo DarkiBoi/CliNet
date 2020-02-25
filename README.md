@@ -13,6 +13,8 @@ Mostly a project for me to get better, so my  apologies for any funky code.
 
 Mod also has a couple of Heph modules, added with permission and didn't add myself. However, I will work on rewriting those eventually. 
 
+Kami for now, while i'm working on custom base.
+
 ## Usage instructions (modified from Kami)
 
 ## Installing
