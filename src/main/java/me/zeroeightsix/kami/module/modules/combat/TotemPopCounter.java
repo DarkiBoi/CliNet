@@ -7,6 +7,8 @@ import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.event.events.PacketEvent;
 import me.zeroeightsix.kami.event.events.TotemPopEvent;
 import me.zeroeightsix.kami.module.Module;
+import me.zeroeightsix.kami.setting.Setting;
+import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.util.EntityUtil;
 import me.zeroeightsix.kami.util.PlayerInfo;
 import me.zeroeightsix.kami.util.Wrapper;
@@ -23,6 +25,7 @@ import java.util.Map;
 public class TotemPopCounter extends Module {
 
     private HashMap<String, Integer> popList = new HashMap();
+    private Setting<colour> mode = register(Settings.e("Colour", colour.DARK_PURPLE));
 
     @EventHandler
     public Listener<TotemPopEvent> totemPopEvent = new Listener<>(event -> {
@@ -33,12 +36,12 @@ public class TotemPopCounter extends Module {
 
         if(popList.get(event.getEntity().getName()) == null) {
             popList.put(event.getEntity().getName(), 1);
-            Command.sendChatMessage("&d" + event.getEntity().getName() + " popped " + 1 + " totem!");
+            Command.sendChatMessage(colourchoice() + event.getEntity().getName() + " popped " + 1 + " totem!");
         } else if(!(popList.get(event.getEntity().getName()) == null)) {
             int popCounter = popList.get(event.getEntity().getName());
             int newPopCounter = popCounter += 1;
             popList.put(event.getEntity().getName(), newPopCounter);
-            Command.sendChatMessage("&d" + event.getEntity().getName() + " popped " + newPopCounter + " totems!");
+            Command.sendChatMessage(colourchoice() + event.getEntity().getName() + " popped " + newPopCounter + " totems!");
         }
 
     });
@@ -48,7 +51,7 @@ public class TotemPopCounter extends Module {
         for(EntityPlayer player : mc.world.playerEntities) {
             if(player.getHealth() <= 0) {
                 if(popList.containsKey(player.getName())) {
-                    Command.sendChatMessage("&d" + player.getName() + " died after popping " + popList.get(player.getName()) + " totems!");
+                    Command.sendChatMessage(colourchoice() + player.getName() + " died after popping " + popList.get(player.getName()) + " totems!");
                     popList.remove(player.getName(), popList.get(player.getName()));
                 }
             }
@@ -71,5 +74,35 @@ public class TotemPopCounter extends Module {
         }
 
     });
+
+
+
+    private String colourchoice(){
+        switch (mode.getValue()){
+            case BLACK: return "&0";
+            case RED: return "&c";
+            case AQUA: return "&b";
+            case BLUE: return "&9";
+            case GOLD: return "&6";
+            case GRAY: return "&7";
+            case WHITE: return "&f";
+            case GREEN: return "&a";
+            case YELLOW: return "&e";
+            case DARK_RED: return "&4";
+            case DARK_AQUA: return "&3";
+            case DARK_BLUE: return "&1";
+            case DARK_GRAY: return "&8";
+            case DARK_GREEN: return "&2";
+            case DARK_PURPLE: return "&5";
+            case LIGHT_PURPLE: return "&d";
+            default: return "";
+        }
+
+
+    }
+
+    private enum colour{
+        BLACK, DARK_BLUE, DARK_GREEN, DARK_AQUA, DARK_RED, DARK_PURPLE, GOLD, GRAY, DARK_GRAY, BLUE, GREEN, AQUA, RED, LIGHT_PURPLE, YELLOW, WHITE
+    }
 
 }
