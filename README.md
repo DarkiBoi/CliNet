@@ -63,7 +63,7 @@ Of-course you can also use a Gradle installation if you for some reason want ano
 Open cmd in the directory
 gradlew.bat setupDecompWorkspace
 ```
-Import CliNEt into your IDE of choice. 
+Import CliNet into your IDE of choice. 
 
 If you use IntelliJ, import from the `build.gradle` file and run `gradlew.bat genIntellijRuns`
 
