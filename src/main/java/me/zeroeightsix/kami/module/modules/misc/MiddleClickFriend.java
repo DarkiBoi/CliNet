@@ -11,6 +11,9 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Mouse;
 
+/*
+ * Created by Hamburger 22/02/2020
+ */
 
 @Module.Info(name = "MiddleClickFriend", description = "Middle click people to friend", category = Module.Category.MISC)
 public class MiddleClickFriend extends Module {
@@ -29,7 +32,7 @@ public class MiddleClickFriend extends Module {
                             return;
                         }
                         if(Friends.isFriend(name)) {
-                            Friends.friends.getValue().remove(name);
+                            Friends.friends.getValue().remove(f);
                             Command.sendChatMessage("&b" + name + " has been unfriended");
                         }
                         else {
