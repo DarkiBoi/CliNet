@@ -88,7 +88,7 @@ public class Friends {
             }
         }
 
-        private static String getSource(String link){
+        private static String getSource(String link) {
             try{
                 URL u = new URL(link);
                 URLConnection con = u.openConnection();
@@ -100,7 +100,7 @@ public class Friends {
                 in.close();
 
                 return buffer.toString();
-            }catch(Exception e){
+            }catch(Exception e) {
                 return null;
             }
         }

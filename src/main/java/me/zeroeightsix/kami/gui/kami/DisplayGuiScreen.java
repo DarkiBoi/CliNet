@@ -38,10 +38,10 @@ public class DisplayGuiScreen extends GuiScreen {
 
         KamiGUI gui = KamiMod.getInstance().getGuiManager();
 
-        for (Component c : gui.getChildren()){
-            if (c instanceof Frame){
+        for (Component c : gui.getChildren()) {
+            if (c instanceof Frame) {
                 Frame child = (Frame) c;
-                if (child.isPinneable() && child.isVisible()){
+                if (child.isPinneable() && child.isVisible()) {
                     child.setOpacity(.5f);
                 }
             }
@@ -87,9 +87,9 @@ public class DisplayGuiScreen extends GuiScreen {
 
     @Override
     public void updateScreen() {
-        if (Mouse.hasWheel()){
+        if (Mouse.hasWheel()) {
             int a = Mouse.getDWheel();
-            if (a != 0){
+            if (a != 0) {
                 gui.handleWheel(this.mouseX, this.mouseY, a);
             }
         }
@@ -105,9 +105,9 @@ public class DisplayGuiScreen extends GuiScreen {
         }
     }
 
-    public static int getScale(){
+    public static int getScale() {
         int scale = Wrapper.getMinecraft().gameSettings.guiScale;
-        if(scale == 0)
+        if (scale == 0)
             scale = 1000;
         int scaleFactor = 0;
         while(scaleFactor < scale && Wrapper.getMinecraft().displayWidth / (scaleFactor + 1) >= 320 && Wrapper.getMinecraft().displayHeight / (scaleFactor + 1) >= 240)

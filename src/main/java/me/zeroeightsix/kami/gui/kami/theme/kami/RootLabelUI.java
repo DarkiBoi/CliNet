@@ -20,7 +20,7 @@ public class RootLabelUI<T extends Label> extends AbstractComponentUI<Label> {
         String[] lines = component.getLines();
         int y = 0;
         boolean shadow = component.isShadow();
-        for (String s : lines){
+        for (String s : lines) {
             int x = 0;
             if (component.getAlignment() == AlignedComponent.Alignment.CENTER)
                 x = component.getWidth() / 2 - a.getStringWidth(s) / 2;
@@ -42,7 +42,7 @@ public class RootLabelUI<T extends Label> extends AbstractComponentUI<Label> {
         String[] lines = component.getLines();
         int y = 0;
         int w = 0;
-        for (String s : lines){
+        for (String s : lines) {
             w = Math.max(w, component.getFontRenderer().getStringWidth(s));
             y += component.getFontRenderer().getFontHeight() + 3;
         }

@@ -34,14 +34,14 @@ public class FastUse extends Module {
         Item main = mc.player.getHeldItemMainhand().getItem();
         Item off = mc.player.getHeldItemOffhand().getItem();
 
-        if(fastXP.getValue()) {
-            if(main instanceof ItemExpBottle | off instanceof ItemExpBottle) {
+        if (fastXP.getValue()) {
+            if (main instanceof ItemExpBottle | off instanceof ItemExpBottle) {
                 mc.rightClickDelayTimer = 0;
             }
 
         }
 
-        if(fastBow.getValue()) {
+        if (fastBow.getValue()) {
             if (mc.player.inventory.getCurrentItem().getItem() instanceof net.minecraft.item.ItemBow &&
                     mc.player.isHandActive() && mc.player.getItemInUseMaxCount() >= 3) {
                 mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, mc.player.getHorizontalFacing()));
@@ -51,25 +51,25 @@ public class FastUse extends Module {
 
         }
 
-        if(fastPlace.getValue()) {
-            if(main instanceof ItemBlock | off instanceof ItemBlock) {
+        if (fastPlace.getValue()) {
+            if (main instanceof ItemBlock | off instanceof ItemBlock) {
                 mc.rightClickDelayTimer = 0;
             }
         }
 
-        if(fastSnowball.getValue()) {
-            if(main instanceof ItemSnowball | off instanceof ItemSnowball) {
+        if (fastSnowball.getValue()) {
+            if (main instanceof ItemSnowball | off instanceof ItemSnowball) {
                 mc.rightClickDelayTimer = 0;
             }
         }
 
-        if(fastEgg.getValue()) {
-            if(main instanceof ItemEgg | off instanceof ItemEgg) {
+        if (fastEgg.getValue()) {
+            if (main instanceof ItemEgg | off instanceof ItemEgg) {
                 mc.rightClickDelayTimer = 0;
             }
         }
 
-        if(main instanceof ItemFood | off instanceof  ItemFood) {
+        if (main instanceof ItemFood | off instanceof  ItemFood) {
             mc.rightClickDelayTimer = 0;
         }
 

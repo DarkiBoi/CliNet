@@ -195,7 +195,7 @@ public class ForgeEventProcessor {
     }
 
     @SubscribeEvent
-    public void onDeath(LivingDeathEvent event){
+    public void onDeath(LivingDeathEvent event) {
         KamiMod.EVENT_BUS.post(event);
     }
 

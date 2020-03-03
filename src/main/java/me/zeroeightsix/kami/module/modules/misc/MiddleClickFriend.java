@@ -20,18 +20,18 @@ public class MiddleClickFriend extends Module {
 
     @EventHandler
     public Listener<InputEvent.MouseInputEvent> listener = new Listener<>(event -> {
-            if(mc.world == null) return;
+            if (mc.world == null) return;
             if (Mouse.isButtonDown(2)) {
                 RayTraceResult result = mc.objectMouseOver;
-                if(result.typeOfHit == RayTraceResult.Type.ENTITY){
-                    if(result.entityHit instanceof EntityPlayer){
+                if (result.typeOfHit == RayTraceResult.Type.ENTITY) {
+                    if (result.entityHit instanceof EntityPlayer) {
                         String name = result.entityHit.getName();
                         Friends.Friend f = FriendCommand.getFriendByName(name);
                         if (f == null) {
                             Command.sendChatMessage("Failed to find UUID of " + name);
                             return;
                         }
-                        if(Friends.isFriend(name)) {
+                        if (Friends.isFriend(name)) {
                             Friends.friends.getValue().remove(f);
                             Command.sendChatMessage("&b" + name + " has been unfriended");
                         }

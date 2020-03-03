@@ -18,7 +18,7 @@ public class CommandManager {
 
 		Set<Class> classList = ClassFinder.findClasses(BindCommand.class.getPackage().getName(), Command.class);
 		for (Class s : classList) {
-			if (Command.class.isAssignableFrom(s)){
+			if (Command.class.isAssignableFrom(s)) {
 				try {
 					Command command = (Command) s.getConstructor().newInstance();
 					commands.add(command);
@@ -31,19 +31,19 @@ public class CommandManager {
 		KamiMod.log.info("Commands initialised");
 	}
 
-	public void callCommand(String command){
+	public void callCommand(String command) {
 		String[] parts = command.split(" (?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"); // Split by every space if it isn't surrounded by quotes
 		
 		String label = parts[0].substring(1);
 		String[] args = removeElement(parts, 0);
 		
-		for (int i = 0; i < args.length; i++){
+		for (int i = 0; i < args.length; i++) {
 			if (args[i]==null) continue;
 			args[i] = strip(args[i], "\"");
 		}
 		
-		for (Command c : commands){
-			if (c.getLabel().equalsIgnoreCase(label)){
+		for (Command c : commands) {
+			if (c.getLabel().equalsIgnoreCase(label)) {
 				c.call(parts);
 				return;
 			}
@@ -55,7 +55,7 @@ public class CommandManager {
 	public static String[] removeElement(String[] input, int indexToDelete) {
 	    List result = new LinkedList();
 
-	    for (int i = 0; i < input.length; i++){
+	    for (int i = 0; i < input.length; i++) {
 	    	if (i != indexToDelete) result.add(input[i]);
 	    }
 
@@ -63,13 +63,13 @@ public class CommandManager {
 	}
 	
 	
-	private static String strip(String str, String key){
+	private static String strip(String str, String key) {
 		if (str.startsWith(key) && str.endsWith(key)) return str.substring(key.length(), str.length()-key.length());
 		return str;
 	}
 	
-	public Command getCommandByLabel(String commandLabel){
-		for (Command c : commands){
+	public Command getCommandByLabel(String commandLabel) {
+		for (Command c : commands) {
 			if (c.getLabel().equals(commandLabel)) return c;
 		}
 		return null;

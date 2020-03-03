@@ -64,18 +64,18 @@ public class LogoutSpots extends Module {
 
     @EventHandler
     public Listener<EntityConnectEvent.Leave> leaveEvent = new Listener<>(event -> {
-        if(loggedPlayers == null) {
+        if (loggedPlayers == null) {
             loggedPlayers = new HashMap<>();
         }
 
-        if(mc.world == null) {
+        if (mc.world == null) {
             return;
         }
 
         EntityPlayer player = mc.world.getPlayerEntityByUUID(event.getPlayerInfo().getId());
         if (player != null && mc.player != null && !mc.player.equals(player)) {
             loggedPlayers.put(player.getName(), player.getPositionVector());
-            if(debugSetting.getValue()) {
+            if (debugSetting.getValue()) {
                 Command.sendChatMessage(player.getName() + " logged out at " + player.getPositionVector());
             }
         }
@@ -84,18 +84,18 @@ public class LogoutSpots extends Module {
 
     @EventHandler
     public Listener<EntityConnectEvent.Join> joinEvent = new Listener<>(event -> {
-       if(loggedPlayers == null) {
+       if (loggedPlayers == null) {
            return;
        }
 
-       if(mc.world == null) {
+       if (mc.world == null) {
            return;
        }
 
        EntityPlayer player = mc.world.getPlayerEntityByUUID(event.getPlayerInfo().getId());
 
         if (player != null && mc.player != null && !mc.player.equals(player)) {
-            if(loggedPlayers.containsKey(player.getName())) {
+            if (loggedPlayers.containsKey(player.getName())) {
             loggedPlayers.remove(player.getName());
             Command.sendChatMessage(player.getName() + " joined after leaving!");
        }
@@ -112,13 +112,13 @@ public class LogoutSpots extends Module {
     });
 
     @SubscribeEvent
-    public void onClientDisconnect(FMLNetworkEvent.ClientDisconnectionFromServerEvent event){
+    public void onClientDisconnect(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
         loggedPlayers.clear();
     }
 
     @Override
     public void onWorldRender(RenderEvent event) {
-        if(mc.world == null || mc.player == null) {
+        if (mc.world == null || mc.player == null) {
             return;
         }
         for(Map.Entry<String, Vec3d> entry : loggedPlayers.entrySet()) {
@@ -145,7 +145,7 @@ public class LogoutSpots extends Module {
     @Override
     public void onDisable() {
         MinecraftForge.EVENT_BUS.unregister((Object) this);
-        if(mc.world == null || mc.player == null) {
+        if (mc.world == null || mc.player == null) {
             return;
         }
         loggedPlayers.clear();
@@ -154,7 +154,7 @@ public class LogoutSpots extends Module {
     @Override
     public void onEnable() {
         MinecraftForge.EVENT_BUS.register((Object) this);
-        if(mc.world == null || mc.player == null) {
+        if (mc.world == null || mc.player == null) {
             return;
         }
         loggedPlayers.clear();

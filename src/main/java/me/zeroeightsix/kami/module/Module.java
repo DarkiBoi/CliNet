@@ -184,7 +184,7 @@ public class Module {
     /**
      * Cleanup method in case this module wants to do something when the client closes down
      */
-    public void destroy(){};
+    public void destroy() {};
 
     protected void registerAll(Setting... settings) {
         for (Setting setting : settings) {

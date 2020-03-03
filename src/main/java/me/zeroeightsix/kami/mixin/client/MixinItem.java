@@ -12,7 +12,7 @@ public class MixinItem {
 
     @Inject(method = "hasEffect", at = @At("HEAD"), cancellable = true)
     public void hasEffect(CallbackInfoReturnable<Boolean> cir) {
-        if(ModuleManager.isModuleEnabled("Glimmer"))
+        if (ModuleManager.isModuleEnabled("Glimmer"))
         cir.setReturnValue(true);
     }
 

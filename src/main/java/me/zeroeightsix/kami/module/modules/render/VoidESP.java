@@ -83,12 +83,12 @@ public class VoidESP extends Module {
     }
 
     private boolean validVoid(BlockPos pos) {
-        if(isZeroBlockPos(pos) && mc.world.getBlockState(pos).getBlock() == Blocks.AIR) return true;
+        if (isZeroBlockPos(pos) && mc.world.getBlockState(pos).getBlock() == Blocks.AIR) return true;
         return false;
     }
 
     public boolean isZeroBlockPos(BlockPos pos) {
-        if(pos.y == 0) return true;
+        if (pos.y == 0) return true;
         return false;
     }
 

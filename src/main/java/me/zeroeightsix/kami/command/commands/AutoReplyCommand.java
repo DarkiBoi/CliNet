@@ -25,7 +25,7 @@ public class AutoReplyCommand extends Command {
         }
         int i = 0;
         areply = "";
-        while (args.length - 1 > i){
+        while (args.length - 1 > i) {
             areply += " " + args[i];
             i++;
         }

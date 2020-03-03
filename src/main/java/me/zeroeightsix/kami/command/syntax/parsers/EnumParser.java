@@ -16,9 +16,9 @@ public class EnumParser extends AbstractParser {
 
     @Override
     public String getChunk(SyntaxChunk[] chunks, SyntaxChunk thisChunk, String[] values, String chunkValue) {
-        if (chunkValue == null){
+        if (chunkValue == null) {
             String s = "";
-            for (String a : modes){
+            for (String a : modes) {
                 s += a + ":";
             }
             s = s.substring(0, s.length()-1);
@@ -27,7 +27,7 @@ public class EnumParser extends AbstractParser {
 
         ArrayList<String> possibilities = new ArrayList<String>();
 
-        for (String s : modes){
+        for (String s : modes) {
             if (s.toLowerCase().startsWith(chunkValue.toLowerCase()))
                 possibilities.add(s);
         }

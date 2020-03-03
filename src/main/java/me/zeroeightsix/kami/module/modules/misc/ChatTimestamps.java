@@ -24,7 +24,7 @@ public class ChatTimestamps extends Module {
 
     @EventHandler
     public Listener<ClientChatReceivedEvent> listener = new Listener<>(event -> {
-        if(this.isDisabled()) {
+        if (this.isDisabled()) {
             return;
         }
 

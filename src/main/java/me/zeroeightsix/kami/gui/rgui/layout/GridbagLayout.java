@@ -32,12 +32,12 @@ public class GridbagLayout implements Layout {
         int w = 0;
         int h = 0;
         ArrayList<Component> children = container.getChildren();
-        for (Component c : children){
+        for (Component c : children) {
             if (!c.doAffectLayout()) continue;
             w += c.getWidth() + COMPONENT_OFFSET;
             h = Math.max(h, c.getHeight());
             i++;
-            if (i >= blocks){
+            if (i >= blocks) {
                 width = Math.max(width, w);
                 height += h + COMPONENT_OFFSET;
                 w = h = i = 0;
@@ -46,7 +46,7 @@ public class GridbagLayout implements Layout {
 
         int x = 0;
         int y = 0;
-        for (Component c : children){
+        for (Component c : children) {
             if (!c.doAffectLayout()) continue;
             c.setX(x + COMPONENT_OFFSET/3);
             c.setY(y + COMPONENT_OFFSET/3);
@@ -54,7 +54,7 @@ public class GridbagLayout implements Layout {
             h = Math.max(c.getHeight(), h);
 
             x += width / blocks;
-            if (x >= width){
+            if (x >= width) {
                 y += h + COMPONENT_OFFSET;
                 x = 0;
             }

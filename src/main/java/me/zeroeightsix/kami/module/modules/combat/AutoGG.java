@@ -92,7 +92,7 @@ public class AutoGG extends Module {
                 continue;
             }
 
-            if(player.getArmorInventoryList().equals(null)) {
+            if (player.getArmorInventoryList().equals(null)) {
                 return;
             }
 

@@ -264,11 +264,11 @@ public class ColourUtils {
         return toRGBA((int) (r * 255.f), (int) (g * 255.f), (int) (b * 255.f), (int) (a * 255.f));
     }
     public static int toRGBA(float[] colors) {
-        if(colors.length != 4) throw new IllegalArgumentException("colors[] must have a length of 4!");
+        if (colors.length != 4) throw new IllegalArgumentException("colors[] must have a length of 4!");
         return toRGBA(colors[0], colors[1], colors[2], colors[3]);
     }
     public static int toRGBA(double[] colors) {
-        if(colors.length != 4) throw new IllegalArgumentException("colors[] must have a length of 4!");
+        if (colors.length != 4) throw new IllegalArgumentException("colors[] must have a length of 4!");
         return toRGBA((float)colors[0], (float)colors[1], (float)colors[2], (float)colors[3]);
     }
 

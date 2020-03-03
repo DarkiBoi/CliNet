@@ -105,7 +105,7 @@ public class SettingsPanel extends OrganisedContainer {
                         });
                         addChild(slider);
                     }
-                }else if(isBoolean) {
+                }else if (isBoolean) {
                     CheckButton checkButton = new CheckButton(name);
                     checkButton.setToggled(((BooleanSetting) setting).getValue());
                     checkButton.addPoof(new CheckButton.CheckButtonPoof<CheckButton, CheckButton.CheckButtonPoof.CheckButtonPoofInfo>() {
@@ -118,7 +118,7 @@ public class SettingsPanel extends OrganisedContainer {
                         }
                     });
                     addChild(checkButton);
-                }else if(isEnum) {
+                }else if (isEnum) {
                     Class<? extends Enum> type = ((EnumSetting) setting).clazz;
                     Object[] con = type.getEnumConstants();
                     String[] modes = Arrays.stream(con).map(o -> o.toString().toUpperCase()).toArray(String[]::new);
@@ -138,7 +138,7 @@ public class SettingsPanel extends OrganisedContainer {
         if (children.isEmpty()) {
             setVisible(false);
             return;
-        }else{
+        }else {
             setVisible(true);
             return;
         }
@@ -150,7 +150,7 @@ public class SettingsPanel extends OrganisedContainer {
         prepare();
 
         setAffectLayout(false);
-        for (Component component : children){
+        for (Component component : children) {
             component.setWidth(getWidth()-10);
             component.setX(5);
         }

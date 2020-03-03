@@ -21,14 +21,14 @@ public class AntiSpam extends Module {
     @EventHandler
     public Listener<PacketEvent.Receive> listener = new Listener<>(event -> {
 
-        if(mc.player == null || this.isDisabled()) return;
+        if (mc.player == null || this.isDisabled()) return;
 
-        if(!(event.getPacket() instanceof SPacketChat)) return;
+        if (!(event.getPacket() instanceof SPacketChat)) return;
 
         SPacketChat chatMessage = (SPacketChat) event.getPacket();
 
 
-        if(detectSpam(chatMessage.chatComponent.getUnformattedText())) {
+        if (detectSpam(chatMessage.chatComponent.getUnformattedText())) {
             event.cancel();
         }
     });
@@ -37,17 +37,17 @@ public class AntiSpam extends Module {
 
 
     private boolean detectSpam(String message) {
-        if(discordLinks.getValue()) {
+        if (discordLinks.getValue()) {
             for (String discordSpam : discordStringArray) {
-                if(message.contains(discordSpam)) {
+                if (message.contains(discordSpam)) {
                     return true;
                 }
             }
         }
 
-        if(announcer.getValue()) {
+        if (announcer.getValue()) {
             for (String announcerSpam : announcerStringArray) {
-                if(message.contains(announcerSpam)) {
+                if (message.contains(announcerSpam)) {
                     return true;
                 }
             }

@@ -27,7 +27,7 @@ public class Wrapper {
     public static World getWorld() {
         return getMinecraft().world;
     }
-    public static int getKey(String keyname){
+    public static int getKey(String keyname) {
         return Keyboard.getKeyIndex(keyname.toUpperCase());
     }
 

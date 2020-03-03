@@ -45,7 +45,7 @@ public class Trajectories extends Module {
                 GL11.glDisable(GL11.GL_TEXTURE_2D);
                 GL11.glDisable(GL11.GL_LIGHTING);
                 GL11.glDisable(GL11.GL_DEPTH_TEST);
-                if (hit != null){
+                if (hit != null) {
                     KamiTessellator.prepare(GL11.GL_QUADS);
                     GL11.glColor4f(1,1,1,.3f);
                     KamiTessellator.drawBox(hit, 0x33ffffff, GeometryMasks.FACEMAP.get(flightPath.getCollidingTarget().sideHit));

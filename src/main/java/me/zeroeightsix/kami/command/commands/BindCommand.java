@@ -55,23 +55,23 @@ public class BindCommand extends Command {
 
         Module m = ModuleManager.getModuleByName(module);
 
-        if (m == null){
+        if (m == null) {
             sendChatMessage("Unknown module '" + module + "'!");
             return;
         }
 
-        if (rkey == null){
+        if (rkey == null) {
             sendChatMessage(m.getName() + " is bound to &b" + m.getBindName());
             return;
         }
 
         int key = Wrapper.getKey(rkey);
 
-        if (rkey.equalsIgnoreCase("none")){
+        if (rkey.equalsIgnoreCase("none")) {
             key = -1;
         }
 
-        if (key == 0){
+        if (key == 0) {
             sendChatMessage("Unknown key '" + rkey + "'!");
             return;
         }

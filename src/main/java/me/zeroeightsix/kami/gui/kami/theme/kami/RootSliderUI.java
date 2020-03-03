@@ -39,11 +39,11 @@ public class RootSliderUI extends AbstractComponentUI<Slider> {
         RenderHelper.drawCircle((int)w,height/downscale,2f);
 
         String s = value + "";
-        if (component.isPressed()){
+        if (component.isPressed()) {
             w -= smallFontRenderer.getStringWidth(s)/2;
             w = Math.max(0,Math.min(w, component.getWidth()-smallFontRenderer.getStringWidth(s)));
             smallFontRenderer.drawString((int) w, 0, s);
-        }else{
+        }else {
             smallFontRenderer.drawString(0,0,component.getText());
             smallFontRenderer.drawString(component.getWidth() - smallFontRenderer.getStringWidth(s), 0, s);
         }

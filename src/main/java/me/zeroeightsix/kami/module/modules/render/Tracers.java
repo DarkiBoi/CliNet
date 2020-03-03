@@ -108,7 +108,7 @@ public class Tracers extends Module {
     private int getColour(Entity entity) {
         if (entity instanceof EntityPlayer) {
             return Friends.isFriend(entity.getName()) ? ColourUtils.Colors.RAINBOW : ColourUtils.Colors.WHITE;
-        }else{
+        }else {
             if (EntityUtil.isPassive(entity)) return ColourUtils.Colors.GREEN;
             else
                 return ColourUtils.Colors.RED;
@@ -126,7 +126,7 @@ public class Tracers extends Module {
         return new double[] { posX, posY, posZ };
     }
 
-    public static void drawLineToEntity(Entity e, float red, float green, float blue, float opacity){
+    public static void drawLineToEntity(Entity e, float red, float green, float blue, float opacity) {
         double[] xyz = interpolate(e);
         drawLine(xyz[0],xyz[1],xyz[2], e.height, red, green, blue, opacity);
     }
@@ -142,7 +142,7 @@ public class Tracers extends Module {
         drawLineFromPosToPos(eyes.x, eyes.y + mc.player.getEyeHeight(), eyes.z, posx, posy, posz, up, red, green, blue, opacity);
     }
 
-    public static void drawLineFromPosToPos(double posx, double posy, double posz, double posx2, double posy2, double posz2, double up, float red, float green, float blue, float opacity){
+    public static void drawLineFromPosToPos(double posx, double posy, double posz, double posx2, double posy2, double posz2, double up, float red, float green, float blue, float opacity) {
         GL11.glBlendFunc(770, 771);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glLineWidth(1.5f);

@@ -26,7 +26,7 @@ public class PathCommand extends Command {
                 if (!Pathfind.points.isEmpty())
                     Command.sendChatMessage("Path created!");
                 return;
-            }else{
+            }else {
                 Command.sendChatMessage("No location to retry pathfinding to.");
                 return;
             }

@@ -63,7 +63,7 @@ public class ChatAppend extends Module {
 
 
             }
-            if (ModuleManager.isModuleEnabled("ColourChat")){
+            if (ModuleManager.isModuleEnabled("ColourChat")) {
                 return;
             }
             if (s.length() >= 256) s = s.substring(0,256);
@@ -72,7 +72,7 @@ public class ChatAppend extends Module {
     });
 
     public String doChatAppend(String chatAppend) {
-        if(blue.getValue() == true) {
+        if (blue.getValue() == true) {
             return "`" + chatAppend;
         } else {
             return chatAppend;

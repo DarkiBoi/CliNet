@@ -37,7 +37,7 @@ public class CapeManager {
     }
 
     public static boolean hasCape(final UUID uuid) {
-        if(ModuleManager.getModuleByName("Capes").isDisabled()) {
+        if (ModuleManager.getModuleByName("Capes").isDisabled()) {
             return false;
         }
         return capeUsers.containsKey(sanitizeUuid(uuid));

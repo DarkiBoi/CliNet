@@ -26,7 +26,7 @@ public class KamiEnumbuttonUI extends AbstractComponentUI<EnumButton> {
 
     @Override
     public void renderComponent(EnumButton component, FontRenderer aa) {
-        if (System.currentTimeMillis() - lastMS > 3000 && modeComponent != null){
+        if (System.currentTimeMillis() - lastMS > 3000 && modeComponent != null) {
             modeComponent = null;
         }
 
@@ -56,7 +56,7 @@ public class KamiEnumbuttonUI extends AbstractComponentUI<EnumButton> {
         }
         glEnd();
 
-        if (modeComponent == null || !modeComponent.equals(component)){
+        if (modeComponent == null || !modeComponent.equals(component)) {
             smallFontRenderer.drawString(0,0,c,component.getName());
             smallFontRenderer.drawString(component.getWidth() - smallFontRenderer.getStringWidth(component.getIndexMode()),0,c, component.getIndexMode());
         }else {

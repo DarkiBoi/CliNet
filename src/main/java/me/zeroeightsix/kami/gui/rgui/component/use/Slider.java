@@ -59,7 +59,7 @@ public class Slider extends AbstractComponent {
         this(value, minimum, maximum, getDefaultStep(minimum, maximum), text, false);
     }
 
-    private double calculateValue(double x){
+    private double calculateValue(double x) {
         double d1 = x / getWidth();
         double d2 = (maximum - minimum);
         double s = d1 * d2 + minimum;
@@ -67,12 +67,12 @@ public class Slider extends AbstractComponent {
         return MathHelper.clamp(Math.floor((Math.round(s/step)*step)*100)/100, minimum, maximum); // round to 2 decimals & clamp min and max
     }
 
-    public static double getDefaultStep(double min, double max){
+    public static double getDefaultStep(double min, double max) {
         double s = gcd(min, max);
-        if (s == max){
+        if (s == max) {
             s = max / 20;
         }
-        if (max > 10){
+        if (max > 10) {
             s = Math.round(s);
         }
         if (s == 0) s = max;
@@ -134,7 +134,7 @@ public class Slider extends AbstractComponent {
     {
         a = Math.floor(a);
         b = Math.floor(b);
-        if(a == 0 || b == 0) return a+b; // base case
+        if (a == 0 || b == 0) return a+b; // base case
         return gcd(b,a%b);
     }
 

@@ -141,7 +141,7 @@ public abstract class AbstractComponent implements Component {
         final int oldX = getX();
         final int oldY = getY();
         this.y = y;
-        if (!workingy){
+        if (!workingy) {
             workingy =true;
             getUpdateListeners().forEach(listener -> listener.updateLocation(this, oldX, oldY)); // First call components own updatelisteners
             if (getParent() != null)
@@ -287,8 +287,8 @@ public abstract class AbstractComponent implements Component {
 
     @Override
     public void callPoof(Class<? extends IPoof> target, PoofInfo info) {
-        for (IPoof poof : poofs){
-            if (target.isAssignableFrom(poof.getClass())){
+        for (IPoof poof : poofs) {
+            if (target.isAssignableFrom(poof.getClass())) {
                 if (poof.getComponentClass().isAssignableFrom(this.getClass()))
                     poof.execute(this, info);
             }
@@ -298,8 +298,8 @@ public abstract class AbstractComponent implements Component {
     @Override
     public boolean liesIn(Component container) {
         if (container.equals(this)) return true;
-        if (container instanceof Container){
-            for (Component component : ((Container) container).getChildren()){
+        if (container instanceof Container) {
+            for (Component component : ((Container) container).getChildren()) {
                 if (component.equals(this)) return true;
 
                 boolean liesin = false;

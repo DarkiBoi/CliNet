@@ -21,7 +21,7 @@ public class TabGuiUI extends AbstractComponentUI<TabGUI> {
     public void renderComponent(TabGUI component, FontRenderer fontRenderer) {
         boolean updatelerp = false;
         float difference = System.currentTimeMillis() - lastms;
-        if (difference > 2){
+        if (difference > 2) {
             component.selectedLerpY = component.selectedLerpY + ((component.selected*10) - component.selectedLerpY) * difference * .02f;
             updatelerp = true;
             lastms = System.currentTimeMillis();
@@ -60,7 +60,7 @@ public class TabGuiUI extends AbstractComponentUI<TabGUI> {
         for(int i = 0; i < component.tabs.size(); i++)
         {
             String tabName = component.tabs.get(i).name;
-            /*if(i == selected)
+            /*if (i == selected)
                 tabName = (tabOpened ? "<" : ">") + tabName;*/
 
             GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -69,7 +69,7 @@ public class TabGuiUI extends AbstractComponentUI<TabGUI> {
             textY += 10;
         }
 
-        if(component.tabOpened)
+        if (component.tabOpened)
         {
             GL11.glPushMatrix();
             GL11.glDisable(GL11.GL_TEXTURE_2D);
@@ -98,7 +98,7 @@ public class TabGuiUI extends AbstractComponentUI<TabGUI> {
                 Module feature = tab.features.get(i);
                 String fName = (feature.isEnabled() ? "\u00A7c" : "\u00A77") + feature.getName();
 
-                /*if(i == tab.selected)
+                /*if (i == tab.selected)
                     fName = "\u00A7b" + fName;*/
 
                 GL11.glEnable(GL11.GL_TEXTURE_2D);

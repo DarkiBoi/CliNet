@@ -48,11 +48,11 @@ public class HelpCommand extends Command {
                     "prefix <prefix>&r to change the command prefix.",
                     "help <subjects:[subject]> &r for more help."
             });
-        }else{
+        }else {
             String subject = args[0];
             if (subject.equals("subjects")) {
                 Command.sendChatMessage("Subjects: " + subjectsList);
-            }else{
+            }else {
                 Subject subject1 = Arrays.stream(subjects).filter(subject2 -> {
                     for (String name : subject2.names)
                         if (name.equalsIgnoreCase(subject))

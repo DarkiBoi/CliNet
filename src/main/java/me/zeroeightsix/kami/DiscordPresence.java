@@ -95,7 +95,7 @@ public class DiscordPresence {
                             if (ipPrivate) {
                                 if (hpPrivate) {
                                     state = svr.serverIP + " (" + ((int) mc.player.getHealth() / 2) + " hearts)";
-                                } else if(coordsPrivate) {
+                                } else if (coordsPrivate) {
                                     state = svr.serverIP + " (" + ((int) mc.player.posX) + ", " + ((int) mc.player.posY) + ", " + ((int) mc.player.posZ);
                                 } else if (coordsPrivate && hpPrivate) {
                                     state = svr.serverIP + " (" + ((int) mc.player.getHealth() / 2) + " hearts) " + " (" + ((int) mc.player.posX) + ", " + ((int) mc.player.posY) + ", " + ((int) mc.player.posZ);

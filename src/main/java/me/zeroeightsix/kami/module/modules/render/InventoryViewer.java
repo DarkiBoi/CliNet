@@ -50,7 +50,7 @@ public class InventoryViewer extends Module {
 
     private boolean isPinned() {
         kamiGUI = KamiMod.getInstance().getGuiManager();
-        if(kamiGUI != null) {
+        if (kamiGUI != null) {
             List<Frame> frames = ContainerHelper.getAllChildren(Frame.class, kamiGUI);
             for(Frame frame : frames) {
                 if (!frame.getTitle().equalsIgnoreCase("inventory viewer")) continue;
@@ -93,7 +93,7 @@ public class InventoryViewer extends Module {
     @Override
     public void onRender() {
         final NonNullList<ItemStack> items = InventoryViewer.mc.player.inventory.mainInventory;
-        if(isPinned()) {
+        if (isPinned()) {
             boxRender(invPos(0), invPos(1));
             itemRender(items, invPos(0), invPos(1));
         }

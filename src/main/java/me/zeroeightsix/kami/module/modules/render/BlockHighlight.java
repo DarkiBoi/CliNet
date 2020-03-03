@@ -28,11 +28,11 @@ public class BlockHighlight extends Module {
 
     @Override
     public void onUpdate() {
-        if(mc.world == null || mc.player == null) {
+        if (mc.world == null || mc.player == null) {
             return;
         }
         result = mc.objectMouseOver;
-        if(result == null) {
+        if (result == null) {
             return;
         }
 
@@ -40,10 +40,10 @@ public class BlockHighlight extends Module {
 
     @Override
     public void onWorldRender(RenderEvent event) {
-        if(mc.world == null || mc.player == null) {
+        if (mc.world == null || mc.player == null) {
             return;
         }
-        if(result == null) {
+        if (result == null) {
             return;
         }
 
