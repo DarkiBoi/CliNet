@@ -59,7 +59,7 @@ public class KamiEnumbuttonUI extends AbstractComponentUI<EnumButton> {
         if (modeComponent == null || !modeComponent.equals(component)) {
             smallFontRenderer.drawString(0,0,c,component.getName());
             smallFontRenderer.drawString(component.getWidth() - smallFontRenderer.getStringWidth(component.getIndexMode()),0,c, component.getIndexMode());
-        }else {
+        } else {
             smallFontRenderer.drawString(component.getWidth() / 2 - smallFontRenderer.getStringWidth(component.getIndexMode()) / 2, 0,c, component.getIndexMode());
         }
         GL11.glDisable(GL11.GL_BLEND);

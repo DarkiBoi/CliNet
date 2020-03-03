@@ -179,7 +179,7 @@ public class Frame extends OrganisedContainer {
                 visibilityMap.put(c, c.isVisible());
                 c.setVisible(false);
             }
-        }else if (!minimized && isMinimized) {
+        } else if (!minimized && isMinimized) {
             setMaximumHeight(truemaxheight);
             setHeight(trueheight-getOriginOffsetY());
             for (Map.Entry<Component, Boolean> entry : visibilityMap.entrySet()) {

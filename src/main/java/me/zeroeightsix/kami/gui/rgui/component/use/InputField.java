@@ -171,40 +171,40 @@ public class InputField extends AbstractComponent {
                         } else
                             remove(1);
                     }
-                }else if (Keyboard.getEventCharacter() == 26) { // CTRL + Z
+                } else if (Keyboard.getEventCharacter() == 26) { // CTRL + Z
                     if (!undoMap.isEmpty()) {
                         redoMap.add(0, currentState.clone());
                         currentState = undoMap.get(0);
                         undoMap.remove(0);
                     }
-                }else if (Keyboard.getEventCharacter() == 25) { // CTRL + Y
+                } else if (Keyboard.getEventCharacter() == 25) { // CTRL + Y
                     if (!redoMap.isEmpty()) {
                         undoMap.add(0, currentState.clone());
                         currentState = redoMap.get(0);
                         redoMap.remove(0);
                     }
-                }else if (Keyboard.getEventCharacter() == 1) { // CTRL + A
+                } else if (Keyboard.getEventCharacter() == 1) { // CTRL + A
                     currentState.selection = true;
                     currentState.selectionStart = 0;
                     currentState.selectionEnd = currentState.getText().length();
-                }else if (event.getKey() == 54) { // shift
+                } else if (event.getKey() == 54) { // shift
                     shift = true;
-                }else if (event.getKey() == 1) { // ecape
+                } else if (event.getKey() == 1) { // ecape
                     currentState.selection = false;
-                }else if (Keyboard.getEventCharacter() == 22) { // CTRL + V
+                } else if (Keyboard.getEventCharacter() == 22) { // CTRL + V
                     Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                     try {
                         type((String) clipboard.getData(DataFlavor.stringFlavor));
                     } catch (UnsupportedFlavorException e) {
                     } catch (IOException e) {
                     }
-                }else if (Keyboard.getEventCharacter() == 3) { // CTRL + C
+                } else if (Keyboard.getEventCharacter() == 3) { // CTRL + C
                     if (currentState.selection) {
                         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                         StringSelection selection = new StringSelection(currentState.getText().substring(currentState.selectionStart, currentState.selectionEnd));
                         clipboard.setContents(selection, selection);
                     }
-                }else if (event.getKey() == 205) { // key right
+                } else if (event.getKey() == 205) { // key right
                     if (currentState.cursorRow < getText().length()) {
                         if (shift) {
                             if (!currentState.selection) {
@@ -213,16 +213,16 @@ public class InputField extends AbstractComponent {
                             }
                             currentState.selection = true;
                             currentState.selectionEnd = Math.min(getText().length(), currentState.selectionEnd + 1);
-                        }else if (currentState.selection) {
+                        } else if (currentState.selection) {
                             currentState.selection = false;
                             currentState.cursorRow = currentState.selectionEnd;
                             scroll();
-                        }else {
+                        } else {
                             currentState.cursorRow = Math.min(getText().length(), currentState.cursorRow + 1);
                             scroll();
                         }
                     }
-                }else if (event.getKey() == 203) { // key left
+                } else if (event.getKey() == 203) { // key left
                     if (currentState.cursorRow > 0) {
                         if (shift) {
                             if (!currentState.selection) {
@@ -231,17 +231,17 @@ public class InputField extends AbstractComponent {
                             }
                             currentState.selection = true;
                             currentState.selectionStart = Math.max(0, currentState.selectionStart - 1);
-                        }else if (currentState.selection) {
+                        } else if (currentState.selection) {
                             currentState.selection = false;
                             currentState.cursorRow = currentState.selectionStart;
                             scroll();
-                        }else {
+                        } else {
                             currentState.cursorRow = Math.max(0, currentState.cursorRow - 1);
                             scroll();
                         }
                     }
                     //currentState.cursorRow = Math.max(0, currentState.cursorRow - 1);
-                }else {
+                } else {
                     if (Keyboard.getEventCharacter() != 0) {
                         pushUndo();
                         if (currentState.selection) {
@@ -348,7 +348,7 @@ public class InputField extends AbstractComponent {
                         rail = true;
                         startRail = System.currentTimeMillis();
                     }
-                }else {
+                } else {
                     railT = System.currentTimeMillis() - startRail;
                     if (railT > railRepeat) {
                         inputListener.onKeyDown(new KeyListener.KeyEvent(railChar));
@@ -410,7 +410,7 @@ public class InputField extends AbstractComponent {
         int diff = aX - scrollX;
         if (diff > getWidth()) {
             scrollX = aX - getWidth() + 8;
-        }else if (diff < 0) {
+        } else if (diff < 0) {
             scrollX = aX + 8;
         }
 

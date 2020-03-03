@@ -64,7 +64,7 @@ public class KamiColourPickerButtonRainbowUI extends AbstractComponentUI<ColourP
             smallFontRenderer.drawString(0,1,c,component.getName());
             if (component.getIndexMode() == "RB") normalFontRenderer.drawString(component.getWidth() - fontRenderer.getStringWidth(component.getIndexMode()),0,c, component.getIndexMode());
             else normalFontRenderer.drawString(component.getWidth() - fontRenderer.getStringWidth(component.getIndexMode()),0,c, "\u00A7" + component.getIndexMode() + component.getIndexMode());
-        }else {
+        } else {
             if (component.getIndexMode() == "RB")normalFontRenderer.drawString(component.getWidth() / 2 - fontRenderer.getStringWidth(component.getIndexMode()) / 2, 0,c, component.getIndexMode());
             else normalFontRenderer.drawString(component.getWidth() / 2 - fontRenderer.getStringWidth(component.getIndexMode()) / 2, 0,c,  "\u00A7" + component.getIndexMode() + component.getIndexMode());
         }

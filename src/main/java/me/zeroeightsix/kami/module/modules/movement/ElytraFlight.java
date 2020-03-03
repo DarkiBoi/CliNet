@@ -37,7 +37,7 @@ public class ElytraFlight extends Module {
                             .toRadians(mc.player.rotationYaw);
                     mc.player.motionX -= MathHelper.sin(yaw) * 0.05F;
                     mc.player.motionZ += MathHelper.cos(yaw) * 0.05F;
-                }else if (mc.gameSettings.keyBindBack.isKeyDown()) {
+                } else if (mc.gameSettings.keyBindBack.isKeyDown()) {
                     float yaw = (float)Math
                             .toRadians(mc.player.rotationYaw);
                     mc.player.motionX += MathHelper.sin(yaw) * 0.05F;

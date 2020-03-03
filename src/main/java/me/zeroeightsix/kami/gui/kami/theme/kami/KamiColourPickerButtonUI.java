@@ -62,7 +62,7 @@ public class KamiColourPickerButtonUI extends AbstractComponentUI<ColourPickerBu
         if (modeComponent == null || !modeComponent.equals(component)) {
             smallFontRenderer.drawString(0,1,c,component.getName());
             normalFontRenderer.drawString(component.getWidth() - fontRenderer.getStringWidth(component.getIndexMode()),0,c, "\u00A7" + component.getIndexMode() + component.getIndexMode());
-        }else {
+        } else {
             normalFontRenderer.drawString(component.getWidth() / 2 - fontRenderer.getStringWidth(component.getIndexMode()) / 2, 0,c,  "\u00A7" + component.getIndexMode() + component.getIndexMode());
         }
 

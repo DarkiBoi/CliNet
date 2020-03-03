@@ -33,7 +33,7 @@ public class UIRenderer {
                     if (slide) {
                         translateX += child.getOriginOffsetX();
                         translateY += child.getOriginOffsetY();
-                    }else {
+                    } else {
                         if (child.getDocking().isBottom()) {
                             translateY += child.getOriginOffsetY();
                         }

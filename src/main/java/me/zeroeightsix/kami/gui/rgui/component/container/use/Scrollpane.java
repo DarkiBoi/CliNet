@@ -94,7 +94,7 @@ public class Scrollpane extends OrganisedContainer {
                     if (event.isUp() && getScrolledY() > 0) {
                         setScrolledY(Math.max(0, getScrolledY() - step));
                         return;
-                    }else if (!event.isUp() && getScrolledY() < getMaxScrollY()) {
+                    } else if (!event.isUp() && getScrolledY() < getMaxScrollY()) {
                         setScrolledY(Math.min(getMaxScrollY(), getScrolledY() + step));
                         return;
                     }
@@ -104,7 +104,7 @@ public class Scrollpane extends OrganisedContainer {
                     if (event.isUp() && getScrolledX() > 0) {
                         setScrolledX(Math.max(0, getScrolledX() - step));
                         return;
-                    }else if (!event.isUp() && getScrolledX() < getMaxScrollX()) {
+                    } else if (!event.isUp() && getScrolledX() < getMaxScrollX()) {
                         setScrolledX(Math.min(getMaxScrollX(), getScrolledX() + step));
                         return;
                     }

@@ -234,18 +234,18 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
                             if (y > -component.getOriginOffsetY()/2) {
                                 if (component.isMinimized()) {
                                     component.callPoof(FramePoof.class, new FramePoof.FramePoofInfo(FramePoof.Action.MAXIMIZE));
-                                }else {
+                                } else {
                                     component.callPoof(FramePoof.class, new FramePoof.FramePoofInfo(FramePoof.Action.MINIMIZE));
                                 }
-                            }else {
+                            } else {
                                 component.callPoof(FramePoof.class, new FramePoof.FramePoofInfo(FramePoof.Action.CLOSE));
                             }
-                        }else {
+                        } else {
                             if (component.isMinimized() && component.isMinimizeable()) {
                                 component.callPoof(FramePoof.class, new FramePoof.FramePoofInfo(FramePoof.Action.MAXIMIZE));
-                            }else if (component.isMinimizeable()) {
+                            } else if (component.isMinimizeable()) {
                                 component.callPoof(FramePoof.class, new FramePoof.FramePoofInfo(FramePoof.Action.MINIMIZE));
-                            }else if (component.isCloseable()) {
+                            } else if (component.isCloseable()) {
                                 component.callPoof(FramePoof.class, new FramePoof.FramePoofInfo(FramePoof.Action.CLOSE));
                             }
                         }

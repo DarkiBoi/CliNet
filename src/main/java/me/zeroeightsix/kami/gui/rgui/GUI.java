@@ -188,7 +188,7 @@ public abstract class GUI extends AbstractContainer {
 
             press = false;
             return;
-        }else {
+        } else {
             if (button != -1) {
                 Component c = getComponentAt(x, y);
 

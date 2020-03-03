@@ -24,7 +24,7 @@ public class EnumButton extends Button {
                     double p = (double) info.getX() / (double) component.getWidth();
                     if (p <= 0.5) { // left
                         EnumButton.this.increaseIndex(-1);
-                    }else { // right
+                    } else { // right
                         EnumButton.this.increaseIndex(1);
                     }
                 }
@@ -41,7 +41,7 @@ public class EnumButton extends Button {
         int newI = index+amount;
         if (newI < 0) {
             newI = modes.length - Math.abs(newI);
-        }else if (newI >= modes.length) {
+        } else if (newI >= modes.length) {
             newI = Math.abs(newI - modes.length);
         }
         index = Math.min(modes.length,Math.max(0,newI));

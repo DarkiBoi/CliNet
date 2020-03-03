@@ -108,7 +108,7 @@ public class Tracers extends Module {
     private int getColour(Entity entity) {
         if (entity instanceof EntityPlayer) {
             return Friends.isFriend(entity.getName()) ? ColourUtils.Colors.RAINBOW : ColourUtils.Colors.WHITE;
-        }else {
+        } else {
             if (EntityUtil.isPassive(entity)) return ColourUtils.Colors.GREEN;
             else
                 return ColourUtils.Colors.RED;

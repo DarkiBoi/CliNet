@@ -52,7 +52,7 @@ public class Label extends AlignedComponent {
     public void addLine(String add) {
         if (getText().isEmpty()) {
             setText(add);
-        }else {
+        } else {
             setText(getText() + System.lineSeparator() + add);
             multiline = true;
         }
