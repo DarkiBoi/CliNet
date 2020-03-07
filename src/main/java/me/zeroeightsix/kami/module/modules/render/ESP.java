@@ -101,7 +101,7 @@ public class ESP extends Module {
                 glColor3f(1,1,1);
                 break;
             case BOX:
-                if(items.getValue()) {
+                if (items.getValue()) {
                     mc.world.loadedEntityList.stream()
                             .filter(entity -> (items.getValue() && entity instanceof EntityItem))
                             .forEach(e -> {

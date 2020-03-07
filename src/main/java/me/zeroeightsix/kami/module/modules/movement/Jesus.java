@@ -67,8 +67,8 @@ public class Jesus extends Module {
     });
 
     @SuppressWarnings("deprecation")
-    private static boolean isAboveLand(Entity entity){
-        if(entity == null) return false;
+    private static boolean isAboveLand(Entity entity) {
+        if (entity == null) return false;
 
         double y = entity.posY - 0.01;
 

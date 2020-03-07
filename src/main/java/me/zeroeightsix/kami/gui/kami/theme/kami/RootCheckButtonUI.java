@@ -28,10 +28,10 @@ public class RootCheckButtonUI<T extends CheckButton> extends AbstractComponentU
     public void renderComponent(CheckButton component, FontRenderer ff) {
 
         glColor4f(backgroundColour.getRed()/255f, backgroundColour.getGreen()/255f, backgroundColour.getBlue()/255f, component.getOpacity());
-        if (component.isToggled()){
+        if (component.isToggled()) {
             glColor3f(.9f, backgroundColour.getGreen()/255f, backgroundColour.getBlue()/255f);
         }
-        if (component.isHovered() || component.isPressed()){
+        if (component.isHovered() || component.isPressed()) {
             glColor4f(backgroundColourHover.getRed()/255f, backgroundColourHover.getGreen()/255f, backgroundColourHover.getBlue()/255f, component.getOpacity());
         }
 

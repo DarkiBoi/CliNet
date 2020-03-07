@@ -30,7 +30,7 @@ public class KamiColourPickerButtonRainbowUI extends AbstractComponentUI<ColourP
 
     @Override
     public void renderComponent(ColourPickerButtonRainbow component, FontRenderer fontRenderer) {
-        if (System.currentTimeMillis() - lastMS > 3000 && modeComponent != null){
+        if (System.currentTimeMillis() - lastMS > 3000 && modeComponent != null) {
             modeComponent = null;
         }
 
@@ -60,11 +60,11 @@ public class KamiColourPickerButtonRainbowUI extends AbstractComponentUI<ColourP
         }
         glEnd();
 
-        if (modeComponent == null || !modeComponent.equals(component)){
+        if (modeComponent == null || !modeComponent.equals(component)) {
             smallFontRenderer.drawString(0,1,c,component.getName());
             if (component.getIndexMode() == "RB") normalFontRenderer.drawString(component.getWidth() - fontRenderer.getStringWidth(component.getIndexMode()),0,c, component.getIndexMode());
             else normalFontRenderer.drawString(component.getWidth() - fontRenderer.getStringWidth(component.getIndexMode()),0,c, "\u00A7" + component.getIndexMode() + component.getIndexMode());
-        }else {
+        } else {
             if (component.getIndexMode() == "RB")normalFontRenderer.drawString(component.getWidth() / 2 - fontRenderer.getStringWidth(component.getIndexMode()) / 2, 0,c, component.getIndexMode());
             else normalFontRenderer.drawString(component.getWidth() / 2 - fontRenderer.getStringWidth(component.getIndexMode()) / 2, 0,c,  "\u00A7" + component.getIndexMode() + component.getIndexMode());
         }

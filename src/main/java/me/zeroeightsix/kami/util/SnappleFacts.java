@@ -1008,17 +1008,17 @@ public class SnappleFacts {
             "1503: MLB has not had a lefty play catcher since 1989.?" +
             "1504: The longest MLB game went 26 innings.?";
 
-    public static String randomfact(){
+    public static String randomfact() {
         String randofact = "";
         String[] factlist = facts.split("\\?");
         String[] factlist2 = facts2.split("\\?");
         Random rand = new Random();
         Random r = new Random();
         int n = rand.nextInt(1);
-        if(n == 1) {
+        if (n == 1) {
              randofact = factlist[r.nextInt(factlist.length)];
         }
-        if (n == 0){
+        if (n == 0) {
             randofact = factlist2[rand.nextInt(factlist2.length)];
         }
         randofact.replaceAll("\\?", "");

@@ -39,7 +39,7 @@ public class SettingsCommand extends Command {
             Setting setting = settings.get(i);
             result[i] = "&b" + setting.getName() + "&3(=" + setting.getValue() + ")  &ftype: &3" + setting.getValue().getClass().getSimpleName();
 
-            if (setting instanceof EnumSetting){
+            if (setting instanceof EnumSetting) {
                 result[i] += "  (";
                 Enum[] enums = (Enum[]) ((EnumSetting) setting).clazz.getEnumConstants();
                 for (Enum e : enums)

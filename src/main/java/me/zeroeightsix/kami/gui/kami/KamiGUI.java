@@ -312,7 +312,7 @@ public class KamiGUI extends GUI {
             int xpCount = 0;
             for(int i = 0; i < 45; i++) {
                 ItemStack itemStack = Wrapper.getMinecraft().player.inventory.getStackInSlot(i);
-                if(itemStack.getItem() == Items.EXPERIENCE_BOTTLE) {
+                if (itemStack.getItem() == Items.EXPERIENCE_BOTTLE) {
                     xpCount += itemStack.stackSize;
                 }
             }
@@ -436,7 +436,7 @@ public class KamiGUI extends GUI {
 
                 String strengthfactor = "";
                 EntityPlayer eplayer = (EntityPlayer) e;
-                if (eplayer.isPotionActive(MobEffects.STRENGTH) && ModuleManager.isModuleEnabled("StrengthDetect")){
+                if (eplayer.isPotionActive(MobEffects.STRENGTH) && ModuleManager.isModuleEnabled("StrengthDetect")) {
                     strengthfactor = "S";
                 }
                 float hpRaw = ((EntityLivingBase) e).getHealth() + ((EntityLivingBase) e).getAbsorptionAmount();

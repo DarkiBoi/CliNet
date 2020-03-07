@@ -15,7 +15,7 @@ public class XCarry extends Module {
 
     @EventHandler
     private Listener<PacketEvent.Send> listener = new Listener<>(event -> {
-        if(event.getPacket() instanceof CPacketCloseWindow){
+        if (event.getPacket() instanceof CPacketCloseWindow) {
                 event.cancel();
             }
 

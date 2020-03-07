@@ -24,22 +24,22 @@ import java.util.ArrayList;
 public class StorageESP extends Module {
 
     private int getTileEntityColor(TileEntity tileEntity) {
-        if(tileEntity instanceof TileEntityChest || tileEntity instanceof TileEntityDispenser || tileEntity instanceof TileEntityShulkerBox)
+        if (tileEntity instanceof TileEntityChest || tileEntity instanceof TileEntityDispenser || tileEntity instanceof TileEntityShulkerBox)
             return ColourUtils.Colors.ORANGE;
-        else if(tileEntity instanceof TileEntityEnderChest)
+        else if (tileEntity instanceof TileEntityEnderChest)
             return ColourUtils.Colors.PURPLE;
-        else if(tileEntity instanceof TileEntityFurnace)
+        else if (tileEntity instanceof TileEntityFurnace)
             return ColourUtils.Colors.GRAY;
-        else if(tileEntity instanceof TileEntityHopper)
+        else if (tileEntity instanceof TileEntityHopper)
             return ColourUtils.Colors.DARK_RED;
         else
             return -1;
     }
 
     private int getEntityColor(Entity entity) {
-        if(entity instanceof EntityMinecartChest)
+        if (entity instanceof EntityMinecartChest)
             return ColourUtils.Colors.ORANGE;
-        else if(entity instanceof EntityItemFrame &&
+        else if (entity instanceof EntityItemFrame &&
                 ((EntityItemFrame) entity).getDisplayedItem().getItem() instanceof ItemShulkerBox)
             return ColourUtils.Colors.YELLOW;
         else
@@ -63,13 +63,13 @@ public class StorageESP extends Module {
                 if (chest.adjacentChestZPos != null) side = ~(side & GeometryMasks.Quad.SOUTH);
                 if (chest.adjacentChestXNeg != null) side = ~(side & GeometryMasks.Quad.WEST);
             }
-            if(color != -1) a.add(new Triplet<>(pos, color, side)); //GeometryTessellator.drawCuboid(event.getBuffer(), pos, GeometryMasks.Line.ALL, color);
+            if (color != -1) a.add(new Triplet<>(pos, color, side)); //GeometryTessellator.drawCuboid(event.getBuffer(), pos, GeometryMasks.Line.ALL, color);
         }
 
         for(Entity entity : Wrapper.getWorld().loadedEntityList) {
             BlockPos pos = entity.getPosition();
             int color = getEntityColor(entity);
-            if(color != -1) a.add(new Triplet<>(entity instanceof EntityItemFrame ? pos.add(0, -1, 0) : pos, color, GeometryMasks.Quad.ALL)); //GeometryTessellator.drawCuboid(event.getBuffer(), entity instanceof EntityItemFrame ? pos.add(0, -1, 0) : pos, GeometryMasks.Line.ALL, color);
+            if (color != -1) a.add(new Triplet<>(entity instanceof EntityItemFrame ? pos.add(0, -1, 0) : pos, color, GeometryMasks.Quad.ALL)); //GeometryTessellator.drawCuboid(event.getBuffer(), entity instanceof EntityItemFrame ? pos.add(0, -1, 0) : pos, GeometryMasks.Line.ALL, color);
         }
 
         KamiTessellator.prepare(GL11.GL_QUADS);

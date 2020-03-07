@@ -27,7 +27,7 @@ public abstract class Command {
 		this.description = "Descriptionless";
 	}
 
-	public static void sendChatMessage(String message){
+	public static void sendChatMessage(String message) {
 		sendRawChatMessage("&7[&9" + KamiMod.CLINET_PREFIX + "&7] &r" + message);
 	}
 
@@ -36,7 +36,7 @@ public abstract class Command {
 		for (String s : messages) sendRawChatMessage(s);
 	 }
 
-	public static void sendRawChatMessage(String message){
+	public static void sendRawChatMessage(String message) {
 		Wrapper.getPlayer().sendMessage(new ChatMessage(message));
 	}
 
@@ -93,8 +93,8 @@ public abstract class Command {
 
 	}
 
-	protected SyntaxChunk getSyntaxChunk(String name){
-		for (SyntaxChunk c : syntaxChunks){
+	protected SyntaxChunk getSyntaxChunk(String name) {
+		for (SyntaxChunk c : syntaxChunks) {
 			if (c.getType().equals(name))
 				return c;
 		}

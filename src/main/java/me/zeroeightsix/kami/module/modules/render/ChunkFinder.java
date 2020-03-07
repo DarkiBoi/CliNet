@@ -103,7 +103,7 @@ public class ChunkFinder extends Module {
         if (!event.getPacket().isFullChunk()) {
             chunks.add(event.getChunk());
             dirty = true;
-            if(saveNewChunks.getValue()) {
+            if (saveNewChunks.getValue()) {
                 saveNewChunk(event.getChunk());
             }
         }
@@ -116,14 +116,14 @@ public class ChunkFinder extends Module {
     
     private String getNewChunkInfo(Chunk chunk) {
         String rV = String.format("%d,%d,%d", System.currentTimeMillis(), chunk.x, chunk.z);
-        if(alsoSaveNormalCoords.getValue()){
+        if (alsoSaveNormalCoords.getValue()) {
             rV += String.format(",%d,%d", chunk.x * 16 + 8, chunk.z * 16 + 8);
         }
         return rV;
     }
     
     private PrintWriter testAndGetLogWriter() {
-        if(lastSetting.testChangeAndUpdate()) {
+        if (lastSetting.testChangeAndUpdate()) {
             logWriterClose();
             logWriterOpen();
         }
@@ -174,12 +174,12 @@ public class ChunkFinder extends Module {
         }
 
         // We will actually store the world data in a subfolder: "DIM<id>"
-        if(dimension != 0) { // except if it's the overworld
+        if (dimension != 0) { // except if it's the overworld
             file = new File(file, "DIM" + dimension);
         }
         
         // maybe we want to save it in region folder
-        if(saveInRegionFolder.getValue()) {
+        if (saveInRegionFolder.getValue()) {
             file = new File(file, "region");
         }
         
@@ -191,7 +191,7 @@ public class ChunkFinder extends Module {
 
         Path rV = file.toPath();
         try {
-            if(!Files.exists(rV)) { // ovsly always...
+            if (!Files.exists(rV)) { // ovsly always...
                 Files.createDirectories(rV.getParent());
                 Files.createFile(rV);
             }
@@ -203,10 +203,10 @@ public class ChunkFinder extends Module {
         return rV;
     }
     
-    private Path makeMultiplayerDirectory(){
+    private Path makeMultiplayerDirectory() {
         File rV = Minecraft.getMinecraft().gameDir;
         String folderName;
-        switch(saveOption.getValue()){
+        switch(saveOption.getValue()) {
                 case liteLoaderWdl: // make folder structure like liteLoader
                     folderName = mc.getCurrentServerData().serverName;
                     
@@ -251,7 +251,7 @@ public class ChunkFinder extends Module {
     }
 
     private boolean hasNoPort(String ip) {
-        if(!ip.contains("_")) {
+        if (!ip.contains("_")) {
             return true;
         }
 
@@ -273,7 +273,7 @@ public class ChunkFinder extends Module {
     }
     
     private void logWriterClose() {
-        if(logWriter != null) {
+        if (logWriter != null) {
             logWriter.close();
             logWriter = null;
         }
@@ -325,10 +325,10 @@ public class ChunkFinder extends Module {
             if (alsoSaveNormalCoords.getValue() != lastSaveNormal) {
                 return true;
             }
-            if(dimension != mc.player.dimension) {
+            if (dimension != mc.player.dimension) {
                 return true;
             }
-            if(!mc.getCurrentServerData().serverIP.equals(ip)) { // strings need equals + this way because could be null
+            if (!mc.getCurrentServerData().serverIP.equals(ip)) { // strings need equals + this way because could be null
                 return true;
             }
             return false;

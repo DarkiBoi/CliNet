@@ -40,9 +40,9 @@ public class Enemies {
     /*Checks if Enemy is in HitRange (Parameter range)*/
     public static boolean isEnemyNearby(double range) {
         for (Entity e : Minecraft.getMinecraft().world.loadedEntityList) {
-            if(EntityUtil.isLiving(e)) {
-                if(Enemies.isEnemy(e.getName())) {
-                    if(Minecraft.getMinecraft().player.getDistance(e) > range) {
+            if (EntityUtil.isLiving(e)) {
+                if (Enemies.isEnemy(e.getName())) {
+                    if (Minecraft.getMinecraft().player.getDistance(e) > range) {
                         return false;
                     } else if (Minecraft.getMinecraft().player.getDistance(e) <= range) {
                         return true;
@@ -106,7 +106,7 @@ public class Enemies {
             }
         }
 
-        private static String getSource(String link){
+        private static String getSource(String link) {
             try{
                 URL u = new URL(link);
                 URLConnection con = u.openConnection();
@@ -118,7 +118,7 @@ public class Enemies {
                 in.close();
 
                 return buffer.toString();
-            }catch(Exception e){
+            }catch(Exception e) {
                 return null;
             }
         }

@@ -39,7 +39,7 @@ public class Scaffold extends Module {
     private boolean hasNeighbour(BlockPos blockPos) {
         for (EnumFacing side : EnumFacing.values()) {
             BlockPos neighbour = blockPos.offset(side);
-            if(!Wrapper.getWorld().getBlockState(neighbour).getMaterial().isReplaceable())
+            if (!Wrapper.getWorld().getBlockState(neighbour).getMaterial().isReplaceable())
                 return true;
         }
         return false;
@@ -53,7 +53,7 @@ public class Scaffold extends Module {
         BlockPos belowBlockPos = blockPos.down();
 
         // check if block is already placed
-        if(!Wrapper.getWorld().getBlockState(blockPos).getMaterial().isReplaceable())
+        if (!Wrapper.getWorld().getBlockState(blockPos).getMaterial().isReplaceable())
             return;
 
         // search blocks in hotbar
@@ -64,7 +64,7 @@ public class Scaffold extends Module {
             ItemStack stack =
                     Wrapper.getPlayer().inventory.getStackInSlot(i);
 
-            if(stack == ItemStack.EMPTY || !(stack.getItem() instanceof ItemBlock)) {
+            if (stack == ItemStack.EMPTY || !(stack.getItem() instanceof ItemBlock)) {
                 continue;
             }
             Block block = ((ItemBlock) stack.getItem()).getBlock();
@@ -73,7 +73,7 @@ public class Scaffold extends Module {
             }
 
             // filter out non-solid blocks
-            if(!Block.getBlockFromItem(stack.getItem()).getDefaultState()
+            if (!Block.getBlockFromItem(stack.getItem()).getDefaultState()
                     .isFullBlock())
                 continue;
 
@@ -87,7 +87,7 @@ public class Scaffold extends Module {
         }
 
         // check if any blocks were found
-        if(newSlot == -1)
+        if (newSlot == -1)
             return;
 
         // set slot
@@ -125,21 +125,21 @@ public class Scaffold extends Module {
             EnumFacing side2 = side.getOpposite();
 
             // check if side is visible (facing away from player)
-            if(eyesPos.squareDistanceTo(
+            if (eyesPos.squareDistanceTo(
                     new Vec3d(pos).add(0.5, 0.5, 0.5)) >= eyesPos
                     .squareDistanceTo(
                             new Vec3d(neighbor).add(0.5, 0.5, 0.5)))
                 continue;
 
             // check if neighbor can be right clicked
-            if(!canBeClicked(neighbor))
+            if (!canBeClicked(neighbor))
                 continue;
 
             Vec3d hitVec = new Vec3d(neighbor).add(0.5, 0.5, 0.5)
                     .add(new Vec3d(side2.getDirectionVec()).scale(0.5));
 
             // check if hitVec is within range (4.25 blocks)
-            if(eyesPos.squareDistanceTo(hitVec) > 18.0625)
+            if (eyesPos.squareDistanceTo(hitVec) > 18.0625)
                 continue;
 
             // place block

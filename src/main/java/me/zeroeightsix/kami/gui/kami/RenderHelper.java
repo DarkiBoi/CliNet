@@ -33,19 +33,19 @@ public class RenderHelper {
         glEnd();
     }
 
-    public static void drawCircleOutline(float x, float y, float radius){
+    public static void drawCircleOutline(float x, float y, float radius) {
         drawCircleOutline(x, y, radius, 0, 360, 40);
     }
 
-    public static void drawCircleOutline(float x, float y, float radius, int start, int end, int segments){
+    public static void drawCircleOutline(float x, float y, float radius, int start, int end, int segments) {
         drawArcOutline(x, y, radius, start, end, segments);
     }
 
-    public static void drawCircle(float x, float y, float radius){
+    public static void drawCircle(float x, float y, float radius) {
         drawCircle(x, y, radius, 0, 360, 64);
     }
 
-    public static void drawCircle(float x, float y, float radius, int start, int end, int segments){
+    public static void drawCircle(float x, float y, float radius, int start, int end, int segments) {
         drawArc(x, y, radius, start, end, segments);
     }
 
@@ -83,7 +83,7 @@ public class RenderHelper {
         glEnd();
     }
 
-    public static void drawRoundedRectangle(float x, float y, float width, float height, float radius){
+    public static void drawRoundedRectangle(float x, float y, float width, float height, float radius) {
         glEnable(GL_BLEND);
 
 //        drawArc(50,50,30,0,90,64);
@@ -124,7 +124,7 @@ public class RenderHelper {
 
     }
 
-    public static void drawHalfRoundedRectangle(float x, float y, float width, float height, float radius){
+    public static void drawHalfRoundedRectangle(float x, float y, float width, float height, float radius) {
         glEnable(GL_BLEND);
 
         drawArc(x+radius, y+radius, radius, 180,270,16); // top left

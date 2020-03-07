@@ -18,7 +18,7 @@ public class AutoArmour extends Module {
     public void onUpdate() {
         if (mc.player.ticksExisted % 2 == 0) return;
         // check screen
-        if(mc.currentScreen instanceof GuiContainer
+        if (mc.currentScreen instanceof GuiContainer
                 && !(mc.currentScreen instanceof InventoryEffectRenderer))
             return;
 
@@ -31,7 +31,7 @@ public class AutoArmour extends Module {
         {
             ItemStack oldArmor = mc.player.inventory.armorItemInSlot(armorType);
 
-            if(oldArmor != null && oldArmor.getItem() instanceof ItemArmor)
+            if (oldArmor != null && oldArmor.getItem() instanceof ItemArmor)
                 bestArmorValues[armorType] =
                         ((ItemArmor)oldArmor.getItem()).damageReduceAmount;
 
@@ -46,7 +46,7 @@ public class AutoArmour extends Module {
             if (stack.getCount() > 1)
                 continue;
 
-            if(stack == null || !(stack.getItem() instanceof ItemArmor))
+            if (stack == null || !(stack.getItem() instanceof ItemArmor))
                 continue;
 
             ItemArmor armor = (ItemArmor)stack.getItem();
@@ -56,7 +56,7 @@ public class AutoArmour extends Module {
 
             int armorValue = armor.damageReduceAmount;
 
-            if(armorValue > bestArmorValues[armorType])
+            if (armorValue > bestArmorValues[armorType])
             {
                 bestArmorSlots[armorType] = slot;
                 bestArmorValues[armorType] = armorValue;
@@ -68,17 +68,17 @@ public class AutoArmour extends Module {
         {
             // check if better armor was found
             int slot = bestArmorSlots[armorType];
-            if(slot == -1)
+            if (slot == -1)
                 continue;
 
             // check if armor can be swapped
             // needs 1 free slot where it can put the old armor
             ItemStack oldArmor = mc.player.inventory.armorItemInSlot(armorType);
-            if(oldArmor == null || oldArmor != ItemStack.EMPTY
+            if (oldArmor == null || oldArmor != ItemStack.EMPTY
                     || mc.player.inventory.getFirstEmptyStack() != -1)
             {
                 // hotbar fix
-                if(slot < 9)
+                if (slot < 9)
                     slot += 36;
 
                 // swap armor

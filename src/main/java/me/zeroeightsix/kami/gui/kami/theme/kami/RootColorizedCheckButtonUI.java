@@ -26,10 +26,10 @@ public class RootColorizedCheckButtonUI extends RootCheckButtonUI<ColorizedCheck
     @Override
     public void renderComponent(CheckButton component, FontRenderer aa) {
         glColor4f(backgroundColour.getRed()/255f, backgroundColour.getGreen()/255f, backgroundColour.getBlue()/255f, component.getOpacity());
-        if (component.isHovered() || component.isPressed()){
+        if (component.isHovered() || component.isPressed()) {
             glColor4f(backgroundColourHover.getRed()/255f, backgroundColourHover.getGreen()/255f, backgroundColourHover.getBlue()/255f, component.getOpacity());
         }
-        if (component.isToggled()){
+        if (component.isToggled()) {
             glColor3f(backgroundColour.getRed()/255f, backgroundColour.getGreen()/255f, backgroundColour.getBlue()/255f);
         }
 

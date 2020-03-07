@@ -18,7 +18,7 @@ public class InvalidTeleport extends Module {
 
     @Override
     public void onEnable() {
-        if(mc.player == null || mc.world == null) {
+        if (mc.player == null || mc.world == null) {
             return;
         }
         /*

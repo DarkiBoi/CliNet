@@ -16,14 +16,14 @@ public class SnappleSpam extends Module {
     @Override
     public void onUpdate()
     {
-        if(System.currentTimeMillis() - starttime >=  delay.getValue().longValue() * 1000){
+        if (System.currentTimeMillis() - starttime >=  delay.getValue().longValue() * 1000) {
             mc.player.sendChatMessage(SnappleFacts.randomfact());
             starttime = System.currentTimeMillis();
         }
     }
 
     @Override
-    public void onEnable(){
+    public void onEnable() {
     starttime = System.currentTimeMillis();
 
     }

@@ -104,7 +104,7 @@ public interface MouseListener {
             return y;
         }
 
-        public void cancel(){
+        public void cancel() {
             cancelled = true;
         }
 
@@ -155,7 +155,7 @@ public interface MouseListener {
             return y;
         }
 
-        public void cancel(){
+        public void cancel() {
             cancelled = true;
         }
 

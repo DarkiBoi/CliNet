@@ -42,7 +42,7 @@ public class EnemyCommand extends Command {
             e = e.substring(0,e.length()-2);
             Command.sendChatMessage("Your enemies: " + e);
             return;
-        }else{
+        } else {
             if (args[1] == null) {
                 Command.sendChatMessage(String.format(Enemies.isEnemy(args[0]) ? "Yes, %s is your enemy." : "No, %s isn't a enemy of yours.", args[0]));
                 Command.sendChatMessage(String.format(Enemies.isEnemy(args[0]) ? "Yes, %s is your enemy." : "No, %s isn't a enemy of yours.", args[0]));
@@ -67,7 +67,7 @@ public class EnemyCommand extends Command {
                 }).start();
 
                 return;
-            }else if (args[0].equalsIgnoreCase("del") || args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("delete")) {
+            } else if (args[0].equalsIgnoreCase("del") || args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("delete")) {
                 if (!Enemies.isEnemy(args[1])) {
                     Command.sendChatMessage("That player isn't your enemy.");
                     return;
@@ -77,7 +77,7 @@ public class EnemyCommand extends Command {
                 Enemies.INSTANCE.enemies.getValue().remove(enemy);
                 Command.sendChatMessage("&b" + enemy.getUsername() + "&r has been unenemied.");
                 return;
-            }else{
+            } else {
                 Command.sendChatMessage("Please specify either &6add&r or &6remove");
                 return;
             }
@@ -92,11 +92,11 @@ public class EnemyCommand extends Command {
             String s = requestIDs("[\"" + input + "\"]");
             if (s == null || s.isEmpty()) {
                 Command.sendChatMessage("Couldn't find player ID. Are you connected to the internet? (0)");
-            }else{
+            } else {
                 JsonElement element = new JsonParser().parse(s);
                 if (element.getAsJsonArray().size()==0) {
                     Command.sendChatMessage("Couldn't find player ID. (1)");
-                }else{
+                } else {
                     try {
                         String id = element.getAsJsonArray().get(0).getAsJsonObject().get("id").getAsString();
                         String username = element.getAsJsonArray().get(0).getAsJsonObject().get("name").getAsString();

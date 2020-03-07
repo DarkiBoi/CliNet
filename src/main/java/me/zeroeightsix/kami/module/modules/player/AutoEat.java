@@ -39,7 +39,7 @@ public class AutoEat extends Module {
             eating = true;
             KeyBinding.setKeyBindState(mc.gameSettings.keyBindUseItem.getKeyCode(), true);
             mc.rightClickMouse();
-        }else{
+        } else {
             for (int i = 0; i < 9; i++) {
                 if (isValid(mc.player.inventory.getStackInSlot(i), stats.getFoodLevel())) {
                     lastSlot = mc.player.inventory.currentItem;

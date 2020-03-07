@@ -36,11 +36,11 @@ public class TabGUI extends AbstractComponent implements EventListener {
         features.addAll(ModuleManager.getModules());
 
         for(Module feature : features)
-            if(feature.getCategory() != null && !feature.getCategory().isHidden())
+            if (feature.getCategory() != null && !feature.getCategory().isHidden())
                 tabMap.get(feature.getCategory()).add(feature);
 
         Iterator<Map.Entry<Module.Category, Tab>> iterator = tabMap.entrySet().iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Map.Entry<Module.Category, Tab> entry = iterator.next();
             if (entry.getValue().features.isEmpty())
                 iterator.remove();
@@ -61,7 +61,7 @@ public class TabGUI extends AbstractComponent implements EventListener {
         if (!((Frame) framep).isPinned())
             return;
 
-        if(tabOpened)
+        if (tabOpened)
             switch(Keyboard.getEventKey())
             {
                 case Keyboard.KEY_LEFT:
@@ -76,14 +76,14 @@ public class TabGUI extends AbstractComponent implements EventListener {
             switch(Keyboard.getEventKey())
             {
                 case Keyboard.KEY_DOWN:
-                    if(selected < tabs.size() - 1)
+                    if (selected < tabs.size() - 1)
                         selected++;
                     else
                         selected = 0;
                     break;
 
                 case Keyboard.KEY_UP:
-                    if(selected > 0)
+                    if (selected > 0)
                         selected--;
                     else
                         selected = tabs.size() - 1;
@@ -101,7 +101,7 @@ public class TabGUI extends AbstractComponent implements EventListener {
         for(Tab tab : tabs)
         {
             int tabWidth = Wrapper.getFontRenderer().getStringWidth(tab.name) + 10;
-            if(tabWidth > width)
+            if (tabWidth > width)
                 width = tabWidth;
         }
         height = tabs.size() * 10;
@@ -129,7 +129,7 @@ public class TabGUI extends AbstractComponent implements EventListener {
             for(Module feature : features)
             {
                 int fWidth = Wrapper.getFontRenderer().getStringWidth(feature.getName()) + 10;
-                if(fWidth > width)
+                if (fWidth > width)
                     width = fWidth;
             }
 
@@ -141,14 +141,14 @@ public class TabGUI extends AbstractComponent implements EventListener {
             switch(keyCode)
             {
                 case Keyboard.KEY_DOWN:
-                    if(selected < features.size() - 1)
+                    if (selected < features.size() - 1)
                         selected++;
                     else
                         selected = 0;
                     break;
 
                 case Keyboard.KEY_UP:
-                    if(selected > 0)
+                    if (selected > 0)
                         selected--;
                     else
                         selected = features.size() - 1;

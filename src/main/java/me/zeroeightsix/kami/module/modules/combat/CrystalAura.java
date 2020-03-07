@@ -460,7 +460,7 @@ public class CrystalAura extends Module {
 
     @Override
     public void onEnable() {
-        if(mc.world == null || mc.player == null) {
+        if (mc.world == null || mc.player == null) {
             return;
         }
 
@@ -472,7 +472,7 @@ public class CrystalAura extends Module {
 
     @Override
     public void onDisable() {
-        if(mc.world == null || mc.player == null) {
+        if (mc.world == null || mc.player == null) {
             return;
         }
         renderBlock = null;

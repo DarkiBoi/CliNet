@@ -30,14 +30,14 @@ public class AutoReply extends Module {
         if (event.getPacket() instanceof SPacketChat) {
             String r = ((SPacketChat) event.getPacket()).getChatComponent().getUnformattedText();
             for(Friends.Friend friend : Friends.friends.getValue()) {
-                if(r.contains(friend.getUsername() + " whispers: ")) return;
+                if (r.contains(friend.getUsername() + " whispers: ")) return;
                 else continue;
             }
 
             if (r.contains("whispers: ")) {
                 String msg = "";
 
-                switch (mode.getValue()){
+                switch (mode.getValue()) {
                     case CUSTOM:
                         msg = AutoReplyCommand.areply;
                         break;

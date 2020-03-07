@@ -77,7 +77,7 @@ public class HoleESP extends Module {
                     this.obiHoles.add(pos);
                 }
 
-                if(validBedrock(pos)) {
+                if (validBedrock(pos)) {
                     this.bedrockHoles.add(pos);
                 }
 
@@ -105,7 +105,7 @@ public class HoleESP extends Module {
     }
 
     private boolean validObi(BlockPos pos) {
-        if(validBedrock(pos)) {
+        if (validBedrock(pos)) {
             return false;
         }
 

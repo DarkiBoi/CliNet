@@ -29,15 +29,15 @@ public class TotemPopCounter extends Module {
 
     @EventHandler
     public Listener<TotemPopEvent> totemPopEvent = new Listener<>(event -> {
-        if(popList == null) {
+        if (popList == null) {
             popList = new HashMap<>();
         }
 
 
-        if(popList.get(event.getEntity().getName()) == null) {
+        if (popList.get(event.getEntity().getName()) == null) {
             popList.put(event.getEntity().getName(), 1);
             Command.sendChatMessage(colourchoice() + event.getEntity().getName() + " popped " + 1 + " totem!");
-        } else if(!(popList.get(event.getEntity().getName()) == null)) {
+        } else if (!(popList.get(event.getEntity().getName()) == null)) {
             int popCounter = popList.get(event.getEntity().getName());
             int newPopCounter = popCounter += 1;
             popList.put(event.getEntity().getName(), newPopCounter);
@@ -49,8 +49,8 @@ public class TotemPopCounter extends Module {
     @Override
     public void onUpdate() {
         for(EntityPlayer player : mc.world.playerEntities) {
-            if(player.getHealth() <= 0) {
-                if(popList.containsKey(player.getName())) {
+            if (player.getHealth() <= 0) {
+                if (popList.containsKey(player.getName())) {
                     Command.sendChatMessage(colourchoice() + player.getName() + " died after popping " + popList.get(player.getName()) + " totems!");
                     popList.remove(player.getName(), popList.get(player.getName()));
                 }
@@ -77,8 +77,8 @@ public class TotemPopCounter extends Module {
 
 
 
-    private String colourchoice(){
-        switch (mode.getValue()){
+    private String colourchoice() {
+        switch (mode.getValue()) {
             case BLACK: return "&0";
             case RED: return "&c";
             case AQUA: return "&b";

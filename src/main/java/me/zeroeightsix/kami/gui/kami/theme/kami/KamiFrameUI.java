@@ -95,12 +95,12 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
         int top_y = 5;
         int bottom_y = component.getTheme().getFontRenderer().getFontHeight() - 9;
 
-        if (component.isCloseable() && component.isMinimizeable()){
+        if (component.isCloseable() && component.isMinimizeable()) {
             top_y -= 4;
             bottom_y -= 4;
         }
 
-        if (component.isCloseable()){
+        if (component.isCloseable()) {
             glLineWidth(2f);
             glColor3f(1,1,1);
             glBegin(GL_LINES);
@@ -113,15 +113,15 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
             glEnd();
         }
 
-        if (component.isCloseable() && component.isMinimizeable()){
+        if (component.isCloseable() && component.isMinimizeable()) {
             top_y += 12;
             bottom_y += 12;
         }
 
-        if (component.isMinimizeable()){
+        if (component.isMinimizeable()) {
             glLineWidth(1.5f);
             glColor3f(1,1,1);
-            if (component.isMinimized()){
+            if (component.isMinimized()) {
                 glBegin(GL_LINE_LOOP);
                 {
                     glVertex2d(component.getWidth() - 15, top_y+2);
@@ -140,7 +140,7 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
             }
         }
 
-        if (component.isPinneable()){
+        if (component.isPinneable()) {
             if (component.isPinned())
                 glColor3f(1,.33f,.33f);
             else
@@ -155,7 +155,7 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
             glEnd();
         }
 
-        if (component.equals(xLineComponent)){
+        if (component.equals(xLineComponent)) {
             glColor3f(.44f,.44f,.44f);
             glLineWidth(1f);
             glBegin(GL_LINES);
@@ -178,7 +178,7 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
             glEnd();
         }
 
-        if (component.equals(yLineComponent)){
+        if (component.equals(yLineComponent)) {
             glColor3f(.44f,.44f,.44f);
             glLineWidth(1f);
             glBegin(GL_LINES);
@@ -228,30 +228,30 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
             public void onMouseDown(MouseButtonEvent event) {
                 int y = event.getY();
                 int x = event.getX();
-                if (y < 0){
-                    if (x > component.getWidth() - 22){
-                        if (component.isMinimizeable() && component.isCloseable()){
-                            if (y > -component.getOriginOffsetY()/2){
-                                if (component.isMinimized()){
+                if (y < 0) {
+                    if (x > component.getWidth() - 22) {
+                        if (component.isMinimizeable() && component.isCloseable()) {
+                            if (y > -component.getOriginOffsetY()/2) {
+                                if (component.isMinimized()) {
                                     component.callPoof(FramePoof.class, new FramePoof.FramePoofInfo(FramePoof.Action.MAXIMIZE));
-                                }else {
+                                } else {
                                     component.callPoof(FramePoof.class, new FramePoof.FramePoofInfo(FramePoof.Action.MINIMIZE));
                                 }
-                            }else{
+                            } else {
                                 component.callPoof(FramePoof.class, new FramePoof.FramePoofInfo(FramePoof.Action.CLOSE));
                             }
-                        }else{
-                            if (component.isMinimized() && component.isMinimizeable()){
+                        } else {
+                            if (component.isMinimized() && component.isMinimizeable()) {
                                 component.callPoof(FramePoof.class, new FramePoof.FramePoofInfo(FramePoof.Action.MAXIMIZE));
-                            }else if (component.isMinimizeable()){
+                            } else if (component.isMinimizeable()) {
                                 component.callPoof(FramePoof.class, new FramePoof.FramePoofInfo(FramePoof.Action.MINIMIZE));
-                            }else if (component.isCloseable()) {
+                            } else if (component.isCloseable()) {
                                 component.callPoof(FramePoof.class, new FramePoof.FramePoofInfo(FramePoof.Action.CLOSE));
                             }
                         }
                     }
-                    if (x < 10 && x > 0){
-                        if (component.isPinneable()){
+                    if (x < 10 && x > 0) {
+                        if (component.isPinneable()) {
                             component.setPinned(!component.isPinned());
                         }
                     }
@@ -301,11 +301,11 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
                 component.setDocking(Docking.NONE);
 
                 KamiGUI rootGUI = KamiMod.getInstance().getGuiManager();
-                for (Component c : rootGUI.getChildren()){
+                for (Component c : rootGUI.getChildren()) {
                     if (c.equals(component)) continue;
 
                     int yDiff = Math.abs(y - c.getY());
-                    if (yDiff < 4){
+                    if (yDiff < 4) {
                         y = c.getY();
                         yLineComponent = component;
                     }
@@ -318,7 +318,7 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
                     }
 
                     int xDiff = Math.abs((x + component.getWidth()) - (c.getX() + c.getWidth()));
-                    if (xDiff < 4){
+                    if (xDiff < 4) {
                         x = c.getX() + c.getWidth();
                         x -= component.getWidth();
                         xLineComponent = component;
@@ -326,14 +326,14 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
                     }
 
                     xDiff = Math.abs(x - c.getX());
-                    if (xDiff < 4){
+                    if (xDiff < 4) {
                         x = c.getX();
                         xLineComponent = component;
                         xLineOffset = 0;
                     }
 
                     xDiff = Math.abs(x - (c.getX() + c.getWidth() + 3));
-                    if (xDiff < 4){
+                    if (xDiff < 4) {
                         x = c.getX() + c.getWidth() + 3;
                         xLineComponent = component;
                         xLineOffset = 0;
@@ -347,7 +347,7 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
                     component.setDocking(Docking.LEFT);
                 }
                 int diff = (x+component.getWidth()) * DisplayGuiScreen.getScale() - Wrapper.getMinecraft().displayWidth;
-                if (-diff < 5){
+                if (-diff < 5) {
                     x = (Wrapper.getMinecraft().displayWidth / DisplayGuiScreen.getScale())-component.getWidth();
                     ContainerHelper.setAlignment(component, AlignedComponent.Alignment.RIGHT);
                     component.setDocking(Docking.RIGHT);
@@ -382,7 +382,7 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
                     x = (Wrapper.getMinecraft().displayWidth / (DisplayGuiScreen.getScale() * 2)) - component.getWidth() / 2;
                     if (component.getDocking().isTop()) {
                         component.setDocking(Docking.CENTERTOP);
-                    } else if (component.getDocking().isBottom()){
+                    } else if (component.getDocking().isBottom()) {
                         component.setDocking(Docking.CENTERBOTTOM);
                     } else {
                         component.setDocking(Docking.CENTERVERTICAL);

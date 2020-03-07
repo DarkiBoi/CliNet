@@ -32,7 +32,7 @@ public abstract class AbstractContainer extends AbstractComponent implements Con
 
     @Override
     public Container addChild(Component... components) {
-        for (Component component :  components){
+        for (Component component :  components) {
             if (!children.contains(component)) {
                 component.setTheme(getTheme());
                 component.setParent(this);
@@ -68,7 +68,7 @@ public abstract class AbstractContainer extends AbstractComponent implements Con
 
     @Override
     public void renderChildren() {
-        for (Component c : getChildren()){
+        for (Component c : getChildren()) {
             if (!c.isVisible()) continue;
 
             GL11.glPushMatrix();
@@ -77,7 +77,7 @@ public abstract class AbstractContainer extends AbstractComponent implements Con
             c.getRenderListeners().forEach(RenderListener::onPreRender);
 
             c.getUI().renderComponent(c, getTheme().getFontRenderer());
-            if (c instanceof Container){
+            if (c instanceof Container) {
                 GL11.glTranslatef(((Container) c).getOriginOffsetX(), ((Container) c).getOriginOffsetY(), 0);
                 ((Container) c).renderChildren();
                 GL11.glTranslatef(-((Container) c).getOriginOffsetX(), -((Container) c).getOriginOffsetY(), 0);
@@ -92,7 +92,7 @@ public abstract class AbstractContainer extends AbstractComponent implements Con
     }
 
     @Override
-    public Component getComponentAt(int x, int y){
+    public Component getComponentAt(int x, int y) {
         for (int i = getChildren().size()-1; i >= 0; i--) {
             Component c = getChildren().get(i);
 
@@ -103,7 +103,7 @@ public abstract class AbstractContainer extends AbstractComponent implements Con
             int componentWidth = c.getWidth();
             int componentHeight = c.getHeight();
 
-            if (c instanceof Container){
+            if (c instanceof Container) {
                 Container container = (Container) c;
                 boolean penetrate = container.penetrateTest(x - getOriginOffsetX(), y - getOriginOffsetY());
 
@@ -116,7 +116,7 @@ public abstract class AbstractContainer extends AbstractComponent implements Con
             }
 
             if (x >= componentX && y >= componentY && x <= componentX + componentWidth && y <= componentY + componentHeight) {
-                if (c instanceof Container){
+                if (c instanceof Container) {
                     Container container = (Container) c;
                     Component hit = container.getComponentAt(x - componentX, y - componentY);
                     return hit;

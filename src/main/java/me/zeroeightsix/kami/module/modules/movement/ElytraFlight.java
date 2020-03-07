@@ -19,7 +19,7 @@ public class ElytraFlight extends Module {
         if (!mc.player.isElytraFlying()) return;
         switch (mode.getValue()) {
             case BOOST:
-                if(mc.player.isInWater())
+                if (mc.player.isInWater())
                 {
                     mc.getConnection()
                             .sendPacket(new CPacketEntityAction(mc.player,
@@ -27,17 +27,17 @@ public class ElytraFlight extends Module {
                     return;
                 }
 
-                if(mc.gameSettings.keyBindJump.isKeyDown())
+                if (mc.gameSettings.keyBindJump.isKeyDown())
                     mc.player.motionY += 0.08;
-                else if(mc.gameSettings.keyBindSneak.isKeyDown())
+                else if (mc.gameSettings.keyBindSneak.isKeyDown())
                     mc.player.motionY -= 0.04;
 
-                if(mc.gameSettings.keyBindForward.isKeyDown()) {
+                if (mc.gameSettings.keyBindForward.isKeyDown()) {
                     float yaw = (float)Math
                             .toRadians(mc.player.rotationYaw);
                     mc.player.motionX -= MathHelper.sin(yaw) * 0.05F;
                     mc.player.motionZ += MathHelper.cos(yaw) * 0.05F;
-                }else if(mc.gameSettings.keyBindBack.isKeyDown()) {
+                } else if (mc.gameSettings.keyBindBack.isKeyDown()) {
                     float yaw = (float)Math
                             .toRadians(mc.player.rotationYaw);
                     mc.player.motionX += MathHelper.sin(yaw) * 0.05F;

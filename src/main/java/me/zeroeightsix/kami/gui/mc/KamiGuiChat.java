@@ -34,7 +34,7 @@ public class KamiGuiChat extends GuiChat {
 
         String chatLine = this.inputField.getText();
 
-        if (!chatLine.startsWith(Command.getCommandPrefix())){
+        if (!chatLine.startsWith(Command.getCommandPrefix())) {
             GuiChat newGUI = new GuiChat(chatLine) {
                 int cursor = KamiGuiChat.this.cursor;
                 @Override
@@ -59,7 +59,7 @@ public class KamiGuiChat extends GuiChat {
         calculateCommand(chatLine.substring(Command.getCommandPrefix().length()));
     }
 
-    protected void calculateCommand(String line){
+    protected void calculateCommand(String line) {
         String[] args = line.split(" (?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
         HashMap<String, Command> options = new HashMap<String, Command>();
@@ -92,7 +92,7 @@ public class KamiGuiChat extends GuiChat {
         SyntaxChunk[] chunks = alphaCommand.getSyntaxChunks();
 
         boolean cutSpace = false;
-        for(int i = 0; i < chunks.length; i++){
+        for(int i = 0; i < chunks.length; i++) {
             if (i+1 < args.length-1) continue;
             SyntaxChunk c = chunks[i];
 
@@ -147,9 +147,9 @@ public class KamiGuiChat extends GuiChat {
         }
         GL11.glEnd();
 
-        if(a)
+        if (a)
             GL11.glEnable(GL11.GL_BLEND);
-        if(b)
+        if (b)
             GL11.glEnable(GL11.GL_TEXTURE_2D);
     }
 }

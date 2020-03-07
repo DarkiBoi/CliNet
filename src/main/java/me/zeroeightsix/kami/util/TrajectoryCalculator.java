@@ -34,7 +34,7 @@ public class TrajectoryCalculator {
         // The potion is kind of special so we do it's own check
         if (item instanceof ItemPotion) {
             // Check if it's a splashable potion
-            if (itemStack.getItem() instanceof ItemSplashPotion){
+            if (itemStack.getItem() instanceof ItemSplashPotion) {
                 return ThrowingType.POTION;
             }
         } else if (item instanceof ItemBow && entity.isHandActive()) {

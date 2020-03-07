@@ -22,7 +22,7 @@ public class RootButtonUI<T extends Button> extends AbstractComponentUI<Button> 
     @Override
     public void renderComponent(Button component, FontRenderer ff) {
         glColor3f(0.22f,0.22f,0.22f);
-        if (component.isHovered() || component.isPressed()){
+        if (component.isHovered() || component.isPressed()) {
             glColor3f(0.26f,0.26f,0.26f);
         }
 

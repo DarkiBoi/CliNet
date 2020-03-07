@@ -26,13 +26,13 @@ public class DrawCommand extends Command {
 
         Module m = ModuleManager.getModuleByName(module);
 
-        if(m.isShowOnArray() == false) {
+        if (m.isShowOnArray() == false) {
             m.setShowOnArray(true);
             sendChatMessage("Undrawn " + m.getName());
             return;
         }
 
-        if (m == null){
+        if (m == null) {
             sendChatMessage("Unknown module '" + module + "'!");
             return;
         }

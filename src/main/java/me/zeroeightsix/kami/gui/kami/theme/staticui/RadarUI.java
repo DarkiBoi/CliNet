@@ -45,7 +45,7 @@ public class RadarUI extends AbstractComponentUI<Radar> {
 
         GL11.glRotatef(Wrapper.getPlayer().rotationYaw+180, 0,0,-1);
 
-        for (Entity e : Wrapper.getWorld().loadedEntityList){
+        for (Entity e : Wrapper.getWorld().loadedEntityList) {
             if (!(e instanceof EntityLiving))
                 continue;
             float red = 1f;
