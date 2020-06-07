@@ -13,10 +13,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Make Gradle Executable
+      run: chmod +x ./gradlew
     - name: Build with Gradle
       run: ./gradlew build
-    - name: Upload artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: KAMI
-        path: /home/runner/work/KAMI/KAMI/build/libs/KAMI-b9-release.jar
