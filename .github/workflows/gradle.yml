@@ -8,12 +8,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-    - name: Make Gradle Executable
-      run: chmod +x ./gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
+
+      - name: Checkout of Changes
+        uses: actions/checkout@v2
+
+      - name: Setup JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Prepare Dependency Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: '${{ runner.os }}-gradle-${{ hashFiles(''**/*.gradle'') }}'
+          restore-keys: '${{ runner.os }}-gradle'
+
+      - name: Make Gradle Executable
+        run: chmod +x gradlew
+
+      - name: Setup Decomp Workspace
+        run: ./gradlew setupDecompWorkspace
+
+      - name: Build with Gradle
+        run: ./gradlew build
+   
