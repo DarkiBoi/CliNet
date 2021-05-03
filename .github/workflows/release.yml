@@ -22,7 +22,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.SHA }}
+          tag_name: ${{ ${GITHUB_SHA} | cut -c1-8 }}
           release_name: ${{ env.SHA }}
           body: automated release at commit ${{ env.SHA }}
           draft: false
