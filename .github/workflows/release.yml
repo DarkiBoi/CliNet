@@ -40,6 +40,9 @@ jobs:
           key: '${{ runner.os }}-gradle-${{ hashFiles(''**/*.gradle'') }}'
           restore-keys: '${{ runner.os }}-gradle'
 
+      - name: Make Gradle Executable
+        run: chmod +x gradlew
+
       - name: gradle setup decomp workspace
         run: ./gradlew setupDecompWorkspace
 
