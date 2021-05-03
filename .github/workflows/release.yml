@@ -2,8 +2,8 @@ name: gradle
 
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - 'master'
 
 jobs:
   gill_bates:
