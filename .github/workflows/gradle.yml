@@ -1,6 +1,10 @@
 name: Java CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - '*'
+      - '!master' #The "gill bates Task" will handle building and making a release on master
 
 jobs:
   build:
